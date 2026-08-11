@@ -156,6 +156,15 @@ input[type=file]{display:none;}
 .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--ember); box-shadow:0 0 0 4px rgba(255,89,0,.15); background:var(--input-bg);}
 .field select{color-scheme: inherit;}
 .field select option{background:var(--input-bg); color:var(--ink);}
+.key-field{position:relative;}
+.key-field input{padding-right:44px;}
+.key-toggle{
+  position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  width:30px; height:30px; border:none; background:transparent; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; color:var(--muted); border-radius:8px; transition:.15s;
+}
+.key-toggle:hover{color:var(--ember); background:rgba(255,89,0,.1);}
+.key-toggle svg{width:16px; height:16px;}
 .hint{font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.5;}
 
 .btn{
@@ -167,6 +176,8 @@ input[type=file]{display:none;}
 .btn-primary:disabled{background:#6B4632; color:rgba(255,255,255,.6); box-shadow:none; cursor:not-allowed; transform:none;}
 .btn-ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink-soft);}
 .btn-ghost:hover{border-color:var(--ember); color:var(--ember-deep); background:rgba(255,106,43,.06);}
+.btn-danger-ghost{background:transparent; border:1.5px solid rgba(220,60,60,.45); color:#D3453C;}
+.btn-danger-ghost:hover{border-color:#D3453C; color:#B7362E; background:rgba(220,60,60,.08);}
 .btn-dark{background:var(--ink); color:var(--paper); box-shadow:0 10px 24px -8px rgba(0,0,0,.5);}
 .btn-dark:hover{transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(0,0,0,.6);}
 
@@ -190,6 +201,10 @@ table.items tr:last-child td{border-bottom:none;}
 .main-head h2{margin:0 0 6px; font-size:28px; font-weight:700; letter-spacing:-.3px;}
 .main-head p{margin:0; color:var(--muted); font-size:14px;}
 .head-actions .btn{width:auto; padding:12px 22px;}
+.source-filter{display:flex; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px;}
+.filter-chip{border:none; background:transparent; color:var(--muted); font-size:12px; font-weight:700; padding:8px 14px; border-radius:9px; cursor:pointer; transition:.15s; font-family:'Manrope',sans-serif;}
+.filter-chip:hover{color:var(--ink);}
+.filter-chip.active{background:linear-gradient(135deg,var(--ember),var(--ember-deep)); color:#fff;}
 
 .progress-wrap{margin-bottom:24px; display:none;}
 .progress-wrap.active{display:block;}
@@ -226,6 +241,8 @@ table.items tr:last-child td{border-bottom:none;}
 }
 .candidate-thumb:hover{opacity:1; transform:translateY(-2px); filter:saturate(1);}
 .candidate-thumb.selected{border-color:var(--ember); opacity:1; filter:saturate(1); box-shadow:0 4px 12px -2px rgba(226,78,16,.4);}
+.candidate-thumb.ai-thumb{box-shadow:0 0 0 2px var(--gold) inset;}
+.candidate-thumb.ai-thumb.selected{box-shadow:0 0 0 2px var(--gold) inset, 0 4px 12px -2px rgba(226,78,16,.4);}
 
 .card-actions{display:flex; gap:6px; margin-top:2px; flex-wrap:wrap;}
 .card-actions button{
@@ -273,7 +290,7 @@ table.items tr:last-child td{border-bottom:none;}
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
   padding:30px 20px 50px; color:var(--muted); font-size:12.5px;
 }
-.footer-name{font-size:clamp(9px, 1.4vw, 11.5px); font-weight:600; color:var(--ember); letter-spacing:.2px; opacity:.85;}
+.footer-name{font-size:clamp(7px, 1vw, 9px); font-weight:600; color:var(--ember); letter-spacing:.2px; opacity:.85;}
 .principle-icons{display:flex; gap:10px;}
 .p-icon{
   width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line); background:var(--paper-deep);
@@ -294,6 +311,41 @@ table.items tr:last-child td{border-bottom:none;}
 }
 .source-switch-btn:hover{color:var(--ember); border-color:var(--ember); background:rgba(255,89,0,.06);}
 .source-switch-btn:disabled{opacity:.4; cursor:not-allowed;}
+
+/* ---------- In-app browser (opens sources inside the tool, not a new tab) ---------- */
+.inapp-link{position:relative;}
+.inapp-link::after{content:'⤢'; opacity:.55; font-size:12px;}
+.inapp-overlay{
+  position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.6); backdrop-filter:blur(3px);
+  display:none; align-items:center; justify-content:center; padding:26px;
+}
+.inapp-overlay.open{display:flex;}
+.inapp-window{
+  width:min(1100px, 100%); height:min(820px, 100%); background:var(--paper); border-radius:18px; overflow:hidden;
+  display:flex; flex-direction:column; box-shadow:var(--shadow-lift); border:1px solid var(--line);
+}
+.inapp-bar{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px;
+  background:var(--card); border-bottom:1px solid var(--line); flex-shrink:0;
+}
+.inapp-bar-title{display:flex; align-items:center; gap:9px; font-size:13px; font-weight:700; color:var(--ink); min-width:0;}
+.inapp-bar-title svg{width:16px; height:16px; color:var(--ember); flex-shrink:0;}
+.inapp-bar-title span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.inapp-bar-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+.inapp-bar-actions a, .inapp-bar-actions button{
+  font-size:11.5px; font-weight:700; color:var(--ink-soft); background:transparent; border:1.5px solid var(--line);
+  border-radius:9px; padding:7px 11px; cursor:pointer; text-decoration:none; transition:.15s; display:inline-flex; align-items:center; gap:6px;
+}
+.inapp-bar-actions a:hover, .inapp-bar-actions button:hover{border-color:var(--ember); color:var(--ember);}
+.inapp-bar-actions .inapp-close{color:var(--ink); font-size:15px; padding:7px 10px;}
+.inapp-body{position:relative; flex:1; min-height:0; background:#fff;}
+.inapp-body iframe{width:100%; height:100%; border:0; display:block;}
+.inapp-fallback{
+  position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; text-align:center; padding:30px; background:var(--paper); color:var(--ink-soft); font-size:13px;
+}
+.inapp-fallback.show{display:flex;}
+.inapp-fallback a{color:var(--ember); font-weight:700; text-decoration:none;}
 </style>
 </head>
 <body data-theme="dark">
@@ -356,14 +408,16 @@ table.items tr:last-child td{border-bottom:none;}
     <div class="step">
     <div class="card-block">
       <h2><span class="num">2</span> Search Settings</h2>
-      <div class="field">
+      <div class="field key-field">
         <label>Pexels API key</label>
-        <input type="text" id="pexelsKeyInput" placeholder="Free key at pexels.com/api" />
+        <input type="password" id="pexelsKeyInput" placeholder="Free key at pexels.com/api" autocomplete="off" />
+        <button type="button" class="key-toggle" data-target="pexelsKeyInput" aria-label="Show/hide key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></button>
       </div>
-      <div class="field">
-        <label>Unsplash Access Key (optional, adds a source)</label>
-        <input type="text" id="unsplashKeyInput" placeholder="Free key at unsplash.com/developers" />
-        <p class="hint">TheMealDB needs no key and is always used for exact dish-name matching. Pexels + Unsplash are general food photography sources.</p>
+      <div class="field key-field">
+        <label>Pixabay API key (optional, adds a source)</label>
+        <input type="password" id="pixabayKeyInput" placeholder="Free key at pixabay.com/api/docs" autocomplete="off" />
+        <button type="button" class="key-toggle" data-target="pixabayKeyInput" aria-label="Show/hide key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></button>
+        <p class="hint">Pexels and Pixabay are general food photography sources — add at least one key to get results.</p>
       </div>
       <div class="field">
         <label>Candidates per item</label>
@@ -383,7 +437,32 @@ table.items tr:last-child td{border-bottom:none;}
 
     <div class="step">
     <div class="card-block">
-      <h2><span class="num">3</span> Run</h2>
+      <h2><span class="num">3</span> AI Generation (optional)</h2>
+      <div class="field key-field">
+        <label>Gemini API key</label>
+        <input type="password" id="geminiKeyInput" placeholder="Free key at aistudio.google.com/apikey" autocomplete="off" />
+        <button type="button" class="key-toggle" data-target="geminiKeyInput" aria-label="Show/hide key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></button>
+      </div>
+      <div class="field">
+        <label>Generator model</label>
+        <select id="geminiModelSelect">
+          <option value="gemini-2.5-flash-image" selected>Nano Banana (Gemini 2.5 Flash Image)</option>
+          <option value="gemini-3.1-flash-image">Nano Banana 2 (Gemini 3.1 Flash Image)</option>
+          <option value="gemini-3.1-flash-lite-image">Nano Banana 2 Lite (fastest/cheapest)</option>
+          <option value="gemini-3-pro-image">Nano Banana Pro (Gemini 3 Pro Image)</option>
+        </select>
+      </div>
+      <div class="field" style="display:flex; align-items:center; gap:10px; margin-top:2px;">
+        <input type="checkbox" id="autoGenFallback" style="width:16px; height:16px; flex-shrink:0;" />
+        <label for="autoGenFallback" style="margin:0; font-size:12px; font-weight:600; color:var(--ink-soft); cursor:pointer;">Auto-generate with AI when Pexels/Pixabay find nothing (uses your Gemini quota/billing per item)</label>
+      </div>
+      <p class="hint">When a Gemini key is added, every card also gets a "Generate with AI" button that creates a clean food photo from the item name and description — no text or logo overlays, ever. Your key is never stored on disk or sent anywhere except Google's API, and is masked on screen like a password.</p>
+    </div>
+    </div>
+
+    <div class="step">
+    <div class="card-block">
+      <h2><span class="num">4</span> Run</h2>
       <button class="btn btn-primary" id="generateBtn" type="button">Find Photos for All Items</button>
       <div style="height:10px;"></div>
       <button class="btn btn-ghost" id="stopBtn" type="button" style="display:none;">Stop</button>
@@ -392,13 +471,18 @@ table.items tr:last-child td{border-bottom:none;}
 
     <div class="step">
     <div class="card-block">
-      <h2><span class="num">4</span> Free High-Quality Sources</h2>
-      <p class="hint" style="margin-top:0; margin-bottom:12px;">For manual sourcing (paste the image URL into any card) or to grab an API key above.</p>
-      <div class="source-links">
-        <a href="https://www.pexels.com/search/food/" target="_blank" rel="noopener">Pexels — Food ↗</a>
-        <a href="https://unsplash.com/s/photos/food" target="_blank" rel="noopener">Unsplash — Food ↗</a>
-        <a href="https://www.foodiesfeed.com/" target="_blank" rel="noopener">Foodiesfeed (manual only) ↗</a>
-        <a href="https://www.pexels.com/api/" target="_blank" rel="noopener">Get Pexels API key ↗</a>
+      <h2 style="cursor:pointer;" id="sourcesToggle">
+        <span class="num">5</span> Free High-Quality Sources
+        <span id="sourcesToggleIcon" style="margin-left:auto; font-size:11px; color:var(--muted); text-transform:none; letter-spacing:0; font-weight:700;">Show ▾</span>
+      </h2>
+      <div id="sourcesBody" style="display:none;">
+        <p class="hint" style="margin-top:0; margin-bottom:12px;">For manual sourcing (paste the image URL into any card) or to grab an API key above.</p>
+        <div class="source-links">
+          <a href="https://www.pexels.com/search/food/" target="_blank" rel="noopener">Pexels — Food ↗</a>
+          <a href="https://pixabay.com/images/search/food/" target="_blank" rel="noopener">Pixabay — Food ↗</a>
+          <a href="#" class="inapp-link" data-inapp-url="https://picjumbo.com/free-images/food-and-drink/" data-inapp-title="Picjumbo — Food &amp; Drink">Picjumbo — Food &amp; Drink (in-app)</a>
+          <a href="https://www.pexels.com/api/" target="_blank" rel="noopener">Get Pexels API key ↗</a>
+        </div>
       </div>
     </div>
     </div>
@@ -412,8 +496,14 @@ table.items tr:last-child td{border-bottom:none;}
         <p id="countLabel">No items yet — import a CSV or add items to begin.</p>
       </div>
       <div class="head-actions">
+        <div class="source-filter" id="sourceFilter" style="display:none;">
+          <button class="filter-chip active" data-filter="all" type="button">All</button>
+          <button class="filter-chip" data-filter="photo" type="button">Photos</button>
+          <button class="filter-chip" data-filter="ai" type="button">✨ AI</button>
+        </div>
         <button class="btn btn-ghost" id="selectAllBtn" type="button" style="display:none; width:auto; padding:12px 18px;">Select all</button>
         <button class="btn btn-ghost" id="refreshAllBtn" type="button" style="display:none; width:auto; padding:12px 18px;">Refresh all</button>
+        <button class="btn btn-danger-ghost" id="clearImagesBtn" type="button" style="display:none; width:auto; padding:12px 18px;">Clear images</button>
         <button class="btn btn-dark" id="downloadAllBtn" type="button" style="display:none;">Download Selected (.zip)</button>
       </div>
     </div>
@@ -446,6 +536,85 @@ table.items tr:last-child td{border-bottom:none;}
   </div>
   <div class="footer-name">Andro ss Youssef</div>
 </div>
+
+<div class="inapp-overlay" id="inappOverlay">
+  <div class="inapp-window">
+    <div class="inapp-bar">
+      <div class="inapp-bar-title">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12c2.5-5.5 7-8.25 9.75-8.25S19.25 6.5 21.75 12c-2.5 5.5-7 8.25-9.75 8.25S4.75 17.5 2.25 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"/></svg>
+        <span id="inappTitle">Source</span>
+      </div>
+      <div class="inapp-bar-actions">
+        <a id="inappOpenExternal" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+        <button type="button" id="inappClose" class="inapp-close" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="inapp-body">
+      <iframe id="inappFrame" src="about:blank" title="In-app source browser" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="inapp-fallback" id="inappFallback">
+        <p>This site can take a moment to load here, or may not allow embedding.<br>If it looks blank, open it in a new tab instead.</p>
+        <a id="inappFallbackLink" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var inappOverlay = document.getElementById('inappOverlay');
+  var inappFrame = document.getElementById('inappFrame');
+  var inappTitle = document.getElementById('inappTitle');
+  var inappOpenExternal = document.getElementById('inappOpenExternal');
+  var inappFallback = document.getElementById('inappFallback');
+  var inappFallbackLink = document.getElementById('inappFallbackLink');
+  var inappFallbackTimer = null;
+
+  function openInApp(url, title){
+    inappTitle.textContent = title || url;
+    inappOpenExternal.href = url;
+    inappFallbackLink.href = url;
+    inappFallback.classList.remove('show');
+    inappFrame.src = url;
+    inappOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    clearTimeout(inappFallbackTimer);
+    // Some sites block being embedded (X-Frame-Options/CSP); no reliable load-error
+    // event fires for that case, so offer the "open in new tab" fallback after a beat.
+    inappFallbackTimer = setTimeout(function(){ inappFallback.classList.add('show'); }, 4000);
+  }
+  inappFrame.addEventListener('load', function(){
+    if (inappFrame.src !== 'about:blank') clearTimeout(inappFallbackTimer);
+  });
+
+  function closeInApp(){
+    inappOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    inappFrame.src = 'about:blank';
+    clearTimeout(inappFallbackTimer);
+  }
+  document.getElementById('inappClose').addEventListener('click', closeInApp);
+  inappOverlay.addEventListener('click', function(e){ if (e.target === inappOverlay) closeInApp(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && inappOverlay.classList.contains('open')) closeInApp(); });
+
+  document.querySelectorAll('.inapp-link').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      openInApp(a.getAttribute('data-inapp-url'), a.getAttribute('data-inapp-title'));
+    });
+  });
+
+  // "Free High-Quality Sources" card is collapsed by default to keep the
+  // panel compact — expand on demand.
+  var sourcesToggle = document.getElementById('sourcesToggle');
+  var sourcesBody = document.getElementById('sourcesBody');
+  var sourcesToggleIcon = document.getElementById('sourcesToggleIcon');
+  sourcesToggle.addEventListener('click', function(){
+    var open = sourcesBody.style.display !== 'none';
+    sourcesBody.style.display = open ? 'none' : 'block';
+    sourcesToggleIcon.textContent = open ? 'Show ▾' : 'Hide ▴';
+  });
+})();
+</script>
 
 <script>
 (function(){
@@ -491,19 +660,57 @@ table.items tr:last-child td{border-bottom:none;}
   const downloadAllBtn = el('downloadAllBtn');
   const selectAllBtn = el('selectAllBtn');
   const refreshAllBtn = el('refreshAllBtn');
+  const clearImagesBtn = el('clearImagesBtn');
+  const sourceFilter = el('sourceFilter');
   const progressWrap = el('progressWrap');
   const progressFill = el('progressFill');
   const progressLabel = el('progressLabel');
   const statusText = el('statusText');
   const statusDot = el('statusDot');
   const pexelsKeyInput = el('pexelsKeyInput');
-  const unsplashKeyInput = el('unsplashKeyInput');
+  const pixabayKeyInput = el('pixabayKeyInput');
+  const geminiKeyInput = el('geminiKeyInput');
+  const geminiModelSelect = el('geminiModelSelect');
+  const autoGenFallback = el('autoGenFallback');
 
-  [['talabat_pexels_key', pexelsKeyInput], ['talabat_unsplash_key', unsplashKeyInput]]
+  try { autoGenFallback.checked = localStorage.getItem('talabat_autogen_fallback') === '1'; } catch(e){}
+  autoGenFallback.addEventListener('change', () => {
+    if (autoGenFallback.checked){
+      const key = geminiKeyInput.value.trim();
+      const ok = confirm(
+        'Turning this on means any item Pexels/Pixabay can\'t match will automatically be sent to Gemini for AI generation during bulk runs. '
+        + 'Gemini image generation is billed per image on your Google account/key' + (key ? '' : ' (add your key above first)') + '. '
+        + 'Continue?'
+      );
+      if (!ok){ autoGenFallback.checked = false; }
+    }
+    try { localStorage.setItem('talabat_autogen_fallback', autoGenFallback.checked ? '1' : '0'); } catch(e){}
+  });
+
+  [['talabat_pexels_key', pexelsKeyInput], ['talabat_pixabay_key', pixabayKeyInput], ['talabat_gemini_key', geminiKeyInput]]
     .forEach(([storeKey, inputEl]) => {
       try { const saved = localStorage.getItem(storeKey); if (saved) inputEl.value = saved; } catch(e){}
       inputEl.addEventListener('change', () => { try { localStorage.setItem(storeKey, inputEl.value.trim()); } catch(e){} });
     });
+
+  try {
+    const savedModel = localStorage.getItem('talabat_gemini_model');
+    if (savedModel) geminiModelSelect.value = savedModel;
+  } catch(e){}
+  geminiModelSelect.addEventListener('change', () => {
+    try { localStorage.setItem('talabat_gemini_model', geminiModelSelect.value); } catch(e){}
+  });
+
+  // Show/hide toggle for masked API key fields — keys stay type="password"
+  // (dots on screen, not readable over someone's shoulder or in a screen
+  // share) until the person explicitly clicks to reveal them.
+  document.querySelectorAll('.key-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.getAttribute('data-target'));
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+  });
 
   /* ---------------- CSV / item import ---------------- */
 
@@ -675,11 +882,33 @@ table.items tr:last-child td{border-bottom:none;}
 
   /* ---------------- Keyless stock photo search ---------------- */
 
-  async function searchPexels(query, key, count){
+  // Retries a fetch on 429 (rate limit) with exponential backoff, honoring the
+  // Retry-After header when the API provides one. Non-429 errors and exhausted
+  // retries just return the last response so callers handle them as before.
+  // `maxRetries` is tunable per-caller — free APIs (Pexels/Pixabay) default to
+  // 3, but paid/metered calls (Gemini generation) pass a lower cap so a
+  // stuck rate limit doesn't silently burn through billed quota retrying.
+  const RATE_LIMIT_MAX_RETRIES = 3;
+  async function fetchWithRetry(url, ms, extraOpts, maxRetries){
+    const cap = typeof maxRetries === 'number' ? maxRetries : RATE_LIMIT_MAX_RETRIES;
+    let attempt = 0;
+    while (true){
+      const resp = await fetchWithTimeout(url, ms, extraOpts);
+      if (resp.status !== 429 || attempt >= cap) return resp;
+      const retryAfterHeader = parseFloat(resp.headers.get('Retry-After'));
+      const waitMs = !isNaN(retryAfterHeader)
+        ? retryAfterHeader * 1000
+        : Math.min(8000, 500 * Math.pow(2, attempt)) + Math.random()*250;
+      await new Promise(res => setTimeout(res, waitMs));
+      attempt++;
+    }
+  }
+
+  async function searchPexels(query, key, count, page){
     if (!key) return [];
     try {
-      const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape`;
-      const resp = await fetchWithTimeout(url, 15000, { headers: { Authorization: key } });
+      const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape&page=${page||1}`;
+      const resp = await fetchWithRetry(url, 15000, { headers: { Authorization: key } });
       if (!resp.ok) return [];
       const data = await resp.json();
       return (data.photos||[]).map(p => ({
@@ -688,50 +917,35 @@ table.items tr:last-child td{border-bottom:none;}
     } catch(e){ return []; }
   }
 
-  async function searchUnsplash(query, key, count){
+  async function searchPixabay(query, key, count, page){
     if (!key) return [];
     try {
-      const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape&client_id=${encodeURIComponent(key)}`;
-      const resp = await fetchWithTimeout(url, 15000);
+      const url = `https://pixabay.com/api/?key=${encodeURIComponent(key)}&q=${encodeURIComponent(query)}&image_type=photo&category=food&orientation=horizontal&safesearch=true&per_page=${Math.max(count,3)}&page=${page||1}`;
+      const resp = await fetchWithRetry(url, 15000);
       if (!resp.ok) return [];
       const data = await resp.json();
-      return (data.results||[]).map(p => ({
-        thumb: p.urls.small, full: p.urls.regular || p.urls.full, source: 'Unsplash'
+      return (data.hits||[]).slice(0, count).map(p => ({
+        thumb: p.webformatURL, full: p.largeImageURL || p.webformatURL, source: 'Pixabay'
       }));
     } catch(e){ return []; }
   }
 
-  // TheMealDB — free, keyless recipe database. Search matches by dish name directly,
-  // so it's especially good at exact-matching named dishes stock photo search misses.
-  async function searchMealDb(itemName, count){
-    try {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(itemName)}`;
-      const resp = await fetchWithTimeout(url, 15000);
-      if (!resp.ok) return [];
-      const data = await resp.json();
-      const meals = data.meals || [];
-      return meals.slice(0, count).map(m => ({
-        thumb: m.strMealThumb + '/preview', full: m.strMealThumb, source: 'TheMealDB'
-      }));
-    } catch(e){ return []; }
-  }
-
-  async function searchBoth(query, itemName, count){
+  async function searchBoth(query, pixabayQuery, itemName, count, page){
     const pexelsKey = pexelsKeyInput.value.trim();
-    const unsplashKey = unsplashKeyInput.value.trim();
-    // Recipe database matched by the raw dish name (not the styled query string);
-    // photo libraries use the styled query for better photographic bias.
-    const [meal, pex, uns] = await Promise.all([
-      searchMealDb(itemName, count),
-      searchPexels(query, pexelsKey, count),
-      searchUnsplash(query, unsplashKey, count)
+    const pixabayKey = pixabayKeyInput.value.trim();
+    // Photo libraries use the styled query for better photographic bias; Pixabay
+    // gets its own short tag-friendly query (see buildQueryChain). `page` lets
+    // "Search again" pull a different batch instead of the same deterministic
+    // top results every time.
+    const [pex, pix] = await Promise.all([
+      searchPexels(query, pexelsKey, count, page),
+      searchPixabay(pixabayQuery, pixabayKey, count, page)
     ]);
     const merged = [];
-    const max = Math.max(meal.length, pex.length, uns.length);
+    const max = Math.max(pex.length, pix.length);
     for (let i=0;i<max;i++){
-      if (meal[i]) merged.push(meal[i]);
       if (pex[i]) merged.push(pex[i]);
-      if (uns[i]) merged.push(uns[i]);
+      if (pix[i]) merged.push(pix[i]);
     }
     return merged.slice(0, count);
   }
@@ -745,9 +959,9 @@ table.items tr:last-child td{border-bottom:none;}
     if (!key) return { candidates: [], error: 'No Pexels key added' };
     try {
       const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape`;
-      const resp = await fetchWithTimeout(url, 15000, { headers: { Authorization: key } });
+      const resp = await fetchWithRetry(url, 15000, { headers: { Authorization: key } });
       if (resp.status === 401) return { candidates: [], error: 'Pexels key invalid (401)' };
-      if (resp.status === 429) return { candidates: [], error: 'Pexels rate limit hit (429)' };
+      if (resp.status === 429) return { candidates: [], error: 'Pexels rate limit hit (429) — retried and still limited' };
       if (!resp.ok) return { candidates: [], error: `Pexels error (${resp.status})` };
       const data = await resp.json();
       const candidates = (data.photos||[]).map(p => ({
@@ -757,47 +971,110 @@ table.items tr:last-child td{border-bottom:none;}
     } catch(e){ return { candidates: [], error: 'Pexels request failed (network/CORS)' }; }
   }
 
-  async function searchUnsplashDiag(query, key, count){
-    if (!key) return { candidates: [], error: 'No Unsplash key added' };
+  async function searchPixabayDiag(query, key, count){
+    if (!key) return { candidates: [], error: 'No Pixabay key added' };
     try {
-      const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape&client_id=${encodeURIComponent(key)}`;
-      const resp = await fetchWithTimeout(url, 15000);
-      if (resp.status === 401) return { candidates: [], error: 'Unsplash key invalid (401)' };
-      if (resp.status === 403) return { candidates: [], error: 'Unsplash rate limit hit (403) — demo keys cap at 50/hour' };
-      if (!resp.ok) return { candidates: [], error: `Unsplash error (${resp.status})` };
+      const url = `https://pixabay.com/api/?key=${encodeURIComponent(key)}&q=${encodeURIComponent(query)}&image_type=photo&category=food&orientation=horizontal&safesearch=true&per_page=${Math.max(count,3)}`;
+      const resp = await fetchWithRetry(url, 15000);
+      if (resp.status === 400 || resp.status === 401) return { candidates: [], error: 'Pixabay key invalid (401)' };
+      if (resp.status === 429) return { candidates: [], error: 'Pixabay rate limit hit (429) — retried and still limited' };
+      if (!resp.ok) return { candidates: [], error: `Pixabay error (${resp.status})` };
       const data = await resp.json();
-      const candidates = (data.results||[]).map(p => ({
-        thumb: p.urls.small, full: p.urls.regular || p.urls.full, source: 'Unsplash'
+      const candidates = (data.hits||[]).slice(0, count).map(p => ({
+        thumb: p.webformatURL, full: p.largeImageURL || p.webformatURL, source: 'Pixabay'
       }));
-      return { candidates, error: candidates.length ? null : 'No matches on Unsplash' };
-    } catch(e){ return { candidates: [], error: 'Unsplash request failed (network/CORS)' }; }
-  }
-
-  async function searchMealDbDiag(itemName, count){
-    try {
-      const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(itemName)}`;
-      const resp = await fetchWithTimeout(url, 15000);
-      if (!resp.ok) return { candidates: [], error: `TheMealDB error (${resp.status})` };
-      const data = await resp.json();
-      const meals = data.meals || [];
-      const candidates = meals.slice(0, count).map(m => ({
-        thumb: m.strMealThumb + '/preview', full: m.strMealThumb, source: 'TheMealDB'
-      }));
-      return { candidates, error: candidates.length ? null : 'TheMealDB has no matching dish (small catalog)' };
-    } catch(e){ return { candidates: [], error: 'TheMealDB request failed (network)' }; }
+      return { candidates, error: candidates.length ? null : 'No matches on Pixabay' };
+    } catch(e){ return { candidates: [], error: 'Pixabay request failed (network/CORS)' }; }
   }
 
   async function searchOneSource(item, sourceName, count){
+    if (sourceName === 'Gemini AI'){
+      const result = await generateWithGemini(item, count);
+      return { candidates: result.candidates, queryUsed: null, error: result.error };
+    }
     const { grounded } = buildQueryChain(item);
-    const query = grounded.length ? grounded[0].query : item.name;
+    const tier = grounded.length ? grounded[0] : { query: item.name, pixabayQuery: item.name };
     const pexelsKey = pexelsKeyInput.value.trim();
-    const unsplashKey = unsplashKeyInput.value.trim();
+    const pixabayKey = pixabayKeyInput.value.trim();
     let result;
-    if (sourceName === 'Pexels') result = await searchPexelsDiag(query, pexelsKey, count);
-    else if (sourceName === 'Unsplash') result = await searchUnsplashDiag(query, unsplashKey, count);
-    else if (sourceName === 'TheMealDB') result = await searchMealDbDiag(item.name, count);
+    const query = sourceName === 'Pixabay' ? tier.pixabayQuery : tier.query;
+    if (sourceName === 'Pexels') result = await searchPexelsDiag(tier.query, pexelsKey, count);
+    else if (sourceName === 'Pixabay') result = await searchPixabayDiag(tier.pixabayQuery, pixabayKey, count);
     else result = { candidates: [], error: 'Unknown source' };
     return { candidates: result.candidates, queryUsed: query, error: result.error };
+  }
+
+  /* ---------------- Gemini / Nano Banana AI image generation ---------------- */
+
+  // Calls Google's Gemini API directly from the browser using the key pasted
+  // into the AI Generation panel. The key is sent only to
+  // generativelanguage.googleapis.com over HTTPS as a query param (Google's
+  // documented method for browser/client calls) — never logged, never written
+  // anywhere but the masked input and localStorage on this machine.
+  function buildGeminiPrompt(item){
+    const isBev = (item.category||'').includes('bev');
+    const subject = isBev ? 'a beverage' : 'a food dish';
+    const desc = item.description ? `, described as: ${item.description}` : '';
+    return `Professional food photography of ${subject} called "${item.name}"${desc}. `
+      + `Shot on a clean plate or glass, appetizing, realistic, natural lighting, shallow depth of field, `
+      + `restaurant menu photo style, centered composition, no plate clutter. `
+      + `Absolutely no text, no words, no letters, no logos, no watermarks, no labels, no overlays anywhere in the image — `
+      + `just the plain photograph of the ${isBev ? 'drink' : 'dish'} itself.`;
+  }
+
+  async function generateWithGemini(item, count){
+    const key = geminiKeyInput.value.trim();
+    if (!key) return { candidates: [], error: 'No Gemini key added' };
+    const model = geminiModelSelect.value || 'gemini-2.5-flash-image';
+    const prompt = buildGeminiPrompt(item);
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+    try {
+      // Fire `count` independent generations in parallel so the person gets a
+      // strip of distinct options to pick from, same as a stock-photo search.
+      // maxRetries is capped at 1 here (vs. the free APIs' default of 3) —
+      // each retry on a rate limit is a billed call, so we back off once and
+      // then surface the error rather than quietly re-spending quota.
+      const requests = Array.from({length: Math.max(1, Math.min(count, 4))}, () =>
+        fetchWithRetry(url, 45000, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }] })
+        }, 1).then(async resp => {
+          if (!resp.ok){
+            let errBody = null;
+            try { errBody = await resp.json(); } catch(e){}
+            const apiMsg = errBody && errBody.error && errBody.error.message;
+            let msg;
+            if (resp.status === 400) msg = 'Bad request — ' + (apiMsg || 'check the selected model name is valid');
+            else if (resp.status === 401 || resp.status === 403) msg = 'Gemini key invalid or lacks image-generation permission (401/403)';
+            else if (resp.status === 429) msg = 'Gemini quota/rate limit hit (429) — check your Google AI Studio billing/limits';
+            else msg = apiMsg || `HTTP ${resp.status}`;
+            throw new Error(msg);
+          }
+          return resp.json();
+        })
+      );
+      const settled = await Promise.allSettled(requests);
+      const candidates = [];
+      let lastError = null;
+      for (const s of settled){
+        if (s.status !== 'fulfilled'){ lastError = s.reason ? s.reason.message : 'Generation failed'; continue; }
+        const parts = (s.value.candidates && s.value.candidates[0] && s.value.candidates[0].content && s.value.candidates[0].content.parts) || [];
+        const imgPart = parts.find(p => p.inlineData || p.inline_data);
+        const inline = imgPart && (imgPart.inlineData || imgPart.inline_data);
+        if (inline && inline.data){
+          const mime = inline.mimeType || inline.mime_type || 'image/png';
+          const dataUrl = `data:${mime};base64,${inline.data}`;
+          candidates.push({ thumb: dataUrl, full: dataUrl, source: 'Gemini AI' });
+        } else {
+          lastError = 'Gemini returned no image (safety filter or unsupported prompt)';
+        }
+      }
+      if (!candidates.length) return { candidates: [], error: lastError || 'Gemini returned no images' };
+      return { candidates, error: null };
+    } catch(e){
+      return { candidates: [], error: 'Gemini request failed: ' + e.message };
+    }
   }
 
   // Build a list of progressively simpler queries, each explicitly biased toward
@@ -811,26 +1088,31 @@ table.items tr:last-child td{border-bottom:none;}
     const styleTerm = isBev
       ? 'drink beverage glass professional food photography'
       : 'food dish plate professional food photography';
+    const catWord = isBev ? 'drink' : 'food';
     const stopwords = new Set(['with','and','the','a','of','deluxe','special','fresh','classic','signature','extra']);
     const words = item.name.toLowerCase().replace(/[^a-z0-9\s]/g,'').split(/\s+/).filter(w => w && !stopwords.has(w));
     const grounded = [];
-    grounded.push({ query: `${item.name} ${styleTerm}`, grounded: true });
-    if (words.length > 2) grounded.push({ query: `${words.slice(0,2).join(' ')} ${styleTerm}`, grounded: true });
-    if (words.length > 1) grounded.push({ query: `${words[0]} ${styleTerm}`, grounded: true });
+    // pixabayQuery mirrors each tier's specificity but stays short — Pixabay's
+    // search is tag-based, not phrase-based, so a long boilerplate-heavy string
+    // (fine for Pexels/Unsplash) drowns out the actual dish name there and just
+    // returns the same generic "food/plate/photography"-tagged photos every time.
+    grounded.push({ query: `${item.name} ${styleTerm}`, pixabayQuery: `${item.name} ${catWord}`, grounded: true });
+    if (words.length > 2) grounded.push({ query: `${words.slice(0,2).join(' ')} ${styleTerm}`, pixabayQuery: `${words.slice(0,2).join(' ')} ${catWord}`, grounded: true });
+    if (words.length > 1) grounded.push({ query: `${words[0]} ${styleTerm}`, pixabayQuery: `${words[0]} ${catWord}`, grounded: true });
     const seen = new Set();
     const dedup = grounded.filter(g => { if (seen.has(g.query)) return false; seen.add(g.query); return true; });
-    const broad = { query: styleTerm, grounded: false };
+    const broad = { query: styleTerm, pixabayQuery: catWord, grounded: false };
     return { grounded: dedup, broad };
   }
 
-  async function findCandidates(item, count, allowBroad){
+  async function findCandidates(item, count, allowBroad, page){
     const { grounded, broad } = buildQueryChain(item);
     for (const tier of grounded){
-      const found = await searchBoth(tier.query, item.name, count);
+      const found = await searchBoth(tier.query, tier.pixabayQuery, item.name, count, page);
       if (found.length) return { candidates: found, queryUsed: tier.query, confident: true };
     }
     if (allowBroad){
-      const found = await searchBoth(broad.query, item.name, count);
+      const found = await searchBoth(broad.query, broad.pixabayQuery, item.name, count, page);
       if (found.length) return { candidates: found, queryUsed: broad.query, confident: false };
     }
     return { candidates: [], queryUsed: null, confident: false };
@@ -852,6 +1134,12 @@ table.items tr:last-child td{border-bottom:none;}
 
   generateBtn.addEventListener('click', async () => {
     if (!items.length){ alert('Add or import items first.'); return; }
+    const pexelsKey = pexelsKeyInput.value.trim();
+    const pixabayKey = pixabayKeyInput.value.trim();
+    if (!pexelsKey && !pixabayKey){
+      alert('No API key added — Pexels and Pixabay both need a key to return any photos. Add at least one key in Search Settings before running.');
+      return;
+    }
     stopFlag = false;
     generateBtn.disabled = true;
     stopBtn.style.display = 'block';
@@ -859,15 +1147,20 @@ table.items tr:last-child td{border-bottom:none;}
     grid.innerHTML = '';
     results.clear();
     selected.clear();
+    itemPage.clear();
+    currentSourceFilter = 'all';
+    sourceFilter.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.getAttribute('data-filter') === 'all'));
     downloadAllBtn.style.display = 'none';
     selectAllBtn.style.display = 'none';
     refreshAllBtn.style.display = 'none';
+    clearImagesBtn.style.display = 'none';
     selectAllBtn.textContent = 'Select all';
     progressWrap.classList.add('active');
     statusText.textContent = 'Searching…';
     statusDot.classList.add('busy');
 
     items.forEach((it, i) => createCard(it, i));
+    clearImagesBtn.style.display = 'block';
 
     const count = parseInt(el('candidateCount').value, 10) || 6;
     const concurrency = Math.min(8, Math.max(1, parseInt(el('concurrencyInput').value,10) || 4));
@@ -896,6 +1189,8 @@ table.items tr:last-child td{border-bottom:none;}
     downloadAllBtn.style.display = results.size ? 'block' : 'none';
     selectAllBtn.style.display = results.size ? 'block' : 'none';
     refreshAllBtn.style.display = results.size ? 'block' : 'none';
+    clearImagesBtn.style.display = results.size ? 'block' : 'none';
+    sourceFilter.style.display = results.size ? 'flex' : 'none';
     updateDownloadAllLabel();
   });
 
@@ -907,10 +1202,15 @@ table.items tr:last-child td{border-bottom:none;}
     progressLabel.textContent = `${done}/${total} · ${label}`;
   }
 
-  async function processItem(item, count, allowBroad){
+  // Tracks how many times "Search again" has been hit per item, so each retry
+  // requests a later results page instead of Pexels/Pixabay's same deterministic
+  // top matches for an unchanged query.
+  const itemPage = new Map();
+
+  async function processItem(item, count, allowBroad, page){
     const statusEl = document.getElementById('status_'+item.id);
     if (statusEl) statusEl.textContent = 'Searching…';
-    const { candidates, queryUsed, confident } = await findCandidates(item, count, allowBroad);
+    const { candidates, queryUsed, confident } = await findCandidates(item, count, allowBroad, page || 1);
 
     if (candidates.length){
       results.set(item.id, { candidates, selectedIndex: 0, queryUsed, confident });
@@ -918,8 +1218,27 @@ table.items tr:last-child td{border-bottom:none;}
       return;
     }
 
+    // Opt-in AI fallback: only fires when the person has explicitly turned on
+    // "Auto-generate with AI" AND added a Gemini key — since every call here
+    // is billed, this never triggers silently.
+    if (autoGenFallback.checked && geminiKeyInput.value.trim()){
+      if (statusEl) statusEl.textContent = 'No stock photo — generating with AI…';
+      const aiResult = await generateWithGemini(item, Math.min(count, 4));
+      if (aiResult.candidates.length){
+        results.set(item.id, { candidates: aiResult.candidates, selectedIndex: 0, queryUsed: null, confident: true });
+        renderCandidates(item, 0);
+        return;
+      }
+      results.set(item.id, { candidates: [], selectedIndex: -1, queryUsed: null, confident: false });
+      renderCardError(item, 'No stock photo match, and AI generation also failed: ' + (aiResult.error || 'unknown error'));
+      return;
+    }
+
     results.set(item.id, { candidates: [], selectedIndex: -1, queryUsed, confident: false });
-    renderCardError(item, 'No confident match found for this exact name.');
+    const message = (page && page > 1)
+      ? 'No more new photos found for this search — the sources have run out of results for this query.'
+      : 'No confident match found for this exact name.';
+    renderCardError(item, message);
   }
 
   /* ---------------- Card rendering ---------------- */
@@ -939,8 +1258,8 @@ table.items tr:last-child td{border-bottom:none;}
         <div class="candidate-strip" id="strip_${item.id}"></div>
         <div class="browse-links">
           <button class="source-switch-btn" data-action="switchsource" data-source="Pexels" data-id="${item.id}">Pexels</button>
-          <button class="source-switch-btn" data-action="switchsource" data-source="Unsplash" data-id="${item.id}">Unsplash</button>
-          <button class="source-switch-btn" data-action="switchsource" data-source="TheMealDB" data-id="${item.id}">TheMealDB</button>
+          <button class="source-switch-btn" data-action="switchsource" data-source="Pixabay" data-id="${item.id}">Pixabay</button>
+          <button class="source-switch-btn" data-action="switchsource" data-source="Gemini AI" data-id="${item.id}">✨ Generate with AI</button>
         </div>
         <div class="field" style="margin:2px 0 0;">
           <input type="text" id="manualUrl_${item.id}" placeholder="Paste an image URL to use instead" style="font-size:11.5px; padding:8px 10px;" />
@@ -953,10 +1272,31 @@ table.items tr:last-child td{border-bottom:none;}
       </div>`;
     grid.appendChild(card);
 
-    card.querySelector('[data-action="usemanual"]').addEventListener('click', () => {
+    card.querySelector('[data-action="usemanual"]').addEventListener('click', async () => {
       const urlInput = document.getElementById('manualUrl_'+item.id);
+      const btn = card.querySelector('[data-action="usemanual"]');
       const url = urlInput.value.trim();
       if (!url){ urlInput.focus(); return; }
+      let parsed;
+      try { parsed = new URL(url); }
+      catch(e){ alert('That doesn\'t look like a valid URL — make sure it starts with http:// or https://'); return; }
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:'){
+        alert('URL must start with http:// or https://'); return;
+      }
+      const originalLabel = btn.textContent;
+      btn.textContent = 'Checking…'; btn.disabled = true;
+      const loads = await new Promise(resolve => {
+        const testImg = new Image();
+        const timer = setTimeout(() => resolve(false), 10000);
+        testImg.onload = () => { clearTimeout(timer); resolve(true); };
+        testImg.onerror = () => { clearTimeout(timer); resolve(false); };
+        testImg.src = url;
+      });
+      btn.textContent = originalLabel; btn.disabled = false;
+      if (!loads){
+        alert('That URL couldn\'t be loaded as an image — check the link points directly to a .jpg/.png/.webp file and is publicly accessible.');
+        return;
+      }
       const manualCandidate = { thumb: url, full: url, source: 'Manual' };
       const r = results.get(item.id) || { candidates: [], selectedIndex: -1 };
       r.candidates = [manualCandidate, ...r.candidates];
@@ -969,10 +1309,15 @@ table.items tr:last-child td{border-bottom:none;}
     card.querySelectorAll('[data-action="switchsource"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         const sourceName = btn.getAttribute('data-source');
+        if (sourceName === 'Gemini AI' && !window.__geminiCostAcknowledged){
+          const ok = confirm('Gemini image generation is billed per image on your Google account/key. Continue generating for this item?');
+          if (!ok) return;
+          window.__geminiCostAcknowledged = true;
+        }
         const originalLabel = btn.textContent;
         const allBtns = card.querySelectorAll('[data-action="switchsource"]');
         allBtns.forEach(b => b.disabled = true);
-        btn.textContent = 'Searching…';
+        btn.textContent = sourceName === 'Gemini AI' ? 'Generating…' : 'Searching…';
         const count = parseInt(el('candidateCount').value, 10) || 6;
         try {
           const { candidates, queryUsed, error } = await searchOneSource(item, sourceName, count);
@@ -988,7 +1333,7 @@ table.items tr:last-child td{border-bottom:none;}
           }
         } finally {
           allBtns.forEach(b => b.disabled = false);
-          if (btn.textContent === 'Searching…') btn.textContent = originalLabel;
+          if (btn.textContent === 'Searching…' || btn.textContent === 'Generating…') btn.textContent = originalLabel;
         }
       });
     });
@@ -998,7 +1343,9 @@ table.items tr:last-child td{border-bottom:none;}
       wrap.innerHTML = `<div class="placeholder"><div class="spinner"></div><span id="status_${item.id}">Searching…</span></div>`;
       document.getElementById('strip_'+item.id).innerHTML = '';
       const count = parseInt(el('candidateCount').value, 10) || 6;
-      await processItem(item, count, false);
+      const nextPage = (itemPage.get(item.id) || 1) + 1;
+      itemPage.set(item.id, nextPage);
+      await processItem(item, count, false, nextPage);
     });
     card.querySelector('[data-action="download"]').addEventListener('click', () => downloadItem(item));
   }
@@ -1011,9 +1358,17 @@ table.items tr:last-child td{border-bottom:none;}
     wrap.innerHTML = `<img class="main-preview" src="${chosen.thumb}" alt="${escapeHtml(item.name)}" />`;
     const badge = document.createElement('div');
     badge.className = 'badge';
-    badge.textContent = r.confident ? chosen.source : `${chosen.source} · unrelated?`;
+    const isAI = chosen.source === 'Gemini AI';
+    badge.textContent = r.confident ? (isAI ? '✨ AI Generated' : chosen.source) : `${chosen.source} · unrelated?`;
     if (!r.confident) badge.style.background = 'rgba(193,80,42,.82)';
+    else if (isAI) badge.style.background = 'linear-gradient(120deg, var(--ember), var(--gold))';
     wrap.appendChild(badge);
+
+    const cardEl = document.getElementById('card_'+item.id);
+    if (cardEl){
+      cardEl.dataset.sourceKind = isAI ? 'ai' : 'photo';
+      applySourceFilter(cardEl);
+    }
 
     if (r.queryUsed){
       const note = document.createElement('div');
@@ -1040,7 +1395,7 @@ table.items tr:last-child td{border-bottom:none;}
     strip.innerHTML = '';
     r.candidates.forEach((c, i) => {
       const img = document.createElement('img');
-      img.className = 'candidate-thumb' + (i === selectedIndex ? ' selected' : '');
+      img.className = 'candidate-thumb' + (i === selectedIndex ? ' selected' : '') + (c.source === 'Gemini AI' ? ' ai-thumb' : '');
       img.src = c.thumb;
       img.title = c.source;
       img.addEventListener('click', () => renderCandidates(item, i));
@@ -1055,6 +1410,22 @@ table.items tr:last-child td{border-bottom:none;}
   function updateDownloadAllLabel(){
     downloadAllBtn.textContent = `Download Selected (.zip) — ${selected.size}`;
   }
+
+  // Source filter chips — lets the person show only stock photos or only
+  // AI-generated images, without losing selections or having to re-search.
+  let currentSourceFilter = 'all';
+  function applySourceFilter(cardEl){
+    const kind = cardEl.dataset.sourceKind;
+    const hide = currentSourceFilter !== 'all' && kind && kind !== currentSourceFilter;
+    cardEl.style.display = hide ? 'none' : '';
+  }
+  sourceFilter.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      currentSourceFilter = chip.getAttribute('data-filter');
+      sourceFilter.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c === chip));
+      grid.querySelectorAll('.card').forEach(applySourceFilter);
+    });
+  });
 
   selectAllBtn.addEventListener('click', () => {
     const allSelected = items.every(it => selected.has(it.id) && results.get(it.id) && results.get(it.id).candidates.length);
@@ -1075,6 +1446,29 @@ table.items tr:last-child td{border-bottom:none;}
     generateBtn.click();
   });
 
+  clearImagesBtn.addEventListener('click', () => {
+    if (!grid.children.length && !results.size) return;
+    if (!confirm('Clear all found images? Your imported items stay, but you\'ll need to search again to get photos back.')) return;
+    stopFlag = true;
+    results.clear();
+    selected.clear();
+    grid.innerHTML = '';
+    gridEmpty.style.display = items.length ? 'none' : 'flex';
+    downloadAllBtn.style.display = 'none';
+    selectAllBtn.style.display = 'none';
+    refreshAllBtn.style.display = 'none';
+    clearImagesBtn.style.display = 'none';
+    selectAllBtn.textContent = 'Select all';
+    generateBtn.disabled = false;
+    stopBtn.style.display = 'none';
+    progressWrap.classList.remove('active');
+    statusText.textContent = 'Ready';
+    statusDot.classList.remove('busy');
+    countLabel.textContent = items.length
+      ? `${items.length} item${items.length>1?'s':''} ready.`
+      : 'No items yet — import a CSV or add items to begin.';
+  });
+
   function renderCardError(item, message){
     const wrap = document.getElementById('canvasWrap_'+item.id);
     wrap.innerHTML = `<div class="placeholder">
@@ -1092,9 +1486,12 @@ table.items tr:last-child td{border-bottom:none;}
 
   /* ---------------- Download (crop selected candidate to 810x540) ---------------- */
 
-  // Always crops centered on the source photo: scale to fully cover the 810x540
-  // frame (no letterboxing), then offset equally on both sides so the subject
-  // stays centered regardless of the source image's aspect ratio.
+  // Crops centered horizontally, but top-anchored vertically: scale to fully
+  // cover the 810x540 frame (no letterboxing), then keep the horizontal offset
+  // centered while pinning the vertical offset to the top of the source photo.
+  // Food/drink subjects (garnish, toppings, foam) are usually framed toward the
+  // top-to-middle of a photo, so a center-crop tends to slice them off when the
+  // source is taller/narrower than the 810x540 target — top-anchoring avoids that.
   async function composeFromUrl(url){
     const resp = await fetchWithTimeout(url, 25000);
     if (!resp.ok) throw new Error('Could not fetch full-resolution image');
@@ -1107,8 +1504,8 @@ table.items tr:last-child td{border-bottom:none;}
     const scale = Math.max(OUT_W/bitmap.width, OUT_H/bitmap.height);
     const dw = bitmap.width*scale, dh = bitmap.height*scale;
     const centerX = (OUT_W - dw) / 2;
-    const centerY = (OUT_H - dh) / 2;
-    ctx.drawImage(bitmap, centerX, centerY, dw, dh);
+    const topY = 0;
+    ctx.drawImage(bitmap, centerX, topY, dw, dh);
     return canvas;
   }
 
