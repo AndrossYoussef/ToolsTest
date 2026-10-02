@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+<link rel="manifest" href="./manifest-finder.webmanifest">
+<meta name="theme-color" content="#ff5a00">
+<link rel="icon" href="./icons/finder-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./icons/finder-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Images Finder">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Talabat Images Finder</title>
@@ -202,6 +209,7 @@ textarea::placeholder{color:var(--mu)}
 .sf4{background:linear-gradient(90deg,#7C3AED,#a78bfa)}
 .sf5{background:var(--re)}
 .sfile{font-size:.78rem;color:var(--tx2);white-space:normal;overflow-wrap:anywhere;word-break:normal;line-height:1.5;flex:1;min-width:0}
+.rcard.excluded{opacity:.68;border-style:dashed}.rcard.excluded .thumb{filter:grayscale(.6)}
 .cactions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
 
 /* ── EXPORT NAME ── */
@@ -293,6 +301,8 @@ textarea::placeholder{color:var(--mu)}
   .footer{padding:10px 12px}
 }
 
+.custom-category-manager{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}
+.custom-category-edit-grid{display:grid;grid-template-columns:1fr 1.35fr auto;gap:7px;min-width:0}.custom-category-edit-grid input{min-width:0;background:var(--sur);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:8px 9px;font:inherit;font-size:.76rem}.custom-categories-list{display:flex;flex-direction:column;gap:5px;margin-top:8px;max-height:150px;overflow:auto}.custom-category-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rx);font-size:.72rem}.custom-category-row span{min-width:0}.custom-category-row small{display:block;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.custom-category-row .btn{flex:none}
 .rule-tester{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}
 .rule-test-row{display:flex;gap:5px}.rule-test-row input{min-width:0;flex:1;background:var(--sur);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:6px 7px;font:inherit;font-size:.72rem}.rule-test-result{margin-top:6px;font-size:.68rem;color:var(--tx2);line-height:1.45;min-height:32px}
 .priority-manager{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}
@@ -303,6 +313,7 @@ textarea::placeholder{color:var(--mu)}
 .memory-backup{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}
 .backup-label{font-size:.7rem;font-weight:800;color:var(--tx2);margin-bottom:5px}
 .memory-backup input[type=file]{display:none}
+.download-check{display:inline-flex;align-items:center;gap:4px;color:var(--tx2);font-size:.68rem;font-weight:800;background:var(--orl);border:1px solid rgba(255,98,0,.25);border-radius:999px;padding:3px 7px;white-space:nowrap}.download-check input{accent-color:var(--or);width:15px;height:15px}.download-check:has(input:disabled){opacity:.55}
 .fcat{max-width:190px}.item-cat-select{max-width:130px;background:var(--sur2);color:var(--tx2);border:1px solid var(--bd);border-radius:var(--rx);font:inherit;font-size:.64rem;padding:3px 5px}
 .modal-category-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}
 .modal-category-grid label{display:flex;flex-direction:column;gap:4px;color:var(--tx2);font-size:.68rem;font-weight:700}
@@ -414,9 +425,9 @@ textarea::placeholder{color:var(--mu)}
     </div>
   </div>
 
-  <!-- SMART TOOLS -->
+  <!-- CATEGORIES & DATA -->
   <div class="card smart-card">
-    <div class="ctitle"><div class="snum">✦</div>Smart Tools &amp; Data</div>
+    <div class="ctitle"><div class="snum">✦</div>Categories &amp; Data</div>
     <div class="csub">Paste items above or import a CSV/TSV/Excel workbook. Your corrections and dictionary stay on this device.</div>
     <div class="smart-grid">
       <div class="smart-panel">
@@ -429,41 +440,23 @@ textarea::placeholder{color:var(--mu)}
         <div class="smart-label">Search scope</div>
         <select id="scopeMode" class="scope-select" onchange="renderCategoryChoices()">
           <option value="all">🌐 All library</option>
-          <option value="auto">🧠 Auto-detect category per item</option>
           <option value="selected">🎯 Selected categories only</option>
         </select>
         <div id="categoryChoices" class="category-choices"></div>
         <label class="uncat-opt"><input type="checkbox" id="includeUncat" checked onchange="updateScopeEstimate()"/> Include uncategorized</label>
-        <div class="smart-help">Categories are inferred from image filenames. Auto mode falls back to the full library when confidence is weak.</div>
-        <div class="rule-tester">
-          <div class="backup-label">Test a category rule</div>
-          <div class="rule-test-row"><input id="categoryRuleInput" type="text" placeholder="مثال: شاي مثلج بالخوخ" onkeydown="if(event.key==='Enter')testCategoryRule()"/><button class="btn bs bsm" onclick="testCategoryRule()">Test</button></div>
-          <div id="categoryRuleResult" class="rule-test-result">Try a name before saving any changes.</div>
-        </div>
-        <div class="priority-manager">
-          <div class="backup-label">Smart Priority Rules</div>
-          <div id="priorityRulesList" class="priority-rules-list"></div>
-          <div class="priority-edit-grid">
-            <input id="priorityRuleName" placeholder="Rule name"/>
-            <input id="priorityRuleWords" placeholder="Trigger words: iced, مثلج, بارد"/>
-            <select id="priorityRuleCategory"></select>
-            <input id="priorityRuleOrder" type="number" min="1" value="1" title="Lower number = higher priority"/>
+        <div class="smart-help">Categories are manual only. Assign a category to an image or item after reviewing the search results.</div>
+        <div class="custom-category-manager">
+          <div class="backup-label">Add a custom image category</div>
+          <div class="custom-category-edit-grid">
+            <input id="customCategoryName" placeholder="Category name (e.g. Crepe)"/>
+            <input id="customCategoryWords" placeholder="Keywords: crepe, كريب"/>
+            <button class="btn bg- bsm" onclick="addCustomCategory()">＋ Add category</button>
           </div>
-          <div class="brow smart-actions">
-            <button class="btn bg- bsm" onclick="addPriorityRule()">＋ Add rule</button>
-            <button class="btn bp bsm" onclick="savePriorityRules()">💾 Save rules</button>
-            <button class="btn bs bsm" onclick="resetPriorityRules()">↺ Reset built-ins</button>
-          </div>
-          <div class="smart-help">Lower priority number runs first. Edit a rule, test it above, then save. Rules are stored locally and included in Memory CSV.</div>
+          <div id="customCategoriesList" class="custom-categories-list"></div>
+          <div class="smart-help">Use comma-separated English or Arabic keywords. The category is saved on this device. Assign it manually from each image or result card, then use Selected categories only to search those assignments.</div>
         </div>
       </div>
       <div class="smart-panel">
-        <div class="smart-label">Editable aliases &amp; food vocabulary</div>
-        <textarea id="customDictTA" class="dict-ta" placeholder="One rule per line:&#10;fried chicken = crispy chicken&#10;وجبة = meal&#10;chk = chicken"></textarea>
-        <div class="brow smart-actions">
-          <button class="btn bg- bsm" onclick="saveDictionary()">💾 Save dictionary</button>
-          <button class="btn bs bsm" onclick="exportDictionary()">📤 Export dictionary</button>
-        </div>
         <div class="memory-backup">
           <div class="backup-label">Memory backup</div>
           <input id="memoryBackupInput" type="file" accept=".csv,text/csv" onchange="importMemoryBackup(event)"/>
@@ -475,7 +468,7 @@ textarea::placeholder{color:var(--mu)}
         </div>
       </div>
     </div>
-    <div class="smart-foot" id="smartStatus">🧠 Smart matching is local and ready.</div>
+    <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
   </div>
 
   <!-- RESULTS -->
@@ -485,15 +478,13 @@ textarea::placeholder{color:var(--mu)}
       <input class="fi-" id="ftxt" placeholder="🔍 Search item or image…" oninput="doFilter()"/>
       <select class="fsel" id="fsel" onchange="doFilter()">
         <option value="all">All</option>
-        <option value="c">✅ Confirmed</option>
-        <option value="r">⚠️ Review</option>
+        <option value="c">✅ Selected</option>
+        <option value="r">⚠️ Not selected</option>
         <option value="n">❌ No match</option>
       </select>
       <select class="fsel fcat" id="fcat" onchange="doFilter()" title="Filter by manually assigned category">
         <option value="all">All manual categories</option>
       </select>
-      <label class="preview-gate" title="Open the image preview before confirming a match"><input type="checkbox" id="requirePreview" checked onchange="renderResults()"/> Preview before confirm</label>
-      <button class="btn bg- bsm" onclick="confirmAllTop()">✅ Confirm previewed T1+T2</button>
       <button class="btn bs bsm" onclick="exportResultsCSV()">📤 Export results CSV</button>
     </div>
     <div id="grid"></div>
@@ -502,7 +493,7 @@ textarea::placeholder{color:var(--mu)}
   <!-- STEP 3 -->
   <div class="dlcard" id="dlCard">
     <div class="ctitle"><div class="snum">3</div>Download ZIP</div>
-    <div class="csub" style="padding-left:38px;margin-bottom:14px">Confirmed images packed into <strong>Menu-Images.zip</strong></div>
+    <div class="csub" style="padding-left:38px;margin-bottom:14px">Checked images packed into <strong>Menu-Images.zip</strong></div>
     <div class="dlst">
       <div class="dls dg"><div class="dn" id="dlT1">0</div><div class="dl">🟢 Exact</div></div>
       <div class="dls db"><div class="dn" id="dlT2">0</div><div class="dl">🔵 High</div></div>
@@ -561,9 +552,7 @@ textarea::placeholder{color:var(--mu)}
       <div class="mi-row"><b>Method:</b><span id="mMethod"></span></div>
     </div>
     <div class="mbtns">
-      <button class="btn bp bsm" onclick="confirmFromModal()">✅ Use this image</button>
-      <button class="btn bd- bsm" onclick="rejectFromModal()">✕ Remove</button>
-      <button class="btn bs bsm" onclick="closeModal()">Close</button>
+            <button class="btn bs bsm" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
@@ -826,6 +815,7 @@ const SYN=[
   ['fries','بطاطس','بطاطا','فريز','فرايز'],
   ['rice','ارز','رز'],['bread','خبز','خبزه','خبزة','عيش'],
   ['cheese','جبنه','جبنة','جبن'],
+  ['roumy','رومي','رومى','romi','roomy','roumy cheese'],
   ['mozzarella','موزاريلا','موزريلا'],
   ['tomato','طماطم','طماطه','بندوره'],
   ['mushroom','مشروم','فطر'],
@@ -858,7 +848,7 @@ SYN.forEach(cl=>{const canonical=norm(cl[0]);cl.forEach(w=>BUILTIN_ALIAS.set(nor
 const ALIAS_SHORT=new Map([['chk','chicken'],['chkn','chicken'],['brg','burger'],['burg','burger'],['bfr','beef'],['frch','fries'],['sz','size'],['med','medium'],['reg','regular']]);
 let CUSTOM_DICT={};
 function loadDictionary(){try{CUSTOM_DICT=JSON.parse(localStorage.getItem('tif_dictionary_v1')||'{}')}catch(e){CUSTOM_DICT={}}}
-function dictionaryMap(){const m=new Map(BUILTIN_ALIAS);for(const[k,v]of Object.entries(CUSTOM_DICT))m.set(norm(k),norm(v));ALIAS_SHORT.forEach((v,k)=>m.set(k,norm(v)));return m}
+function dictionaryMap(){const m=new Map(BUILTIN_ALIAS);ALIAS_SHORT.forEach((v,k)=>m.set(k,norm(v)));return m}
 function smartNorm(text){
   let base=norm(text),map=dictionaryMap();
   for(const[k,v]of map)if(k.includes(' '))base=base.replace(new RegExp('(^| )'+k.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')+'(?= |$)','g'),' $1'+v+' ');
@@ -879,7 +869,7 @@ loadDictionary();
 /* ═══════════════════════════════════════
    FILENAME CATEGORY MODEL — optional scope
 ═══════════════════════════════════════ */
-const CATEGORY_DEFS={
+let CATEGORY_DEFS={
   hot_drinks:{label:'Hot drinks',words:['coffee','espresso','latte','cappuccino','americano','mocha','macchiato','frappe','tea','chai','قهوه','قهوة','شاي','كركديه']},
   juices:{label:'Juices & smoothies',words:['juice','smoothie','shake','mango','orange','lemon','strawberry','banana','apple','pineapple','watermelon','عصير','سموذي','ميلك شيك']},
   cold_drinks:{label:'Cold drinks',words:['cola','pepsi','sprite','fanta','soda','water','ice','iced','cold','مشروب بارد','ماء','مياه','كولا','بيبسي']},
@@ -891,7 +881,35 @@ const CATEGORY_DEFS={
   desserts:{label:'Desserts',words:['cake','cheesecake','brownie','cookie','donut','waffle','pancake','crepe','kunafa','baklava','ice cream','gelato','tiramisu','dessert','حلو','كيك','كنافة','بقلاوة','ايس كريم']},
   salads:{label:'Salads',words:['salad','fattoush','tabbouleh','سلطة','فتوش','تبولة']}
 };
-const CATEGORY_WORDS=Object.fromEntries(Object.entries(CATEGORY_DEFS).map(([k,v])=>[k,new Set(v.words.flatMap(w=>smartTokens(w)))]));
+const BUILTIN_CATEGORY_KEYS=new Set(Object.keys(CATEGORY_DEFS));
+let CUSTOM_CATEGORY_DEFS={};
+try{CUSTOM_CATEGORY_DEFS=JSON.parse(localStorage.getItem('tif_custom_categories_v1')||'{}')}catch(e){CUSTOM_CATEGORY_DEFS={}}
+function categorySlug(label){return norm(label).replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'').slice(0,36)}
+function persistCustomCategories(){try{localStorage.setItem('tif_custom_categories_v1',JSON.stringify(CUSTOM_CATEGORY_DEFS))}catch(e){}}
+function rebuildCategoryWords(){CATEGORY_WORDS=Object.fromEntries(Object.entries(CATEGORY_DEFS).map(([k,v])=>[k,new Set(v.words.flatMap(w=>smartTokens(w)))]))}
+Object.entries(CUSTOM_CATEGORY_DEFS).forEach(([k,v])=>{if(v&&typeof v.label==='string'&&Array.isArray(v.words)&&v.words.length)CATEGORY_DEFS[k]={label:v.label,words:v.words.map(String).filter(Boolean)}});
+let CATEGORY_WORDS=Object.fromEntries(Object.entries(CATEGORY_DEFS).map(([k,v])=>[k,new Set(v.words.flatMap(w=>smartTokens(w)))]));
+function renderCustomCategories(){
+  const box=document.getElementById('customCategoriesList');if(!box)return;
+  const rows=Object.entries(CUSTOM_CATEGORY_DEFS);
+  box.innerHTML=rows.length?rows.map(([k,v])=>`<div class="custom-category-row"><span><b>${esc(v.label)}</b><small>${esc(v.words.join(', '))}</small></span><button class="btn bd- bxs" onclick="removeCustomCategory('${esc(k)}')">✕ Remove</button></div>`).join(''):'<div class="smart-help">No custom categories yet.</div>';
+}
+function addCustomCategory(){
+  const label=document.getElementById('customCategoryName')?.value.trim(),words=(document.getElementById('customCategoryWords')?.value||'').split(',').map(x=>x.trim()).filter(Boolean);
+  const key=categorySlug(label||'');
+  if(!label||!words.length){toast('Enter a category name and at least one keyword.','e');return}
+  if(!key||BUILTIN_CATEGORY_KEYS.has(key)){toast('Choose a different category name.','e');return}
+  CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};persistCustomCategories();rebuildCategoryWords();renderCustomCategories();renderCategoryChoices();
+  document.getElementById('customCategoryName').value='';document.getElementById('customCategoryWords').value='';
+  toast('Custom category added: '+label,'s');
+}
+function removeCustomCategory(key){
+  if(!CUSTOM_CATEGORY_DEFS[key])return;
+  delete CUSTOM_CATEGORY_DEFS[key];delete CATEGORY_DEFS[key];delete MANUAL_IMAGE_CATS[key];delete MANUAL_ITEM_CATS[key];persistCustomCategories();saveCategoryMemory();rebuildCategoryWords();
+  for(const img of IMAGES)if(img.file)img.categories=imageCategoriesForFile(img.file);
+  renderCustomCategories();renderCategoryChoices();renderLibraryCategorySummary();renderResults();toast('Custom category removed.','i');
+}
+
 const DEFAULT_PRIORITY_RULES=[
   {id:'cold',name:'Cold indicators',words:['iced','ice','cold','chilled','frozen','مثلج','مثلجة','بارد','باردة','ثلج','مبرد','مبردة'],category:'cold_drinks',priority:1,enabled:true},
   {id:'hot',name:'Hot indicators',words:['hot','warm','steamed','ساخن','ساخنة','حار','حارة','دافئ','دافئة'],category:'hot_drinks',priority:2,enabled:true},
@@ -951,20 +969,20 @@ function renderCategoryChoices(){
 function renderLibraryCategorySummary(){
   const box=document.getElementById('libraryCategorySummary');if(!box)return;
   const {counts,uncategorized}=categoryCounts();
-  box.innerHTML='<div class="category-summary-title">📊 Library category summary</div><div class="category-summary-grid">'+Object.entries(CATEGORY_DEFS).map(([k,v])=>`<div class="category-stat"><strong>${counts[k].toLocaleString()}</strong><span>${v.label}</span></div>`).join('')+`<div class="category-stat"><strong>${uncategorized.toLocaleString()}</strong><span>Uncategorized</span></div></div><div class="category-summary-note">Classification uses filenames and vocabulary. Manual corrections are saved locally and restored on future uploads. An image may appear in more than one category.</div>`;
+  box.innerHTML='<div class="category-summary-title">📊 Library category summary</div><div class="category-summary-grid">'+Object.entries(CATEGORY_DEFS).map(([k,v])=>`<div class="category-stat"><strong>${counts[k].toLocaleString()}</strong><span>${v.label}</span></div>`).join('')+`<div class="category-stat"><strong>${uncategorized.toLocaleString()}</strong><span>Uncategorized</span></div></div><div class="category-summary-note">Categories are assigned manually. Assignments are saved locally and restored on future uploads. An image may appear in more than one category.</div>`;
   box.style.display='block';renderCategoryChoices();
 }
 function updateScopeEstimate(){
   const el=document.getElementById('smartStatus');if(!el)return;const mode=document.getElementById('scopeMode')?.value||'all';
-  if(mode==='all'){el.textContent='🧠 Smart matching is local · searching all '+IMAGES.length.toLocaleString()+' library images.';return}
-  if(mode==='auto'){el.textContent='🧠 Auto category mode · each item starts in its inferred category and expands when confidence is weak.';return}
+  if(mode==='all'){el.textContent='🔎 Local matching · searching all '+IMAGES.length.toLocaleString()+' library images.';return}
   const keys=selectedCategories(),include=document.getElementById('includeUncat')?.checked!==false,n=IMAGES.filter(img=>(img.categories||[]).some(k=>keys.includes(k))||(include&&!(img.categories||[]).length)).length;
   el.textContent='🎯 Selected scope: '+n.toLocaleString()+' of '+IMAGES.length.toLocaleString()+' library images.';
 }
 function selectedCategories(){return [...document.querySelectorAll('.cat-check:checked')].map(x=>x.value)}
 function scopedCandidates(rawQ,cands){
   const mode=document.getElementById('scopeMode')?.value||'all';if(mode==='all')return cands;
-  let keys=mode==='selected'?selectedCategories():itemCategories(rawQ);if(!keys.length)return cands;
+  if(mode!=='selected')return cands;
+  let keys=selectedCategories();if(!keys.length)return cands;
   const include=document.getElementById('includeUncat')?.checked!==false;
   const scoped=new Set([...cands].filter(i=>{const cats=IMAGES[i]?.categories||[];return cats.some(k=>keys.includes(k))||(include&&!cats.length)}));
   return scoped.size?scoped:cands;
@@ -1050,8 +1068,6 @@ function wEditSim(qa,ia){
 function scoreTwo(qn,iNorm){
   if(!qn||!iNorm)return 0;
   if(qn===iNorm)return 1.0;
-  const cq=getCat(qn),ci=getCat(iNorm);
-  if(cq&&ci&&cq!==ci)return 0;
   const qa=qn.split(' ').filter(Boolean),ia=iNorm.split(' ').filter(Boolean);
   const sq=smartNorm(qn),si=smartNorm(iNorm);
   const comp=componentF1(qn,iNorm);
@@ -1089,8 +1105,11 @@ function expandQuery(rawQ){
     return SYN[ci].find(c=>/^[a-z]/.test(c))||w;
   }).join(' ');
   const sn=norm(se);if(sn&&sn!==base)vs.add(sn);
-  /* Cluster expansion (≤2 words) */
-  if(words.length<=2){
+  /* Expand individual synonyms only for one-word queries.
+     For multiword queries, keeping the full phrase prevents a generic
+     token such as "crepe" from receiving an exact score and outranking
+     a more specific filename such as "crepe cheese roumy". */
+  if(words.length===1){
     for(const w of words){
       const ci=SYNMAP.get(normWord(w));
       if(ci!==undefined)for(const s of SYN[ci]){const sn2=norm(s);if(sn2)vs.add(sn2)}
@@ -1163,6 +1182,7 @@ const IMGTYPES=new Set(['image/jpeg','image/jpg','image/png','image/gif',
 let IMAGES=[];
 let RESULTS=[];
 let PREVIEWED=new Set();
+let EXCLUDED_RESULTS=new Set();
 let RENDER_LIMIT=240;
 let RUNNING=false;
 let MODAL_IDX=-1;
@@ -1174,37 +1194,37 @@ function backupObjectMap(obj,validator){const out={};if(!obj||typeof obj!=='obje
 function categoryKeyFromLabel(value){const x=norm(value);for(const[k,v]of Object.entries(CATEGORY_DEFS))if(x===norm(k)||x===norm(v.label))return k;return''}
 function makeMemoryCSV(){
   const rows=[['Record Type','Name / Image Key','Category','Matched Image Name','Normalized Match','Dictionary Value','Notes']];
+  for(const[k,v]of Object.entries(CUSTOM_CATEGORY_DEFS))if(v&&typeof v.label==='string'&&Array.isArray(v.words))rows.push(['Custom category',k,v.label,'','',v.words.join(' | '),'Manual category definition']);
   for(const[k,v]of Object.entries(backupObjectMap(MANUAL_IMAGE_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)))rows.push(['Image category',k,CATEGORY_DEFS[v].label,'','','','Manual image classification']);
   for(const[k,v]of Object.entries(backupObjectMap(MANUAL_ITEM_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)))rows.push(['Item category',k,CATEGORY_DEFS[v].label,'','','','Manual item classification']);
   for(const r of PRIORITY_RULES)rows.push(['Priority rule',r.name,r.category?CATEGORY_DEFS[r.category]?.label||r.category:'',String(r.priority),r.words.join(' | '),String(r.enabled!==false),r.id||'']);
   for(const[k,v]of Object.entries(backupObjectMap(LEARNED,x=>x&&typeof x==='object'&&!Array.isArray(x)&&typeof x.name==='string')))rows.push(['Learned match',k,'',v.name,v.normalized||'','','Saved image choice']);
-  for(const[k,v]of Object.entries(backupObjectMap(CUSTOM_DICT,x=>typeof x==='string')))rows.push(['Dictionary rule',k,'','','',v,'Custom vocabulary']);
   return rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
 }
 function exportMemoryBackup(){
   const csv='\ufeff'+makeMemoryCSV();const stamp=new Date().toISOString().slice(0,10);saveOfflineBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'Talabat-Images-Finder-memory-'+stamp+'.csv');
-  const total=Object.keys(backupObjectMap(MANUAL_IMAGE_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)).length+Object.keys(backupObjectMap(MANUAL_ITEM_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)).length+PRIORITY_RULES.length+Object.keys(backupObjectMap(LEARNED,x=>x&&typeof x==='object'&&!Array.isArray(x)&&typeof x.name==='string')).length+Object.keys(backupObjectMap(CUSTOM_DICT,x=>typeof x==='string')).length;document.getElementById('smartStatus').textContent='💾 Memory CSV exported · '+total+' saved rules';toast('Memory CSV exported. Open it in Excel to review or edit.','s');
+  const total=Object.keys(CUSTOM_CATEGORY_DEFS).length+Object.keys(backupObjectMap(MANUAL_IMAGE_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)).length+Object.keys(backupObjectMap(MANUAL_ITEM_CATS,x=>typeof x==='string'&&x in CATEGORY_DEFS)).length+PRIORITY_RULES.length+Object.keys(backupObjectMap(LEARNED,x=>x&&typeof x==='object'&&!Array.isArray(x)&&typeof x.name==='string')).length;document.getElementById('smartStatus').textContent='💾 Memory CSV exported · '+total+' saved rules';toast('Memory CSV exported. Open it in Excel to review or edit.','s');
 }
 function importMemoryBackup(e){
   const f=e.target.files?.[0];if(!f)return;
   f.text().then(text=>{const rows=parseDelimited(text.replace(/^\ufeff/,''),',');if(!rows.length)throw Error('CSV is empty');const header=rows[0].map(x=>norm(x));if(!header.some(x=>x.includes('record type')))throw Error('This is not a Talabat memory CSV');
     let applied=0,skipped=0;for(const row of rows.slice(1)){const type=norm(row[0]||''),key=String(row[1]||'').trim(),cat=categoryKeyFromLabel(row[2]||'');if(!type&&!key&&!cat)continue;
-      if(type==='image category'){if(key&&cat){MANUAL_IMAGE_CATS[key]=cat;applied++}else skipped++}
+      if(type==='custom category'){const label=String(row[2]||'').trim(),words=String(row[5]||'').split('|').map(x=>x.trim()).filter(Boolean);if(key&&label&&words.length&&!BUILTIN_CATEGORY_KEYS.has(key)){CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};applied++}else skipped++}
+      else if(type==='image category'){if(key&&cat){MANUAL_IMAGE_CATS[key]=cat;applied++}else skipped++}
       else if(type==='item category'){if(key&&cat){MANUAL_ITEM_CATS[norm(key)]=cat;applied++}else skipped++}
       else if(type==='priority rule'){const name=key,category=categoryKeyFromLabel(row[2]||''),priority=Math.max(1,Number(row[3])||1),words=String(row[4]||'').split('|').map(x=>x.trim()).filter(Boolean),enabled=String(row[5]||'true').toLowerCase()!=='false',id=String(row[6]||'custom_'+Date.now()).trim();if(name&&words.length){const existing=PRIORITY_RULES.findIndex(r=>r.id===id||norm(r.name)===norm(name));const rule={id,name,category,priority,words,enabled};if(existing>=0)PRIORITY_RULES[existing]=rule;else PRIORITY_RULES.push(rule);applied++}else skipped++}
       else if(type==='learned match'){const name=String(row[3]||'').trim();if(key&&name){LEARNED[norm(key)]={name,normalized:String(row[4]||'').trim()};applied++}else skipped++}
-      else if(type==='dictionary rule'){const value=String(row[5]||'').trim();if(key&&value){CUSTOM_DICT[norm(key)]=value;applied++}else skipped++}
       else skipped++;
     }
-    saveCategoryMemory();saveLearned();persistPriorityRules();renderPriorityRules();try{localStorage.setItem('tif_dictionary_v1',JSON.stringify(CUSTOM_DICT))}catch(e){}loadDictionaryUI();for(const img of IMAGES)if(img.file)img.categories=imageCategoriesForFile(img.file);renderLibraryCategorySummary();renderResults();refreshModal();document.getElementById('smartStatus').textContent='✅ Memory CSV imported · '+applied+' rules applied'+(skipped?' · '+skipped+' rows skipped':'');toast('Memory CSV imported and merged.','s',7000);
+    persistCustomCategories();rebuildCategoryWords();saveCategoryMemory();saveLearned();persistPriorityRules();renderCustomCategories();renderCategoryChoices();for(const img of IMAGES)if(img.file)img.categories=imageCategoriesForFile(img.file);renderLibraryCategorySummary();renderResults();refreshModal();document.getElementById('smartStatus').textContent='✅ Memory CSV imported · '+applied+' rules applied'+(skipped?' · '+skipped+' rows skipped':'');toast('Memory CSV imported and merged.','s',7000);
   }).catch(err=>{document.getElementById('smartStatus').textContent='❌ Memory CSV import failed · '+err.message;toast('Memory CSV import failed: '+err.message,'e',7000)}).finally(()=>{e.target.value=''})
 }
 function imageCategoryKeys(file){const name=String(file?.name||'').toLowerCase(),size=file?.size||0,rel=String(file?.webkitRelativePath||file?.name||'').toLowerCase();return rel===name?[name+'|'+size]:[rel+'|'+size,name+'|'+size]}
 function imageCategoryKey(file){return imageCategoryKeys(file)[0]}
 function imageManualCategory(img){if(!img)return'';for(const k of imageCategoryKeys(img.file))if(MANUAL_IMAGE_CATS[k])return MANUAL_IMAGE_CATS[k];return''}
-function imageCategoriesForFile(file){const manual=imageCategoryKeys(file).map(k=>MANUAL_IMAGE_CATS[k]).find(Boolean);return manual?[manual]:inferCategories(file.name)}
-function itemCategories(name){const manual=MANUAL_ITEM_CATS[norm(name)];return manual?[manual]:inferCategories(name)}
-function categoryOptions(selected,includeAuto=true){let h=includeAuto?'<option value="auto">↻ Automatic</option>':'';for(const[k,v]of Object.entries(CATEGORY_DEFS))h+=`<option value="${k}"${selected===k?' selected':''}>${v.label}</option>`;return h}
+function imageCategoriesForFile(file){const manual=imageCategoryKeys(file).map(k=>MANUAL_IMAGE_CATS[k]).find(Boolean);return manual?[manual]:[]}
+function itemCategories(name){const manual=MANUAL_ITEM_CATS[norm(name)];return manual?[manual]:[]}
+function categoryOptions(selected,includeAuto=true){let h=includeAuto?'<option value="auto">Unassigned (manual only)</option>':'';for(const[k,v]of Object.entries(CATEGORY_DEFS))h+=`<option value="${k}"${selected===k?' selected':''}>${v.label}</option>`;return h}
 function saveImageCategory(idx,key){const img=IMAGES[idx];if(!img)return;if(key==='auto')for(const k of imageCategoryKeys(img.file))delete MANUAL_IMAGE_CATS[k];else for(const k of imageCategoryKeys(img.file))MANUAL_IMAGE_CATS[k]=key;img.categories=imageCategoriesForFile(img.file);saveCategoryMemory();renderLibraryCategorySummary();renderResults();refreshModal();document.getElementById('smartStatus').textContent='💾 Saved image category for '+img.name}
 function saveItemCategory(ri,key){const r=RESULTS[ri];if(!r)return;if(key==='auto')delete MANUAL_ITEM_CATS[norm(r.menuItem)];else MANUAL_ITEM_CATS[norm(r.menuItem)]=key;r.categories=itemCategories(r.menuItem);saveCategoryMemory();renderResults();refreshModal();}
 function saveImageCategoryFromModal(key){const img=MODAL_ALT>=0?IMAGES[RESULTS[MODAL_IDX]?.alts?.[MODAL_ALT]?.idx]:IMAGES[RESULTS[MODAL_IDX]?.bestIdx];if(!img)return;saveImageCategory(IMAGES.indexOf(img),key)}
@@ -1357,7 +1377,7 @@ async function loadFiles(files,folderName){
       newlyIndexed++;
     }else reused++;
     const manual=imageManualCategory({file});
-    const categories=manual?[manual]:inferCategories(file.name);
+    const categories=manual?[manual]:[];
     IMAGES.push({name:file.name,normalized,categories,allV:[...vs],file,objectUrl:URL.createObjectURL(file)});
     const pct=Math.round(((i+1)/total)*80);
     setP('lFill','lPct','lLbl','lMsg',pct,'Loading '+(i+1)+'/'+total,(wasReused?'Reusing cached index: ':'Indexing new image: ')+file.name);
@@ -1395,7 +1415,7 @@ async function startSearch(){
   if(!txt){toast('Paste your menu items first.','e');return}
   /* Preserve every non-empty row, including duplicate item names. */
   const items=txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-  RUNNING=true;RESULTS=[];PREVIEWED.clear();
+  RUNNING=true;RESULTS=[];PREVIEWED.clear();EXCLUDED_RESULTS.clear();
   document.getElementById('searchBtn').disabled=true;
   document.getElementById('stopBtn').style.display='inline-flex';
   showProg('searchProg',true);
@@ -1416,9 +1436,6 @@ async function startSearch(){
     const scoreSet=(set)=>{const rows=[];for(const j of set){const img=IMAGES[j];const{score,how,method}=scoreQI(qVars,img);if(score>0)rows.push({idx:j,name:img.name,score,how,method})}rows.sort((a,b)=>b.score-a.score);return rows};
     let scoped=scopedCandidates(rawQ,cands);
     let scores=scoreSet(scoped);
-    const mode=document.getElementById('scopeMode')?.value||'all';
-    /* Auto mode stays fast, but never sacrifices accuracy when the scoped result is weak. */
-    if(mode==='auto'&&scoped.size<cands.size&&(!scores[0]||scores[0].score<.72))scores=scoreSet(cands);
 
     let best=scores[0]||null;
     const learnedIdx=findLearned(rawQ);
@@ -1429,9 +1446,8 @@ async function startSearch(){
     }
     const alts=scores.slice(0,2);
     const tier=best?getTier(best.score):5;
-    const previewRequired=document.getElementById('requirePreview')?.checked!==false;
-    const conf=!previewRequired&&best&&tier<=2?best.idx:-1;
-    if(conf>=0)confirmed++;
+    const conf=-1;
+
     RESULTS.push({
       menuItem:rawQ,
       categories:itemCategories(rawQ),
@@ -1460,8 +1476,8 @@ async function startSearch(){
   showProg('searchProg',false);
   renderResults();updateStats();
   document.getElementById('dlCard').classList.add('show');
-  setSt('✅ Done — '+RESULTS.length+' items, '+confirmed+' confirmed'+(document.getElementById('requirePreview')?.checked!==false?' · preview required before confirmation':'')+'.','ok');
-  toast('Done! '+confirmed+'/'+RESULTS.length+' confirmed.','s');
+  setSt('✅ Done — '+RESULTS.length+' items. Check the images you want to download.','ok');
+  toast('Done! Check the images you want to download.','s');
 }
 
 function stopSearch(){
@@ -1544,10 +1560,12 @@ function renderResults(){
       :`<div class="nothumb">🖼️</div>`;
 
     /* Status text */
-    const stHtml=r.confirmed>=0
-      ?`<span style="color:var(--gn);font-size:.7rem;font-weight:700">✅ Confirmed</span>`
+    const excluded=EXCLUDED_RESULTS.has(gi);
+    const selected=r.confirmed>=0&&!excluded;
+    const stHtml=selected
+      ?`<span style="color:var(--gn);font-size:.7rem;font-weight:700">✅ Included in ZIP</span>`
       :r.bestIdx>=0
-        ?`<span style="color:var(--ye);font-size:.7rem;font-weight:700">⚠️ Review</span>`
+        ?`<span style="color:var(--mu);font-size:.7rem;font-weight:700">⬜ Not selected</span>`
         :`<span style="color:var(--mu);font-size:.7rem">❌ No match</span>`;
 
     /* Method chip */
@@ -1601,12 +1619,14 @@ function renderResults(){
           ${isDup?`<div class="dupw">⚠️ Duplicate filename — please rename</div>`:''}
         </div>`:'';
 
-    return`<div class="rcard ${tm.rc}" id="card-${gi}">
+    return`<div class="rcard ${tm.rc}${excluded?' excluded':''}" id="card-${gi}">
       ${thumbHtml}
       <div class="cbody">
         <div class="crow">
           <span class="mname"><span class="name-label">Item:</span> ${esc(r.menuItem)} ${r.categories?.length?`<span class="cat-chip">${esc(categoryNames(r.categories).slice(0,2).join(' · '))}</span>`:''}</span>
-          <select class="item-cat-select" title="Save item category" onchange="saveItemCategory(${gi},this.value)">${categoryOptions(MANUAL_ITEM_CATS[norm(r.menuItem)]||'auto')}</select>
+          <label class="download-check" title="Check to include this image in the ZIP"><input type="checkbox" ${selected?'checked':''} ${r.bestIdx<0?'disabled':''} onchange="toggleSelected(${gi},this.checked)"/> Download</label>
+          <select class="item-cat-select" title="Manually assign the menu item category" onchange="saveItemCategory(${gi},this.value)">${categoryOptions(MANUAL_ITEM_CATS[norm(r.menuItem)]||'auto')}</select>
+          ${r.bestIdx>=0?`<select class="item-cat-select image-cat-select" title="Manually assign the image category" onchange="saveImageCategory(${r.bestIdx},this.value)">${categoryOptions(imageManualCategory(IMAGES[r.bestIdx])||'auto')}</select>`:''}
           ${r.score>0?`<span class="badge ${tm.badge}">${pct}%</span>`:''}
           ${mc}${stHtml}
           ${r.bestIdx>=0?`<button class="btn bs bxs" onclick="openModal(${gi})">👁 Preview</button>`:''}
@@ -1615,13 +1635,7 @@ function renderResults(){
           <div class="sbg"><div class="sbf ${tm.bar}" style="width:${pct}%"></div></div>
           <span class="sfile" title="${esc(imgFileName)}"><span class="name-label">Image:</span> ${esc(imgFileName||'—')}</span>
         </div>
-        <div class="cactions">
-          ${r.confirmed>=0
-            ?`<button class="btn bd- bxs" onclick="clrConf(${gi})">✕ Remove</button>`
-            :r.bestIdx>=0
-              ?`<button class="btn bg- bxs" onclick="useTop(${gi})">✅ Use best</button>`
-              :''}
-        </div>
+        <div class="cactions"><span class="smart-help">${selected?'Checked — this image will be downloaded.':'Unchecked — this image will be ignored.'}</span></div>
         ${altHtml}${exHtml}
       </div>
     </div>`;
@@ -1633,9 +1647,21 @@ function doFilter(){RENDER_LIMIT=240;renderResults()}
 /* ═══════════════════════════════════════
    ACTIONS
 ═══════════════════════════════════════ */
+function toggleSelected(i,checked){
+  const r=RESULTS[i];if(!r||r.bestIdx<0)return;
+  if(checked){EXCLUDED_RESULTS.delete(i);r.confirmed=r.bestIdx;r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,r.bestIdx)}
+  else{r.confirmed=-1;EXCLUDED_RESULTS.delete(i)}
+  updateStats();renderResults();
+}
+function toggleExclude(i){
+  const r=RESULTS[i];if(!r||r.bestIdx<0)return;
+  if(EXCLUDED_RESULTS.has(i)){EXCLUDED_RESULTS.delete(i);toast('Restored for ZIP download.','s')}else{EXCLUDED_RESULTS.add(i);r.confirmed=-1;toast('Excluded from ZIP download.','i')}
+  updateStats();renderResults();
+}
 function setConf(i,idx){
   if(idx>=0&&document.getElementById('requirePreview')?.checked!==false&&!PREVIEWED.has(i)){openModal(i);toast('Preview this image before confirming.','i');return}
   RESULTS[i].confirmed=idx;
+  if(idx>=0){EXCLUDED_RESULTS.delete(i)}
   if(idx>=0){RESULTS[i].useMenuName=true;RESULTS[i].exportName=san(RESULTS[i].menuItem);rememberMatch(RESULTS[i].menuItem,idx)}
   updateStats();renderResults();
 }
@@ -1648,7 +1674,8 @@ function pickAlt(ri,ai){
   r.alts[ai]={...old};
   r.bestIdx=alt.idx;r.bestName=alt.name;r.score=alt.score;
   r.how=alt.how;r.method=alt.method;r.tier=getTier(alt.score);
-  r.confirmed=alt.idx;r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,alt.idx);
+  const wasSelected=r.confirmed>=0&&!EXCLUDED_RESULTS.has(ri);
+  r.confirmed=wasSelected?alt.idx:-1;if(wasSelected){r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,alt.idx)}
   updateStats();renderResults();
   toast('Switched to: '+alt.name,'s');
 }
@@ -1656,7 +1683,7 @@ function pickAlt(ri,ai){
 function confirmAllTop(){
   let n=0;
   RESULTS.forEach((r,i)=>{
-    if(r.confirmed<0&&r.bestIdx>=0&&r.tier<=2&&(document.getElementById('requirePreview')?.checked===false||PREVIEWED.has(i))){
+    if(r.confirmed<0&&!EXCLUDED_RESULTS.has(i)&&r.bestIdx>=0&&r.tier<=2&&(document.getElementById('requirePreview')?.checked===false||PREVIEWED.has(i))){
       r.confirmed=r.bestIdx;r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,r.bestIdx);n++;
     }
   });
@@ -1770,18 +1797,8 @@ function openModalAlt(ri,ai){
 function ovClick(e){if(e.target===document.getElementById('modal'))closeModal()}
 function closeModal(){document.getElementById('modal').classList.remove('open');MODAL_ALT=-1}
 
-function confirmFromModal(){
-  if(MODAL_IDX<0)return;
-  const label=RESULTS[MODAL_IDX]?.menuItem||'';
-  if(MODAL_ALT>=0)pickAlt(MODAL_IDX,MODAL_ALT);
-  else{const r=RESULTS[MODAL_IDX];if(r?.bestIdx>=0)setConf(MODAL_IDX,r.bestIdx)}
-  closeModal();
-  if(label)toast('Confirmed "'+label+'"','s');
-}
-function rejectFromModal(){
-  if(MODAL_IDX<0)return;
-  clrConf(MODAL_IDX);closeModal();toast('Match removed.','i');
-}
+function confirmFromModal(){closeModal()}
+function rejectFromModal(){closeModal()}
 function navModal(dir){
   const wm=RESULTS.map((r,i)=>({r,i})).filter(({r})=>r.bestIdx>=0);
   const cur=wm.findIndex(({i})=>i===MODAL_IDX);
@@ -1804,7 +1821,7 @@ document.addEventListener('keydown',e=>{
 function updateStats(){
   for(let t=1;t<=4;t++){
     const el=document.getElementById('dlT'+t);
-    if(el)el.textContent=RESULTS.filter(r=>r.confirmed>=0&&r.tier===t).length;
+    if(el)el.textContent=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i)&&r.tier===t).length;
   }
   const dlR=document.getElementById('dlR');
   if(dlR)dlR.textContent=RESULTS.filter(r=>r.bestIdx<0).length;
@@ -1883,7 +1900,7 @@ function saveOfflineBlob(blob,name){
 async function doZip(){
   const dups=getDups();
   if(dups.size>0){toast('⚠️ Fix duplicate filenames first.','e',6000);return}
-  const confirmed=RESULTS.filter(r=>r.confirmed>=0);
+  const confirmed=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i));
   if(!confirmed.length){toast('No confirmed images.','e');return}
   const zipBtn=document.getElementById('zipBtn');zipBtn.disabled=true;
   document.getElementById('dlLog').innerHTML='';showProg('zipProg',true);
@@ -1912,7 +1929,7 @@ function resetSession(){
   const hasWork=IMAGES.length||RESULTS.length||document.getElementById('menuTA')?.value.trim();
   RUNNING=false;
   IMAGES.forEach(img=>{try{URL.revokeObjectURL(img.objectUrl)}catch(e){}});
-  IMAGES=[];RESULTS=[];PREVIEWED.clear();RENDER_LIMIT=240;WIDX=new Map();EMAP=new Map();MODAL_IDX=-1;MODAL_ALT=-1;
+  IMAGES=[];RESULTS=[];PREVIEWED.clear();EXCLUDED_RESULTS.clear();RENDER_LIMIT=240;WIDX=new Map();EMAP=new Map();MODAL_IDX=-1;MODAL_ALT=-1;
   document.getElementById('folderInput').value='';document.getElementById('menuFileInput').value='';document.getElementById('menuTA').value='';
   document.getElementById('fldCount').textContent='0 images';
   document.getElementById('dz').style.display='block';document.getElementById('fl').style.display='none';
@@ -1962,7 +1979,87 @@ function countItems(){
   const dw=document.getElementById('dupWarn');
   if(dw)dw.textContent=d>0?d+' duplicate'+(d>1?'s':'')+' retained for matching':'';
 }
-document.addEventListener('DOMContentLoaded',()=>{countItems();loadDictionaryUI();renderCategoryChoices();renderPriorityRules()});
+document.addEventListener('DOMContentLoaded',()=>{countItems();renderCustomCategories();renderCategoryChoices()});
+</script>
+<script>
+(function () {
+  if (!('serviceWorker' in navigator)) {
+    console.warn('[pwa] Service workers unsupported — offline mode unavailable.');
+    return;
+  }
+
+  // Register after load so the main document never competes with the
+  // service worker for bandwidth on a first visit.
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(function (reg) {
+        console.log('[pwa] registered, scope:', reg.scope);
+
+        // ---- Tell the user when a new version is ready ----
+        reg.addEventListener('updatefound', function () {
+          var sw = reg.installing;
+          if (!sw) return;
+          sw.addEventListener('statechange', function () {
+            if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateToast(reg);
+            }
+          });
+        });
+
+        // ---- Signal first-time offline readiness ----
+        if (!navigator.serviceWorker.controller) {
+          navigator.serviceWorker.ready.then(function () {
+            toast('\u2713 Offline mode ready — this tool now works without internet.');
+          });
+        }
+      })
+      .catch(function (err) {
+        console.error('[pwa] registration failed:', err);
+      });
+  });
+
+  // Reload once when the new worker takes over.
+  var refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+
+  // ---------- minimal toast helpers (no dependencies) ----------
+  function toast(msg, actionLabel, onAction) {
+    var t = document.createElement('div');
+    t.setAttribute('role', 'status');
+    t.style.cssText =
+      'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'z-index:2147483647;background:#1f2430;color:#fff;padding:12px 18px;' +
+      'border-radius:10px;font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;' +
+      'box-shadow:0 8px 28px rgba(0,0,0,.28);display:flex;gap:14px;align-items:center;' +
+      'max-width:min(92vw,560px)';
+    var span = document.createElement('span');
+    span.textContent = msg;
+    t.appendChild(span);
+
+    if (actionLabel) {
+      var b = document.createElement('button');
+      b.textContent = actionLabel;
+      b.style.cssText =
+        'background:#ff5a00;border:0;color:#fff;padding:7px 14px;border-radius:7px;' +
+        'font:600 13px system-ui;cursor:pointer;flex:0 0 auto';
+      b.onclick = function () { t.remove(); onAction && onAction(); };
+      t.appendChild(b);
+    }
+
+    document.body.appendChild(t);
+    if (!actionLabel) setTimeout(function () { t.remove(); }, 5000);
+  }
+
+  function showUpdateToast(reg) {
+    toast('A new version of the tool is available.', 'Update', function () {
+      if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
+    });
+  }
+})();
 </script>
 </body>
 </html>
