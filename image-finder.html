@@ -166,7 +166,7 @@ textarea::placeholder{color:var(--mu)}
 .rcard.c5{border-left:4px solid var(--re);opacity:.6}
 
 /* ── THUMBNAIL AREA ── */
-.tarea{display:flex;flex-direction:column;align-items:center;gap:6px;width:132px;flex-shrink:0}
+.tarea{display:flex;flex-direction:column;align-items:center;gap:6px;width:132px;flex-shrink:0;position:relative}.tarea.selected-download .thumb{border:3px solid var(--gn);box-shadow:0 0 0 2px var(--gn),0 4px 14px rgba(22,163,74,.28)}.download-confirm{position:absolute;top:6px;left:5px;right:5px;background:var(--gn);color:#fff;border-radius:6px;padding:3px 4px;text-align:center;font-size:.62rem;font-weight:800;line-height:1.2;pointer-events:none}
 .thumb{width:132px;height:132px;border-radius:10px;object-fit:cover;border:2px solid var(--bd);cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;background:var(--sur2);display:block}
 .thumb:hover{transform:scale(1.06);border-color:var(--or);box-shadow:0 4px 14px rgba(255,98,0,.22)}
 .nothumb{width:132px;height:132px;border-radius:10px;background:var(--sur2);border:2px dashed var(--bd);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--mu)}
@@ -338,6 +338,7 @@ textarea::placeholder{color:var(--mu)}
 .dict-ta{min-height:190px;height:190px;font-size:.86rem;line-height:1.8;padding:13px}
 .scope-select{width:100%;background:var(--sur);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:11px;font:inherit;font-size:.88rem}
 .category-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;margin-top:12px;max-height:none;overflow:visible}
+.category-choice{display:flex;align-items:center;justify-content:space-between;gap:4px;min-width:0}.category-choice-actions{display:flex;gap:2px;flex:none}.category-choice-actions .btn{padding:2px 5px;font-size:.68rem}
 .category-choices label{font-size:.8rem;color:var(--tx2);display:flex;align-items:center;gap:7px;min-width:0;white-space:nowrap}
 .category-choices input,.uncat-opt input{accent-color:var(--or)}
 .uncat-opt{display:flex;align-items:center;gap:5px;color:var(--tx2);font-size:.68rem;margin-top:8px}
@@ -493,13 +494,10 @@ textarea::placeholder{color:var(--mu)}
   <!-- STEP 3 -->
   <div class="dlcard" id="dlCard">
     <div class="ctitle"><div class="snum">3</div>Download ZIP</div>
-    <div class="csub" style="padding-left:38px;margin-bottom:14px">Checked images packed into <strong>Menu-Images.zip</strong></div>
+    <div class="csub" style="padding-left:38px;margin-bottom:14px">Checked images resized to <strong>810 × 540</strong> high-quality JPGs and packed into <strong>Menu-Images.zip</strong></div>
     <div class="dlst">
-      <div class="dls dg"><div class="dn" id="dlT1">0</div><div class="dl">🟢 Exact</div></div>
-      <div class="dls db"><div class="dn" id="dlT2">0</div><div class="dl">🔵 High</div></div>
-      <div class="dls dy"><div class="dn" id="dlT3">0</div><div class="dl">🟡 Medium</div></div>
-      <div class="dls dp"><div class="dn" id="dlT4">0</div><div class="dl">🟣 Low</div></div>
-      <div class="dls dr"><div class="dn" id="dlR">0</div><div class="dl">🔴 No match</div></div>
+      <div class="dls dg"><div class="dn" id="dlDownloaded">0</div><div class="dl">🟢 Downloaded</div></div>
+      <div class="dls dr"><div class="dn" id="dlIgnored">0</div><div class="dl">🔴 Manually ignored</div></div>
     </div>
     <button class="btn bp" id="zipBtn" onclick="doZip()">📦 Download ZIP</button>
     <div class="prog" id="zipProg">
@@ -552,6 +550,7 @@ textarea::placeholder{color:var(--mu)}
       <div class="mi-row"><b>Method:</b><span id="mMethod"></span></div>
     </div>
     <div class="mbtns">
+            <button class="btn bp bsm" id="mSelectBtn" onclick="confirmFromModal()">✅ Use this image for download</button>
             <button class="btn bs bsm" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -746,7 +745,7 @@ const AR_EN={
   'كولا':'cola','بيبسي':'pepsi','سبرايت':'sprite','فانتا':'fanta',
   'ماء':'water','مياه':'water',
   'جبنه':'cheese','جبنة':'cheese','جبن':'cheese',
-  'موزاريلا':'mozzarella','موزريلا':'mozzarella',
+  'موزاريلا':'mozzarella','موزريلا':'mozzarella','موتزاريلا':'mozzarella','موتزريلا':'mozzarella',
   'شيدر':'cheddar','بارميزان':'parmesan','فيتا':'feta',
   'زبده':'butter','زبدة':'butter',
   'طماطم':'tomato','طماطه':'tomato','بندوره':'tomato',
@@ -814,9 +813,7 @@ const SYN=[
   ['molokhia','ملوخيه','ملوخية'],['koshari','كشري','كشرى'],
   ['fries','بطاطس','بطاطا','فريز','فرايز'],
   ['rice','ارز','رز'],['bread','خبز','خبزه','خبزة','عيش'],
-  ['cheese','جبنه','جبنة','جبن'],
-  ['roumy','رومي','رومى','romi','roomy','roumy cheese'],
-  ['mozzarella','موزاريلا','موزريلا'],
+  ['cheese','جبنه','جبنة','جبن','mozzarella','موزاريلا','موزريلا','موتزاريلا','موتزريلا','roumy','رومي','رومى','romi','roomy','roumy cheese'],
   ['tomato','طماطم','طماطه','بندوره'],
   ['mushroom','مشروم','فطر'],
   ['chocolate','شوكولاتة','شوكولاته','شوكو'],
@@ -869,18 +866,9 @@ loadDictionary();
 /* ═══════════════════════════════════════
    FILENAME CATEGORY MODEL — optional scope
 ═══════════════════════════════════════ */
-let CATEGORY_DEFS={
-  hot_drinks:{label:'Hot drinks',words:['coffee','espresso','latte','cappuccino','americano','mocha','macchiato','frappe','tea','chai','قهوه','قهوة','شاي','كركديه']},
-  juices:{label:'Juices & smoothies',words:['juice','smoothie','shake','mango','orange','lemon','strawberry','banana','apple','pineapple','watermelon','عصير','سموذي','ميلك شيك']},
-  cold_drinks:{label:'Cold drinks',words:['cola','pepsi','sprite','fanta','soda','water','ice','iced','cold','مشروب بارد','ماء','مياه','كولا','بيبسي']},
-  pizza:{label:'Pizza',words:['pizza','margherita','pepperoni','بيتزا','مارغريتا']},
-  sandwiches:{label:'Sandwiches',words:['sandwich','wrap','roll','panini','sub','club','shawarma','سندوتش','ساندوتش','ساندويتش','راب','رول','شاورما']},
-  burgers:{label:'Burgers',words:['burger','hamburger','برجر','برغر','همبرغر']},
-  appetizers:{label:'Appetizers',words:['appetizer','starter','hummus','falafel','fries','wings','nuggets','مقبلات','حمص','فلافل','بطاطس','فرايز']},
-  mains:{label:'Main dishes',words:['main','rice','biryani','kabsa','mandi','koshari','pasta','lasagna','steak','kebab','kofta','طبق رئيسي','ارز','رز','برياني','كبسة','مندي','باستا','ستيك','كباب']},
-  desserts:{label:'Desserts',words:['cake','cheesecake','brownie','cookie','donut','waffle','pancake','crepe','kunafa','baklava','ice cream','gelato','tiramisu','dessert','حلو','كيك','كنافة','بقلاوة','ايس كريم']},
-  salads:{label:'Salads',words:['salad','fattoush','tabbouleh','سلطة','فتوش','تبولة']}
-};
+// Categories are created by the user and assigned manually. No built-in
+// filename vocabulary is loaded, so items remain uncategorized until reviewed.
+let CATEGORY_DEFS={};
 const BUILTIN_CATEGORY_KEYS=new Set(Object.keys(CATEGORY_DEFS));
 let CUSTOM_CATEGORY_DEFS={};
 try{CUSTOM_CATEGORY_DEFS=JSON.parse(localStorage.getItem('tif_custom_categories_v1')||'{}')}catch(e){CUSTOM_CATEGORY_DEFS={}}
@@ -891,17 +879,34 @@ Object.entries(CUSTOM_CATEGORY_DEFS).forEach(([k,v])=>{if(v&&typeof v.label==='s
 let CATEGORY_WORDS=Object.fromEntries(Object.entries(CATEGORY_DEFS).map(([k,v])=>[k,new Set(v.words.flatMap(w=>smartTokens(w)))]));
 function renderCustomCategories(){
   const box=document.getElementById('customCategoriesList');if(!box)return;
-  const rows=Object.entries(CUSTOM_CATEGORY_DEFS);
-  box.innerHTML=rows.length?rows.map(([k,v])=>`<div class="custom-category-row"><span><b>${esc(v.label)}</b><small>${esc(v.words.join(', '))}</small></span><button class="btn bd- bxs" onclick="removeCustomCategory('${esc(k)}')">✕ Remove</button></div>`).join(''):'<div class="smart-help">No custom categories yet.</div>';
+  box.innerHTML='';
+}
+function addCustomCategoryValues(label,words){
+  label=String(label||'').trim();words=(words||[]).map(x=>String(x).trim()).filter(Boolean);
+  const key=categorySlug(label||'');
+  if(!label||!words.length){toast('Enter a category name and at least one keyword.','e');return false}
+  if(!key||BUILTIN_CATEGORY_KEYS.has(key)||CATEGORY_DEFS[key]){toast('This category already exists or is not valid.','e');return false}
+  CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};persistCustomCategories();rebuildCategoryWords();renderCustomCategories();renderCategoryChoices();renderResults();
+  toast('Custom category added: '+label,'s');return true;
 }
 function addCustomCategory(){
   const label=document.getElementById('customCategoryName')?.value.trim(),words=(document.getElementById('customCategoryWords')?.value||'').split(',').map(x=>x.trim()).filter(Boolean);
-  const key=categorySlug(label||'');
-  if(!label||!words.length){toast('Enter a category name and at least one keyword.','e');return}
-  if(!key||BUILTIN_CATEGORY_KEYS.has(key)){toast('Choose a different category name.','e');return}
-  CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};persistCustomCategories();rebuildCategoryWords();renderCustomCategories();renderCategoryChoices();
-  document.getElementById('customCategoryName').value='';document.getElementById('customCategoryWords').value='';
-  toast('Custom category added: '+label,'s');
+  if(addCustomCategoryValues(label,words)){document.getElementById('customCategoryName').value='';document.getElementById('customCategoryWords').value=''}
+}
+function createCategoryFromCard(i){
+  const img=RESULTS[i]?.bestIdx>=0?IMAGES[RESULTS[i].bestIdx]:null;
+  const suggested=img?.name?.replace(/\.[^.]+$/,'')||'';
+  const label=window.prompt('New category name:',suggested);if(label===null)return;
+  const raw=window.prompt('Keywords, separated by commas:',label);if(raw===null)return;
+  addCustomCategoryValues(label,raw.split(','));
+}
+function editCustomCategory(key){
+  const item=CUSTOM_CATEGORY_DEFS[key];if(!item)return;
+  const label=window.prompt('Edit category name:',item.label);if(label===null)return;
+  const next=String(label).trim();if(!next){toast('Category name cannot be empty.','e');return}
+  const nextKey=categorySlug(next);
+  if(nextKey!==key&&(BUILTIN_CATEGORY_KEYS.has(nextKey)||CATEGORY_DEFS[nextKey]||CUSTOM_CATEGORY_DEFS[nextKey])){toast('This category name already exists.','e');return}
+  item.label=next;CATEGORY_DEFS[key].label=next;persistCustomCategories();renderCustomCategories();renderCategoryChoices();renderResults();toast('Category renamed to: '+next,'s');
 }
 function removeCustomCategory(key){
   if(!CUSTOM_CATEGORY_DEFS[key])return;
@@ -962,7 +967,7 @@ function categoryCounts(){
 function renderCategoryChoices(){
   const box=document.getElementById('categoryChoices');if(!box)return;
   const {counts,uncategorized}=categoryCounts();
-  box.innerHTML=Object.entries(CATEGORY_DEFS).map(([k,v])=>`<label title="${v.label}: ${counts[k].toLocaleString()} images"><input type="checkbox" value="${k}" class="cat-check" onchange="updateScopeEstimate()"/> ${v.label} (${counts[k].toLocaleString()})</label>`).join('');
+  box.innerHTML=Object.entries(CATEGORY_DEFS).map(([k,v])=>`<div class="category-choice"><label title="${v.label}: ${counts[k].toLocaleString()} images"><input type="checkbox" value="${k}" class="cat-check" onchange="updateScopeEstimate()"/> ${v.label} (${counts[k].toLocaleString()})</label>${CUSTOM_CATEGORY_DEFS[k]?`<span class="category-choice-actions"><button class="btn bs bxs" title="Edit ${esc(v.label)}" onclick="event.preventDefault();event.stopPropagation();editCustomCategory('${esc(k)}')">✎</button><button class="btn bd- bxs" title="Remove ${esc(v.label)}" onclick="event.preventDefault();event.stopPropagation();removeCustomCategory('${esc(k)}')">✕</button></span>`:''}</div>`).join('');
   const mode=document.getElementById('scopeMode')?.value||'all';box.style.opacity=mode==='selected'?'1':'.58';
   updateScopeEstimate();
 }
@@ -1253,7 +1258,8 @@ function san(n){return String(n||'').replace(/[\\/:*?"<>|]/g,'-').replace(/\s+/g
 function buildFn(r){
   if(r.confirmed<0)return'';
   const img=IMAGES[r.confirmed];if(!img)return'';
-  return r.useMenuName?san(r.exportName||r.menuItem)+getExt(img.name):img.name;
+  const base=r.useMenuName?san(r.exportName||r.menuItem):String(img.name||'image').replace(/\.[^.]+$/,'');
+  return base.replace(/\.[^.]+$/,'')+'.jpg';
 }
 function getDups(){
   const c=new Map();
@@ -1444,7 +1450,7 @@ async function startSearch(){
       const learnedRow=li>=0?scores.splice(li,1)[0]:{idx:learnedIdx,name:IMAGES[learnedIdx].name,score:1,how:'learned',method:'learned'};
       best={...learnedRow,score:1,how:'learned local correction',method:'learned'};
     }
-    const alts=scores.slice(0,2);
+    const alts=scores.filter(x=>x.idx!==best?.idx).slice(0,2);
     const tier=best?getTier(best.score):5;
     const conf=-1;
 
@@ -1548,20 +1554,21 @@ function renderResults(){
     const thumbUrl=r.bestIdx>=0?IMAGES[r.bestIdx]?.objectUrl:'';
     const imgFileName=r.bestIdx>=0?IMAGES[r.bestIdx]?.name:'';
     const previewFn=buildFn(r);
+    const excluded=EXCLUDED_RESULTS.has(gi);
+    const selected=r.confirmed>=0&&!excluded;
 
     /* Main thumbnail */
     const thumbHtml=thumbUrl
-      ?`<div class="tarea">
+      ?`<div class="tarea${selected?' selected-download':''}">
           <img class="thumb" src="${esc(thumbUrl)}" loading="lazy" decoding="async"
             onclick="openModal(${gi})"
             onerror="this.parentElement.innerHTML='<div class=nothumb>🖼️</div>'">
+          ${selected?'<div class="download-confirm">✅ Will download</div>':''}
           <div class="img-name" title="${esc(imgFileName)}">${esc(imgFileName)}</div>
         </div>`
       :`<div class="nothumb">🖼️</div>`;
 
     /* Status text */
-    const excluded=EXCLUDED_RESULTS.has(gi);
-    const selected=r.confirmed>=0&&!excluded;
     const stHtml=selected
       ?`<span style="color:var(--gn);font-size:.7rem;font-weight:700">✅ Included in ZIP</span>`
       :r.bestIdx>=0
@@ -1626,7 +1633,7 @@ function renderResults(){
           <span class="mname"><span class="name-label">Item:</span> ${esc(r.menuItem)} ${r.categories?.length?`<span class="cat-chip">${esc(categoryNames(r.categories).slice(0,2).join(' · '))}</span>`:''}</span>
           <label class="download-check" title="Check to include this image in the ZIP"><input type="checkbox" ${selected?'checked':''} ${r.bestIdx<0?'disabled':''} onchange="toggleSelected(${gi},this.checked)"/> Download</label>
           <select class="item-cat-select" title="Manually assign the menu item category" onchange="saveItemCategory(${gi},this.value)">${categoryOptions(MANUAL_ITEM_CATS[norm(r.menuItem)]||'auto')}</select>
-          ${r.bestIdx>=0?`<select class="item-cat-select image-cat-select" title="Manually assign the image category" onchange="saveImageCategory(${r.bestIdx},this.value)">${categoryOptions(imageManualCategory(IMAGES[r.bestIdx])||'auto')}</select>`:''}
+          ${r.bestIdx>=0?`<select class="item-cat-select image-cat-select" title="Manually assign the image category" onchange="saveImageCategory(${r.bestIdx},this.value)">${categoryOptions(imageManualCategory(IMAGES[r.bestIdx])||'auto')}</select><button class="btn bs bxs card-new-cat" title="Create a new category from this image card" onclick="createCategoryFromCard(${gi})">＋ New category</button>`:''}
           ${r.score>0?`<span class="badge ${tm.badge}">${pct}%</span>`:''}
           ${mc}${stHtml}
           ${r.bestIdx>=0?`<button class="btn bs bxs" onclick="openModal(${gi})">👁 Preview</button>`:''}
@@ -1758,6 +1765,7 @@ function refreshModal(){
 
   /* Image */
   document.getElementById('mImg').src=img.objectUrl;
+  document.getElementById('mSelectBtn').textContent='✅ Use this image for download';
 
   /* Info */
   const tm=TM[r.tier]||TM[5];
@@ -1787,6 +1795,7 @@ function openModalAlt(ri,ai){
   const pos=wm.indexOf(r)+1;
   document.getElementById('mPos').textContent=pos+' / '+wm.length;
   document.getElementById('mImg').src=img.objectUrl;
+  document.getElementById('mSelectBtn').textContent='✅ Select this alternative for download';
   const tm=TM[getTier(alt.score)]||TM[5];
   document.getElementById('mScore').textContent=Math.round(alt.score*100)+'%';
   document.getElementById('mTier').textContent=tm.label;
@@ -1797,7 +1806,17 @@ function openModalAlt(ri,ai){
 function ovClick(e){if(e.target===document.getElementById('modal'))closeModal()}
 function closeModal(){document.getElementById('modal').classList.remove('open');MODAL_ALT=-1}
 
-function confirmFromModal(){closeModal()}
+function confirmFromModal(){
+  const r=RESULTS[MODAL_IDX];if(!r)return;
+  const alt=MODAL_ALT>=0?r.alts?.[MODAL_ALT]:null;
+  const chosen=alt?.idx??r.bestIdx;if(chosen<0)return;
+  if(alt){
+    const old={idx:r.bestIdx,name:r.bestName,score:r.score,how:r.how,method:r.method};
+    r.alts[MODAL_ALT]={...old};r.bestIdx=alt.idx;r.bestName=alt.name;r.score=alt.score;r.how=alt.how;r.method=alt.method;r.tier=getTier(alt.score);
+  }
+  r.confirmed=r.bestIdx;EXCLUDED_RESULTS.delete(MODAL_IDX);r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,r.bestIdx);
+  const selectedName=r.bestName;closeModal();updateStats();renderResults();toast('Selected for ZIP download: '+selectedName,'s');
+}
 function rejectFromModal(){closeModal()}
 function navModal(dir){
   const wm=RESULTS.map((r,i)=>({r,i})).filter(({r})=>r.bestIdx>=0);
@@ -1819,12 +1838,12 @@ document.addEventListener('keydown',e=>{
    ZIP DOWNLOAD
 ═══════════════════════════════════════ */
 function updateStats(){
-  for(let t=1;t<=4;t++){
-    const el=document.getElementById('dlT'+t);
-    if(el)el.textContent=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i)&&r.tier===t).length;
-  }
-  const dlR=document.getElementById('dlR');
-  if(dlR)dlR.textContent=RESULTS.filter(r=>r.bestIdx<0).length;
+  const downloaded=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i)).length;
+  const ignored=Math.max(0,RESULTS.length-downloaded);
+  const dlDownloaded=document.getElementById('dlDownloaded');
+  const dlIgnored=document.getElementById('dlIgnored');
+  if(dlDownloaded)dlDownloaded.textContent=downloaded;
+  if(dlIgnored)dlIgnored.textContent=ignored;
 }
 /* ═══════════════════════════════════════
    OFFLINE ZIP WRITER — built into this page
@@ -1897,6 +1916,28 @@ function saveOfflineBlob(blob,name){
   a.href=url;a.download=name;a.style.display='none';document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove()},1000);
 }
+async function makeOutputImage(file){
+  const W=810,H=540;
+  let source=null,url='';
+  try{
+    if(typeof createImageBitmap==='function')source=await createImageBitmap(file);
+    else{
+      url=URL.createObjectURL(file);
+      source=await new Promise((res,rej)=>{const image=new Image();image.onload=()=>res(image);image.onerror=()=>rej(new Error('Image could not be decoded'));image.src=url});
+    }
+    const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
+    const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas is unavailable');
+    const scale=Math.min(W/source.width,H/source.height),dw=source.width*scale,dh=source.height*scale;
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+    ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+    ctx.drawImage(source,(W-dw)/2,(H-dh)/2,dw,dh);
+    const blob=await new Promise((res,rej)=>canvas.toBlob(b=>b?res(b):rej(new Error('Image conversion failed')),'image/jpeg',0.98));
+    return new File([blob],'output.jpg',{type:'image/jpeg'});
+  }finally{
+    if(url)URL.revokeObjectURL(url);
+    if(source&&typeof source.close==='function')source.close();
+  }
+}
 async function doZip(){
   const dups=getDups();
   if(dups.size>0){toast('⚠️ Fix duplicate filenames first.','e',6000);return}
@@ -1909,7 +1950,7 @@ async function doZip(){
   for(let i=0;i<total;i++){
     const r=confirmed[i],img=IMAGES[r.confirmed],fn=buildFn(r)||img.name;
     setP('zFill','zPct','zLbl','zMsg',Math.round((i/total)*70),'Reading '+(i+1)+'/'+total,fn);
-    try{await img.file.arrayBuffer();entries.push({name:'Menu Images/'+fn,file:img.file});logLine('✅ '+r.menuItem+' → '+fn,'lok');ok++}
+    try{const output=await makeOutputImage(img.file);entries.push({name:'Menu Images/'+fn,file:output});logLine('✅ '+r.menuItem+' → '+fn+' (810×540 high-quality JPG)','lok');ok++}
     catch(err){logLine('❌ '+r.menuItem+' — '+String(err.message),'ler');fail++}
     if((i+1)%10===0)await sleep(0);
   }
