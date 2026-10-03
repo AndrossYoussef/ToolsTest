@@ -14,7 +14,7 @@
 
 /* Bump this string every time you publish a new index.html or
    image-finder.html. That is what pushes the update to users. */
-const VERSION = 'gfx-v10';
+const VERSION = 'gfx-v11';
 
 const APP_SHELL_CACHE = `app-shell-${VERSION}`;
 const RUNTIME_CACHE   = `runtime-${VERSION}`;

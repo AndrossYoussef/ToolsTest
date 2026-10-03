@@ -321,10 +321,10 @@ textarea::placeholder{color:var(--mu)}
 .category-summary{margin-top:10px;padding:12px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs)}
 .category-summary-title{font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:8px}
 .category-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.category-stat{padding:7px 8px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rx);min-width:0}
+.category-stat{padding:0;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rx);min-width:0;overflow:hidden}.category-stat button{display:block;width:100%;padding:8px;text-align:left;background:transparent;color:inherit;border:0;cursor:pointer;font:inherit}.category-stat button:hover{background:var(--orl)}
 .category-stat strong{display:block;font-size:.86rem;color:var(--or)}
 .category-stat span{display:block;font-size:.64rem;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.category-summary-note{font-size:.66rem;color:var(--mu);margin-top:8px}.category-summary-note b{color:var(--or)}
+.category-summary-note{font-size:.66rem;color:var(--mu);margin-top:8px}.category-summary-note b{color:var(--or)}.library-tools{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}.library-tools-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:7px}.library-tools input,.library-tools select,.profile-tools input,.profile-tools select{min-width:0;background:var(--sur);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:7px 8px;font:inherit;font-size:.72rem}.library-tools .brow,.profile-tools .brow{margin-top:7px}.library-quality{font-size:.68rem;color:var(--tx2);margin-top:6px;line-height:1.45}.profile-tools{margin-top:10px;padding-top:9px;border-top:1px solid var(--bd)}.profile-tools .brow{display:flex;flex-wrap:wrap;gap:5px}.review-chip{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:var(--yeb);border:1px solid var(--yebd);color:var(--ye);font-size:.62rem;font-weight:800}.review-chip.high{background:var(--gnb);border-color:var(--gnbd);color:var(--gn)}.review-chip.no{background:var(--reb);border-color:var(--rebd);color:var(--re)}.bulk-check{font-size:.62rem;color:var(--tx2);display:flex;align-items:center;gap:4px;margin-top:5px}.bulk-check input{accent-color:var(--or)}.category-gallery-toolbar select{background:var(--sur2);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:6px 7px;font:inherit;font-size:.68rem}.category-gallery{margin-top:12px;padding:12px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs)}.category-gallery[hidden]{display:none}.category-gallery-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}.category-gallery-toolbar strong{font-size:.8rem}.category-gallery-toolbar input{flex:1;min-width:180px;background:var(--sur2);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:7px 9px;font:inherit;font-size:.74rem}.category-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}.library-image-card{min-width:0;border:1px solid var(--bd);border-radius:var(--rx);background:var(--sur2);overflow:hidden}.library-image-card img{display:block;width:100%;height:120px;object-fit:cover;background:var(--bg);cursor:pointer}.library-image-card .lic-body{padding:8px}.library-image-card .lic-name{font-size:.68rem;font-weight:700;line-height:1.35;min-height:2.7em;overflow-wrap:anywhere}.library-image-card .lic-check{display:flex;align-items:center;gap:5px;margin-top:7px;font-size:.67rem;color:var(--tx2)}.library-image-card .lic-rename{display:flex;align-items:center;gap:5px;margin-top:6px;font-size:.63rem;color:var(--tx2)}.library-image-card .lic-input{display:none;width:100%;margin-top:5px;background:var(--sur);color:var(--tx);border:1px solid var(--bd2);border-radius:var(--rx);padding:5px 6px;font:inherit;font-size:.66rem}.library-image-card .lic-input.show{display:block}.category-gallery-empty{padding:18px;text-align:center;color:var(--mu);font-size:.75rem}@media(max-width:680px){.category-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.library-image-card img{height:100px}}
 .cat-chip{display:inline-block;margin-left:6px;padding:2px 6px;border-radius:999px;background:var(--sur2);border:1px solid var(--bd);color:var(--mu);font-size:.62em;font-weight:700;vertical-align:middle}
 .menu-count{display:inline-flex;align-items:center;gap:4px;color:var(--tx);font-size:.8rem;font-weight:800;background:var(--orl);border:1px solid rgba(255,98,0,.2);border-radius:999px;padding:4px 10px}
 /* ── SMART TOOLS ── */
@@ -332,7 +332,7 @@ textarea::placeholder{color:var(--mu)}
 .smart-grid{display:grid;grid-template-columns:minmax(180px,.62fr) minmax(0,2fr) minmax(280px,1fr);gap:14px;align-items:start}
 .smart-panel{background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs);padding:16px;min-width:0;overflow:hidden}
 .smart-label{font-weight:800;color:var(--tx);font-size:.86rem;margin-bottom:9px}
-.smart-panel input[type=file]{display:none}
+.smart-panel input[type=file]{display:none}.import-menu-panel{display:flex;flex-direction:column;justify-content:flex-start}.import-menu-btn{width:100%;justify-content:center;text-align:center;white-space:normal;line-height:1.25;padding:9px 10px}.import-menu-help{margin-top:9px}
 .smart-help,.smart-foot{font-size:.7rem;color:var(--mu);line-height:1.55;margin-top:7px}
 .smart-foot{padding:8px 10px;border-radius:var(--rx);background:var(--orl);color:var(--tx2);border:1px solid rgba(255,98,0,.16)}
 .dict-ta{min-height:190px;height:190px;font-size:.86rem;line-height:1.8;padding:13px}
@@ -411,7 +411,7 @@ textarea::placeholder{color:var(--mu)}
     <div class="csub">One item per line · Arabic, English, or mixed · Exact match always wins</div>
     <textarea dir="auto" id="menuTA" placeholder="Grilled Chicken&#10;شاورما دجاج&#10;Caesar Salad&#10;Latte&#10;عصير مانجو&#10;بيتزا مارغريتا" oninput="countItems()"></textarea>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-      <span class="menu-count" id="icount">📋 0 menu items total</span>
+      <span class="menu-count" id="icount">📋 0 menu items</span>
       <span style="font-size:.69rem;color:var(--ye)" id="dupWarn"></span>
     </div>
     <div class="brow">
@@ -431,21 +431,21 @@ textarea::placeholder{color:var(--mu)}
     <div class="ctitle"><div class="snum">✦</div>Categories &amp; Data</div>
     <div class="csub">Paste items above or import a CSV/TSV/Excel workbook. Your corrections and dictionary stay on this device.</div>
     <div class="smart-grid">
-      <div class="smart-panel">
-        <div class="smart-label">Menu file import</div>
+      <div class="smart-panel import-menu-panel">
+        <div class="smart-label">Import menu file</div>
         <input id="menuFileInput" type="file" accept=".csv,.tsv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="importMenuFile(event)"/>
-        <button class="btn bs" onclick="document.getElementById('menuFileInput').click()">📥 Import CSV / Excel</button>
-        <div class="smart-help">Reads the first useful column and adds it to the pasted items.</div>
+        <button class="btn bs import-menu-btn" onclick="document.getElementById('menuFileInput').click()">📥 Import CSV / Excel</button>
+        <div class="smart-help import-menu-help">Import one useful menu-item column from a CSV, TSV, or Excel file. Items are added to the list above.</div>
       </div>
       <div class="smart-panel scope-panel">
-        <div class="smart-label">Search scope</div>
+        <div class="smart-label">Search within</div>
         <select id="scopeMode" class="scope-select" onchange="renderCategoryChoices()">
           <option value="all">🌐 All library</option>
           <option value="selected">🎯 Selected categories only</option>
         </select>
         <div id="categoryChoices" class="category-choices"></div>
         <label class="uncat-opt"><input type="checkbox" id="includeUncat" checked onchange="updateScopeEstimate()"/> Include uncategorized</label>
-        <div class="smart-help">Categories are manual only. Assign a category to an image or item after reviewing the search results.</div>
+        <div class="smart-help">Click any category below to browse its images. Assignments are saved locally and can also be used as a search scope.</div>
         <div class="custom-category-manager">
           <div class="backup-label">Add a custom image category</div>
           <div class="custom-category-edit-grid">
@@ -454,33 +454,69 @@ textarea::placeholder{color:var(--mu)}
             <button class="btn bg- bsm" onclick="addCustomCategory()">＋ Add category</button>
           </div>
           <div id="customCategoriesList" class="custom-categories-list"></div>
-          <div class="smart-help">Use comma-separated English or Arabic keywords. The category is saved on this device. Assign it manually from each image or result card, then use Selected categories only to search those assignments.</div>
+          <div class="smart-help">Use comma-separated English or Arabic keywords. Categories are saved on this device. Click a category in the library summary to browse its images, or use Selected categories only to search those assignments.</div>
         </div>
       </div>
       <div class="smart-panel">
-        <div class="memory-backup">
-          <div class="backup-label">Memory backup</div>
-          <input id="memoryBackupInput" type="file" accept=".csv,text/csv" onchange="importMemoryBackup(event)"/>
-          <div class="brow smart-actions">
-            <button class="btn bp bsm" onclick="exportMemoryBackup()">⬇ Export memory CSV</button>
-            <button class="btn bs bsm" onclick="document.getElementById('memoryBackupInput').click()">⬆ Import memory CSV</button>
+        <div class="library-tools">
+          <div class="backup-label">Library tools</div>
+          <div class="library-tools-grid">
+            <input id="librarySearch" placeholder="Search library filenames…" oninput="CATEGORY_BROWSE_QUERY=this.value;renderCategoryGallery()"/>
+            <select id="libraryFilter" onchange="LIBRARY_FILTER=this.value;renderCategoryGallery()">
+              <option value="all">All library images</option>
+              <option value="uncat">Uncategorized</option>
+              <option value="categorized">Categorized</option>
+              <option value="duplicate">Duplicate filenames</option>
+              <option value="quality">Quality warnings</option>
+            </select>
           </div>
-          <div class="smart-help">A readable CSV for Excel: image/item categories, learned matches, and custom dictionary. Import merges matching saved keys.</div>
+          <div class="brow">
+            <select id="bulkCategory" title="Category for selected library images"></select>
+            <button class="btn bs bsm" onclick="applyBulkCategory()">Assign selected</button>
+            <button class="btn bd- bsm" onclick="clearBulkCategory()">Clear selected</button>
+            <button class="btn bg- bsm" onclick="scanLibraryQuality()">Scan quality</button>
+          </div>
+          <div class="library-quality" id="libraryQualityStatus">Select images in a category gallery for bulk assignment.</div>
+        </div>
+        <div class="profile-tools">
+          <div class="backup-label">Project profile</div>
+          <div class="library-tools-grid">
+            <select id="profileSelect" onchange="loadProjectProfile(this.value)"><option value="">No saved profiles</option></select>
+            <input id="profileName" placeholder="Profile name"/>
+          </div>
+          <div class="brow">
+            <button class="btn bs bsm" onclick="saveProjectProfile()">Save profile</button>
+            <button class="btn bs bsm" onclick="deleteProjectProfile()">Delete profile</button>
+          </div>
+          <div class="smart-help">Profiles preserve categories, dictionaries, rules, and learned corrections for different restaurants or menus.</div>
+        </div>
+        <div class="memory-backup">
+          <div class="backup-label">Backup &amp; restore</div>
+          <input id="memoryBackupInput" type="file" accept=".csv,text/csv" onchange="importMemoryBackup(event)"/>
+          <input id="projectBackupInput" type="file" accept=".json,application/json" onchange="importProjectBackup(event)"/>
+          <div class="brow smart-actions">
+            <button class="btn bp bsm" onclick="exportMemoryBackup()">⬇ Memory CSV</button>
+            <button class="btn bs bsm" onclick="document.getElementById('memoryBackupInput').click()">⬆ Import CSV</button>
+            <button class="btn bp bsm" onclick="exportProjectBackup()">⬇ Project JSON</button>
+            <button class="btn bs bsm" onclick="document.getElementById('projectBackupInput').click()">⬆ Restore JSON</button>
+          </div>
+          <div class="smart-help">Project JSON includes categories, dictionaries, priority rules, learned matches, negative corrections, and profiles.</div>
         </div>
       </div>
     </div>
-    <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
+    <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are suggested from filenames and can be corrected manually.</div>
   </div>
 
   <!-- RESULTS -->
   <div id="resWrap" style="display:none">
     <div class="rtb">
-      <h2>Results <span class="rcnt" id="rcnt"></span></h2>
+      <h2>Results <span class="rcnt" id="rcnt"></span> <span class="smart-help" id="reviewSummary"></span></h2>
       <input class="fi-" id="ftxt" placeholder="🔍 Search item or image…" oninput="doFilter()"/>
       <select class="fsel" id="fsel" onchange="doFilter()">
         <option value="all">All</option>
         <option value="c">✅ Selected</option>
         <option value="r">⚠️ Not selected</option>
+        <option value="review">🟡 Needs review</option>
         <option value="n">❌ No match</option>
       </select>
       <select class="fsel fcat" id="fcat" onchange="doFilter()" title="Filter by manually assigned category">
@@ -495,7 +531,7 @@ textarea::placeholder{color:var(--mu)}
   <div class="dlcard" id="dlCard">
     <div class="ctitle"><div class="snum">3</div>Download ZIP</div>
     <div class="csub" style="padding-left:38px;margin-bottom:14px">Checked images resized to <strong>810 × 540</strong> high-quality JPGs and packed into <strong>Menu-Images.zip</strong></div>
-    <div class="dlst">
+    <div id="categoryDownloadInfo" class="smart-help" style="margin:0 0 8px 38px"></div><div class="dlst">
       <div class="dls dg"><div class="dn" id="dlDownloaded">0</div><div class="dl">🟢 Downloaded</div></div>
       <div class="dls dr"><div class="dn" id="dlIgnored">0</div><div class="dl">🔴 Manually ignored</div></div>
     </div>
@@ -866,9 +902,26 @@ loadDictionary();
 /* ═══════════════════════════════════════
    FILENAME CATEGORY MODEL — optional scope
 ═══════════════════════════════════════ */
-// Categories are created by the user and assigned manually. No built-in
-// filename vocabulary is loaded, so items remain uncategorized until reviewed.
-let CATEGORY_DEFS={};
+// Built-in categories provide automatic filename suggestions. Manual image
+// assignments remain the final authority and override these suggestions.
+const AUTO_CATEGORY_DEFS={
+  sandwiches:{label:'Sandwiches',words:['sandwich','sandwiches','shawarma','shاورما','شاورما','taamia','taamiya','falafel','فلافل','wrap','راب','sub']},
+  burgers:{label:'Burgers',words:['burger','burgers','hamburger','برجر','برغر']},
+  chicken:{label:'Chicken',words:['chicken','chk','دجاج','فراخ']},
+  beef:{label:'Beef',words:['beef','bفي','beefy','لحم','لحمه','لحوم']},
+  seafood:{label:'Seafood',words:['fish','seafood','shrimp','prawn','tuna','سمك','روبيان','جمبري','تونة','تونه']},
+  pizza:{label:'Pizza',words:['pizza','بيتزا','بيتزه']},
+  pasta:{label:'Pasta',words:['pasta','spaghetti','lasagna','باستا','معكرونة','معكرونه','سباغيتي','لازانيا']},
+  rice:{label:'Rice & Meals',words:['rice','biryani','kabsa','mandi','رز','ارز','برياني','كبسة','كبسه','مندي']},
+  salads:{label:'Salads',words:['salad','salads','سلطة','سلطه']},
+  soups:{label:'Soups',words:['soup','شوربة','شوربه','حساء']},
+  fries:{label:'Fries & Sides',words:['fries','french fries','فرايز','بطاطس','بطاطا']},
+  hot_drinks:{label:'Hot Drinks',words:['hot','coffee','espresso','latte','cappuccino','tea','chai','قهوة','قهوه','لاتيه','كابتشينو','شاي','كرك']},
+  cold_drinks:{label:'Cold Drinks',words:['iced','ice','cold','chilled','frozen','بارد','باردة','مثلج','مثلجة','ثلج','مبرد']},
+  juices:{label:'Juices & Smoothies',words:['juice','smoothie','shake','عصير','سموذي','ميلك شيك','ميلكشيك']},
+  desserts:{label:'Desserts',words:['cake','cheesecake','waffle','pancake','crepe','ice cream','gelato','donut','kunafa','baklava','كيك','وافل','بانكيك','كريب','ايس كريم','جيلاتو','دونات','كنافة','كنافه','بقلاوة','بقلاوه']}
+};
+let CATEGORY_DEFS={...AUTO_CATEGORY_DEFS};
 const BUILTIN_CATEGORY_KEYS=new Set(Object.keys(CATEGORY_DEFS));
 let CUSTOM_CATEGORY_DEFS={};
 try{CUSTOM_CATEGORY_DEFS=JSON.parse(localStorage.getItem('tif_custom_categories_v1')||'{}')}catch(e){CUSTOM_CATEGORY_DEFS={}}
@@ -881,12 +934,13 @@ function renderCustomCategories(){
   const box=document.getElementById('customCategoriesList');if(!box)return;
   box.innerHTML='';
 }
+function refreshAutoImageCategories(){for(const img of IMAGES)if(img.file&&!imageManualCategory(img))img.categories=imageCategoriesForFile(img.file)}
 function addCustomCategoryValues(label,words){
   label=String(label||'').trim();words=(words||[]).map(x=>String(x).trim()).filter(Boolean);
   const key=categorySlug(label||'');
   if(!label||!words.length){toast('Enter a category name and at least one keyword.','e');return false}
   if(!key||BUILTIN_CATEGORY_KEYS.has(key)||CATEGORY_DEFS[key]){toast('This category already exists or is not valid.','e');return false}
-  CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};persistCustomCategories();rebuildCategoryWords();renderCustomCategories();renderCategoryChoices();renderResults();
+  CUSTOM_CATEGORY_DEFS[key]={label,words};CATEGORY_DEFS[key]={label,words};persistCustomCategories();rebuildCategoryWords();refreshAutoImageCategories();renderCustomCategories();renderCategoryChoices();renderBulkCategoryChoices();renderLibraryCategorySummary();renderResults();
   toast('Custom category added: '+label,'s');return true;
 }
 function addCustomCategory(){
@@ -906,7 +960,7 @@ function editCustomCategory(key){
   const next=String(label).trim();if(!next){toast('Category name cannot be empty.','e');return}
   const nextKey=categorySlug(next);
   if(nextKey!==key&&(BUILTIN_CATEGORY_KEYS.has(nextKey)||CATEGORY_DEFS[nextKey]||CUSTOM_CATEGORY_DEFS[nextKey])){toast('This category name already exists.','e');return}
-  item.label=next;CATEGORY_DEFS[key].label=next;persistCustomCategories();renderCustomCategories();renderCategoryChoices();renderResults();toast('Category renamed to: '+next,'s');
+  item.label=next;CATEGORY_DEFS[key].label=next;persistCustomCategories();rebuildCategoryWords();refreshAutoImageCategories();renderCustomCategories();renderCategoryChoices();renderBulkCategoryChoices();renderLibraryCategorySummary();renderResults();toast('Category renamed to: '+next,'s');
 }
 function removeCustomCategory(key){
   if(!CUSTOM_CATEGORY_DEFS[key])return;
@@ -971,11 +1025,32 @@ function renderCategoryChoices(){
   const mode=document.getElementById('scopeMode')?.value||'all';box.style.opacity=mode==='selected'?'1':'.58';
   updateScopeEstimate();
 }
+let CATEGORY_BROWSE_KEY='';
+let CATEGORY_BROWSE_QUERY='';
+let CATEGORY_DOWNLOADS={};
+function browseImageKey(img){return imageCategoryKey(img.file)}
+function browseCategory(key){CATEGORY_BROWSE_KEY=key;CATEGORY_BROWSE_QUERY='';const search=document.getElementById('librarySearch');if(search)search.value='';renderLibraryCategorySummary();const el=document.getElementById('categoryGallery');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function closeCategoryGallery(){CATEGORY_BROWSE_KEY='';renderLibraryCategorySummary()}
+function browseCategoryLabel(key){return key==='__all__'?'All library':key==='__uncat__'?'Uncategorized':(CATEGORY_DEFS[key]?.label||key)}
+function browseCategoryImages(){const dup=new Map();IMAGES.forEach(i=>{const n=i.name.toLowerCase();dup.set(n,(dup.get(n)||0)+1)});const q=norm(CATEGORY_BROWSE_QUERY||document.getElementById('librarySearch')?.value||'');const f=LIBRARY_FILTER;return IMAGES.filter(img=>{const cats=img.categories||[],isDup=(dup.get(img.name.toLowerCase())||0)>1,quality=QUALITY_META[browseImageKey(img)]?.issues?.length;const inCat=CATEGORY_BROWSE_KEY==='__all__'||(CATEGORY_BROWSE_KEY==='__uncat__'?!cats.length:cats.includes(CATEGORY_BROWSE_KEY));const filterOk=f==='all'||(f==='uncat'&&!cats.length)||(f==='categorized'&&cats.length)||(f==='duplicate'&&isDup)||(f==='quality'&&quality);return inCat&&filterOk&&(!q||norm(img.name).includes(q))})}
+function categoryDownloadKey(img){return browseImageKey(img)}
+function toggleCategoryDownload(imgKey,checked){const x=CATEGORY_DOWNLOADS[imgKey]||{useMenuName:false,exportName:''};x.checked=checked;CATEGORY_DOWNLOADS[imgKey]=x;updateStats();renderCategoryGallery()}
+function toggleCategoryRename(imgKey,useMenuName){const x=CATEGORY_DOWNLOADS[imgKey]||{checked:true,exportName:''};x.checked=true;x.useMenuName=useMenuName;CATEGORY_DOWNLOADS[imgKey]=x;renderCategoryGallery()}
+function updateCategoryExportName(imgKey,value){const x=CATEGORY_DOWNLOADS[imgKey]||{checked:true,useMenuName:true};x.checked=true;x.useMenuName=true;x.exportName=san(value);CATEGORY_DOWNLOADS[imgKey]=x;updateStats()}
+function buildCategoryFn(img,x){const base=x.useMenuName?san(x.exportName||img.name.replace(/\.[^.]+$/,'')):String(img.name||'image').replace(/\.[^.]+$/,'');return (base||'image')+'.jpg'}
+function toggleBulkLibrarySelection(key,checked){if(checked)BULK_LIBRARY_SELECTION.add(key);else BULK_LIBRARY_SELECTION.delete(key);renderCategoryGallery()}
+function renderBulkCategoryChoices(){const sel=document.getElementById('bulkCategory');if(!sel)return;const old=sel.value;sel.innerHTML='<option value="">Choose category…</option><option value="auto">Uncategorized / clear</option>'+Object.entries(CATEGORY_DEFS).map(([k,v])=>`<option value="${esc(k)}">${esc(v.label)}</option>`).join('');sel.value=[...sel.options].some(o=>o.value===old)?old:''}
+function applyBulkCategory(){const key=document.getElementById('bulkCategory')?.value;if(!key){toast('Choose a category first.','e');return}let n=0;for(const img of IMAGES){const k=browseImageKey(img);if(!BULK_LIBRARY_SELECTION.has(k))continue;if(key==='auto')for(const x of imageCategoryKeys(img.file))delete MANUAL_IMAGE_CATS[x];else for(const x of imageCategoryKeys(img.file))MANUAL_IMAGE_CATS[x]=key;img.categories=imageCategoriesForFile(img.file);n++}saveCategoryMemory();BULK_LIBRARY_SELECTION.clear();renderLibraryCategorySummary();toast(n+' image'+(n!==1?'s':'')+' updated.','s')}
+function clearBulkCategory(){for(const img of IMAGES){const k=browseImageKey(img);if(!BULK_LIBRARY_SELECTION.has(k))continue;for(const x of imageCategoryKeys(img.file))delete MANUAL_IMAGE_CATS[x];img.categories=[]}saveCategoryMemory();BULK_LIBRARY_SELECTION.clear();renderLibraryCategorySummary();toast('Selected image categories cleared.','s')}
+async function scanLibraryQuality(){if(!IMAGES.length){toast('Load an image folder first.','e');return}let checked=0,issues=0;for(const img of IMAGES){try{let b=typeof createImageBitmap==='function'?await createImageBitmap(img.file):null;let w=b?.width||0,h=b?.height||0;if(b?.close)b.close();const arr=[];if(!w||!h)arr.push('unreadable');else{if(Math.min(w,h)<500)arr.push('low resolution');if(Math.max(w,h)/Math.min(w,h)>2.5)arr.push('extreme aspect ratio')}QUALITY_META[browseImageKey(img)]={width:w,height:h,issues:arr};img.quality=QUALITY_META[browseImageKey(img)];checked++;if(arr.length)issues++}catch(e){QUALITY_META[browseImageKey(img)]={width:0,height:0,issues:['unreadable']};issues++;checked++}if(checked%24===0)await yieldToBrowser()}const st=document.getElementById('libraryQualityStatus');if(st)st.textContent='Quality scan complete · '+issues+' warning'+(issues!==1?'s':'')+' across '+checked+' images.';renderCategoryGallery();toast('Quality scan complete.','s')}
+function renderCategoryGallery(){const box=document.getElementById('categoryGallery');if(!box)return;if(!CATEGORY_BROWSE_KEY){box.hidden=true;box.innerHTML='';return}const imgs=browseCategoryImages(),label=browseCategoryLabel(CATEGORY_BROWSE_KEY);box.hidden=false;box.innerHTML=`<div class="category-gallery-toolbar"><strong>🖼️ ${esc(label)} · ${imgs.length.toLocaleString()} image${imgs.length===1?'':'s'}</strong><select onchange="LIBRARY_FILTER=this.value;renderCategoryGallery()"><option value="all" ${LIBRARY_FILTER==='all'?'selected':''}>All</option><option value="uncat" ${LIBRARY_FILTER==='uncat'?'selected':''}>Uncategorized</option><option value="categorized" ${LIBRARY_FILTER==='categorized'?'selected':''}>Categorized</option><option value="duplicate" ${LIBRARY_FILTER==='duplicate'?'selected':''}>Duplicate names</option><option value="quality" ${LIBRARY_FILTER==='quality'?'selected':''}>Quality warnings</option></select><button class="btn bs bxs" onclick="closeCategoryGallery()">✕ Close</button></div><div class="category-gallery-grid">${imgs.length?imgs.map(img=>{const key=categoryDownloadKey(img),x=CATEGORY_DOWNLOADS[key]||{checked:false,useMenuName:false,exportName:''},q=QUALITY_META[key]?.issues?.join(', ')||'';return `<article class="library-image-card"><img src="${esc(img.objectUrl)}" loading="lazy" alt="${esc(img.name)}" onclick="openCategoryImage('${esc(key)}')"/><div class="lic-body"><div class="lic-name" title="${esc(img.name)}">${esc(img.name)}</div>${q?`<div class="review-chip no">⚠ ${esc(q)}</div>`:''}<label class="bulk-check"><input type="checkbox" ${BULK_LIBRARY_SELECTION.has(key)?'checked':''} onchange="toggleBulkLibrarySelection('${esc(key)}',this.checked)"/> Organize</label><label class="lic-check"><input type="checkbox" ${x.checked?'checked':''} onchange="toggleCategoryDownload('${esc(key)}',this.checked)"/> Include in ZIP</label><label class="lic-rename"><input type="checkbox" ${x.useMenuName?'checked':''} onchange="toggleCategoryRename('${esc(key)}',this.checked)"/> Use menu item name</label><input class="lic-input ${x.useMenuName?'show':''}" value="${esc(x.exportName||'')}" placeholder="Menu item / export name" oninput="updateCategoryExportName('${esc(key)}',this.value)"/></div></article>`}).join(''):'<div class="category-gallery-empty">No images match this category search or filter.</div>'}</div>`}
+function openCategoryImage(key){const img=IMAGES.find(x=>browseImageKey(x)===key);if(!img)return;const w=window.open('','_blank','noopener,noreferrer,width=900,height=700');if(w){w.document.write(`<title>${esc(img.name)}</title><style>body{margin:0;background:#111;display:grid;place-items:center;height:100vh}img{max-width:96vw;max-height:94vh;object-fit:contain}</style><img src="${esc(img.objectUrl)}" alt="${esc(img.name)}">`);w.document.close()}}
+function categoryDownloadCount(){return Object.values(CATEGORY_DOWNLOADS).filter(x=>x&&x.checked).length}
 function renderLibraryCategorySummary(){
   const box=document.getElementById('libraryCategorySummary');if(!box)return;
   const {counts,uncategorized}=categoryCounts();
-  box.innerHTML='<div class="category-summary-title">📊 Library category summary</div><div class="category-summary-grid">'+Object.entries(CATEGORY_DEFS).map(([k,v])=>`<div class="category-stat"><strong>${counts[k].toLocaleString()}</strong><span>${v.label}</span></div>`).join('')+`<div class="category-stat"><strong>${uncategorized.toLocaleString()}</strong><span>Uncategorized</span></div></div><div class="category-summary-note">Categories are assigned manually. Assignments are saved locally and restored on future uploads. An image may appear in more than one category.</div>`;
-  box.style.display='block';renderCategoryChoices();
+  box.innerHTML='<div class="category-summary-title">📊 Library categories <button class="btn bs bxs" onclick="browseCategory(&quot;__all__&quot;)">Browse all images</button> <span style="font-weight:600;color:var(--mu)">· click a category to browse</span></div><div class="category-summary-grid">'+Object.entries(CATEGORY_DEFS).map(([k,v])=>`<div class="category-stat"><button onclick="browseCategory('${esc(k)}')" title="Browse ${esc(v.label)} images"><strong>${counts[k].toLocaleString()}</strong><span>${v.label}</span></button></div>`).join('')+`<div class="category-stat"><button onclick="browseCategory(&quot;__uncat__&quot;)" title="Browse uncategorized images"><strong>${uncategorized.toLocaleString()}</strong><span>Uncategorized</span></button></div></div><div class="category-summary-note">Click a category to browse, search filenames, and check images for ZIP download. You can keep original names or enter a menu-item name for export.</div><div class="category-gallery" id="categoryGallery" hidden></div>`;
+  box.style.display='block';renderCategoryChoices();renderBulkCategoryChoices();renderCategoryGallery();
 }
 function updateScopeEstimate(){
   const el=document.getElementById('smartStatus');if(!el)return;const mode=document.getElementById('scopeMode')?.value||'all';
@@ -1123,24 +1198,37 @@ function expandQuery(rawQ){
   return[...vs].filter(Boolean);
 }
 
+const ATTRIBUTE_GROUPS={
+  protein:[['chicken','دجاج','chikn'],['beef','لحم','لحمه'],['shrimp','prawn','روبيان','جمبري'],['fish','سمك'],['tuna','تونه','تونا'],['vegetable','veggie','خضار']],
+  preparation:[['grilled','مشوي','مشويه'],['fried','مقلي','مقلية'],['crispy','كرسبي','مقرمش'],['roasted','مشوي','روست'],['smoked','مدخن']],
+  temperature:[['hot','ساخن','حار'],['iced','ice','بارد','مثلج','مثلجة'],['frozen','مثلج','مجمد']],
+  size:[['small','صغير','صغيرة'],['medium','وسط','متوسط'],['large','كبير','كبيرة'],['double','دبل','مزدوج']],
+  flavor:[['spicy','حار','حارة','سبايسي'],['cheese','جبن','جبنة','cheese'],['bbq','باربكيو','باربيكيو'],['chocolate','شوكولاته','شوكولا']]
+};
+function attributeProfile(text){const raw=norm(text),out={};for(const[group,variants]of Object.entries(ATTRIBUTE_GROUPS)){for(const v of variants){const key=norm(v[0]);const all=v.map(norm).filter(Boolean);if(all.some(x=>raw.split(' ').includes(x)||raw.includes(x))){out[group]=key;break}}}return out}
+function attributeAdjustment(queryText,imageText){const q=attributeProfile(queryText),i=attributeProfile(imageText);let bonus=0,conflict=0;for(const g of Object.keys(q)){if(!i[g])continue;if(i[g]===q[g])bonus+=.035;else conflict+=.11}return Math.max(-.24,Math.min(.10,bonus-conflict))}
+function confidenceLabel(score,method){if(method==='learned'||score>=.95)return'Exact';if(score>=.78)return'High confidence';if(score>=.45)return'Needs review';return'No reliable match'}
+function isNegativeMatch(menu,idx){const img=IMAGES[idx];if(!img)return false;const list=NEGATIVE_MATCHES[norm(menu)]||[];return list.includes(img.name)||list.includes(img.normalized)}
+function rememberNegativeMatch(menu,idx){const img=IMAGES[idx];if(!img)return;const k=norm(menu);NEGATIVE_MATCHES[k]=[...(NEGATIVE_MATCHES[k]||[]),img.name].filter((v,i,a)=>a.indexOf(v)===i);saveNegativeMatches()}
+
 /* scoreQueryVsImage — returns best score + metadata */
-function scoreQI(qVars,img){
+function scoreQI(qVars,img,rawQ=''){
   /* Exact check first */
   for(const qv of qVars){
     if(qv===img.normalized||img.allV.includes(qv))
-      return{score:1.0,how:'exact:'+qv,method:'exact'};
+      return{score:1.0,how:'exact:'+qv,method:'exact',confidence:'Exact'};
   }
   let best=0,how='',method='semantic';
   for(const qv of qVars){
     for(const iv of img.allV){
-      const s=scoreTwo(qv,iv);
+      const s=Math.max(0,scoreTwo(qv,iv)+attributeAdjustment(rawQ,iv));
       if(s>best){
         best=s;how=qv+'→'+iv;
         method=qv.match(/[\u0621-\u064A]/)?'phonetic':'semantic';
       }
     }
   }
-  return{score:best,how,method};
+  return{score:best,how,method,confidence:confidenceLabel(best,method)};
 }
 
 /* ═══════════════════════════════════════
@@ -1192,6 +1280,15 @@ let RENDER_LIMIT=240;
 let RUNNING=false;
 let MODAL_IDX=-1;
 let MODAL_ALT=-1;
+let LIBRARY_FILTER='all';
+let BULK_LIBRARY_SELECTION=new Set();
+let QUALITY_META={};
+let NEGATIVE_MATCHES={};
+let PROJECT_PROFILES={};
+try{NEGATIVE_MATCHES=JSON.parse(localStorage.getItem('tif_negative_matches_v1')||'{}')}catch(e){NEGATIVE_MATCHES={}}
+try{PROJECT_PROFILES=JSON.parse(localStorage.getItem('tif_project_profiles_v1')||'{}')}catch(e){PROJECT_PROFILES={}}
+function saveNegativeMatches(){try{localStorage.setItem('tif_negative_matches_v1',JSON.stringify(NEGATIVE_MATCHES))}catch(e){}}
+function saveProfiles(){try{localStorage.setItem('tif_project_profiles_v1',JSON.stringify(PROJECT_PROFILES))}catch(e){}}
 let MANUAL_IMAGE_CATS={};let MANUAL_ITEM_CATS={};
 try{MANUAL_IMAGE_CATS=JSON.parse(localStorage.getItem('tif_manual_image_categories_v1')||'{}');MANUAL_ITEM_CATS=JSON.parse(localStorage.getItem('tif_manual_item_categories_v1')||'{}')}catch(e){MANUAL_IMAGE_CATS={};MANUAL_ITEM_CATS={}}
 function saveCategoryMemory(){try{localStorage.setItem('tif_manual_image_categories_v1',JSON.stringify(MANUAL_IMAGE_CATS));localStorage.setItem('tif_manual_item_categories_v1',JSON.stringify(MANUAL_ITEM_CATS))}catch(e){}}
@@ -1224,12 +1321,21 @@ function importMemoryBackup(e){
     persistCustomCategories();rebuildCategoryWords();saveCategoryMemory();saveLearned();persistPriorityRules();renderCustomCategories();renderCategoryChoices();for(const img of IMAGES)if(img.file)img.categories=imageCategoriesForFile(img.file);renderLibraryCategorySummary();renderResults();refreshModal();document.getElementById('smartStatus').textContent='✅ Memory CSV imported · '+applied+' rules applied'+(skipped?' · '+skipped+' rows skipped':'');toast('Memory CSV imported and merged.','s',7000);
   }).catch(err=>{document.getElementById('smartStatus').textContent='❌ Memory CSV import failed · '+err.message;toast('Memory CSV import failed: '+err.message,'e',7000)}).finally(()=>{e.target.value=''})
 }
+function projectSnapshot(){return{version:2,customCategories:CUSTOM_CATEGORY_DEFS,manualImageCategories:MANUAL_IMAGE_CATS,manualItemCategories:MANUAL_ITEM_CATS,priorityRules:PRIORITY_RULES,customDictionary:CUSTOM_DICT,learned:LEARNED,negativeMatches:NEGATIVE_MATCHES,profiles:PROJECT_PROFILES}}
+function exportProjectBackup(){const stamp=new Date().toISOString().slice(0,10);saveOfflineBlob(new Blob([JSON.stringify(projectSnapshot(),null,2)],{type:'application/json'}),'Talabat-Images-Finder-project-'+stamp+'.json');toast('Project backup exported.','s')}
+function applyProjectSnapshot(x){if(!x||typeof x!=='object')throw Error('Invalid project backup');if(x.customCategories&&typeof x.customCategories==='object'){CUSTOM_CATEGORY_DEFS=x.customCategories;CATEGORY_DEFS={...AUTO_CATEGORY_DEFS};for(const[k,v]of Object.entries(CUSTOM_CATEGORY_DEFS))CATEGORY_DEFS[k]=v}if(x.manualImageCategories)MANUAL_IMAGE_CATS=x.manualImageCategories;if(x.manualItemCategories)MANUAL_ITEM_CATS=x.manualItemCategories;if(Array.isArray(x.priorityRules))PRIORITY_RULES=x.priorityRules;if(x.customDictionary)CUSTOM_DICT=x.customDictionary;if(x.learned)LEARNED=x.learned;if(x.negativeMatches)NEGATIVE_MATCHES=x.negativeMatches;if(x.profiles)PROJECT_PROFILES=x.profiles;persistCustomCategories();rebuildCategoryWords();saveCategoryMemory();saveLearned();saveNegativeMatches();persistPriorityRules();saveProfiles();renderCustomCategories();renderCategoryChoices();renderBulkCategoryChoices();for(const img of IMAGES)if(img.file)img.categories=imageCategoriesForFile(img.file);renderLibraryCategorySummary();renderResults();refreshModal();renderProjectProfiles()}
+function importProjectBackup(e){const f=e.target.files?.[0];if(!f)return;f.text().then(t=>{applyProjectSnapshot(JSON.parse(t));toast('Project restored successfully.','s');document.getElementById('smartStatus').textContent='✅ Project backup restored locally'}).catch(err=>toast('Project restore failed: '+err.message,'e',7000)).finally(()=>{e.target.value=''})}
+function renderProjectProfiles(){const sel=document.getElementById('profileSelect');if(!sel)return;const old=sel.value;sel.innerHTML='<option value="">Choose saved profile…</option>'+Object.keys(PROJECT_PROFILES).sort().map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');sel.value=PROJECT_PROFILES[old]?old:''}
+function saveProjectProfile(){const name=document.getElementById('profileName')?.value.trim();if(!name){toast('Enter a profile name first.','e');return}const snap=projectSnapshot();delete snap.profiles;PROJECT_PROFILES[name]=snap;saveProfiles();renderProjectProfiles();document.getElementById('profileSelect').value=name;toast('Profile saved: '+name,'s')}
+function loadProjectProfile(name){if(!name)return;const snap=PROJECT_PROFILES[name];if(!snap)return;applyProjectSnapshot({...snap,profiles:PROJECT_PROFILES});document.getElementById('profileName').value=name;toast('Profile loaded: '+name,'s')}
+function deleteProjectProfile(){const name=document.getElementById('profileSelect')?.value;if(!name||!PROJECT_PROFILES[name]){toast('Choose a saved profile first.','e');return}delete PROJECT_PROFILES[name];saveProfiles();renderProjectProfiles();toast('Profile deleted.','s')}
 function imageCategoryKeys(file){const name=String(file?.name||'').toLowerCase(),size=file?.size||0,rel=String(file?.webkitRelativePath||file?.name||'').toLowerCase();return rel===name?[name+'|'+size]:[rel+'|'+size,name+'|'+size]}
 function imageCategoryKey(file){return imageCategoryKeys(file)[0]}
 function imageManualCategory(img){if(!img)return'';for(const k of imageCategoryKeys(img.file))if(MANUAL_IMAGE_CATS[k])return MANUAL_IMAGE_CATS[k];return''}
-function imageCategoriesForFile(file){const manual=imageCategoryKeys(file).map(k=>MANUAL_IMAGE_CATS[k]).find(Boolean);return manual?[manual]:[]}
+function imageAutoCategoriesForFile(file){return inferCategories(String(file?.name||'')).filter(k=>k in CATEGORY_DEFS).slice(0,3)}
+function imageCategoriesForFile(file){const manual=imageCategoryKeys(file).map(k=>MANUAL_IMAGE_CATS[k]).find(Boolean);return manual?[manual]:imageAutoCategoriesForFile(file)}
 function itemCategories(name){const manual=MANUAL_ITEM_CATS[norm(name)];return manual?[manual]:[]}
-function categoryOptions(selected,includeAuto=true){let h=includeAuto?'<option value="auto">Unassigned (manual only)</option>':'';for(const[k,v]of Object.entries(CATEGORY_DEFS))h+=`<option value="${k}"${selected===k?' selected':''}>${v.label}</option>`;return h}
+function categoryOptions(selected,includeAuto=true){let h=includeAuto?'<option value="auto">Auto category suggestion</option>':'';for(const[k,v]of Object.entries(CATEGORY_DEFS))h+=`<option value="${k}"${selected===k?' selected':''}>${v.label}</option>`;return h}
 function saveImageCategory(idx,key){const img=IMAGES[idx];if(!img)return;if(key==='auto')for(const k of imageCategoryKeys(img.file))delete MANUAL_IMAGE_CATS[k];else for(const k of imageCategoryKeys(img.file))MANUAL_IMAGE_CATS[k]=key;img.categories=imageCategoriesForFile(img.file);saveCategoryMemory();renderLibraryCategorySummary();renderResults();refreshModal();document.getElementById('smartStatus').textContent='💾 Saved image category for '+img.name}
 function saveItemCategory(ri,key){const r=RESULTS[ri];if(!r)return;if(key==='auto')delete MANUAL_ITEM_CATS[norm(r.menuItem)];else MANUAL_ITEM_CATS[norm(r.menuItem)]=key;r.categories=itemCategories(r.menuItem);saveCategoryMemory();renderResults();refreshModal();}
 function saveImageCategoryFromModal(key){const img=MODAL_ALT>=0?IMAGES[RESULTS[MODAL_IDX]?.alts?.[MODAL_ALT]?.idx]:IMAGES[RESULTS[MODAL_IDX]?.bestIdx];if(!img)return;saveImageCategory(IMAGES.indexOf(img),key)}
@@ -1382,9 +1488,8 @@ async function loadFiles(files,folderName){
       const sn=norm(se);if(sn&&sn!==normalized)vs.add(sn);
       newlyIndexed++;
     }else reused++;
-    const manual=imageManualCategory({file});
-    const categories=manual?[manual]:[];
-    IMAGES.push({name:file.name,normalized,categories,allV:[...vs],file,objectUrl:URL.createObjectURL(file)});
+    const categories=imageCategoriesForFile(file);
+    IMAGES.push({name:file.name,normalized,categories,allV:[...vs],file,objectUrl:URL.createObjectURL(file),quality:QUALITY_META[imageCategoryKey(file)]||null});
     const pct=Math.round(((i+1)/total)*80);
     setP('lFill','lPct','lLbl','lMsg',pct,'Loading '+(i+1)+'/'+total,(wasReused?'Reusing cached index: ':'Indexing new image: ')+file.name);
     if((i+1)%128===0)await yieldToBrowser();
@@ -1398,13 +1503,13 @@ async function loadFiles(files,folderName){
   document.getElementById('fldName').textContent=fname;
   const inc= reused+newlyIndexed===total;
   document.getElementById('fldStats').textContent=IMAGES.length.toLocaleString()+' images loaded locally · '+reused.toLocaleString()+' reused · '+newlyIndexed.toLocaleString()+' newly indexed'+(duplicateCount?' · '+duplicateCount+' duplicate name'+(duplicateCount!==1?'s':''):'');
-  document.getElementById('fldCount').textContent=IMAGES.length.toLocaleString()+' images uploaded';renderLibraryCategorySummary();document.getElementById('fl').style.display='flex';
+  document.getElementById('fldCount').textContent=IMAGES.length.toLocaleString()+' images loaded';renderLibraryCategorySummary();document.getElementById('fl').style.display='flex';
   setSt('✅ '+IMAGES.length.toLocaleString()+' images ready · '+reused.toLocaleString()+' reused · '+newlyIndexed.toLocaleString()+' new','ok');
   toast('Library loaded: '+reused.toLocaleString()+' reused, '+newlyIndexed.toLocaleString()+' newly indexed.','s');
 }
 function resetFolder(){
   IMAGES.forEach(img=>{try{URL.revokeObjectURL(img.objectUrl)}catch(e){}});
-  IMAGES=[];WIDX=new Map();EMAP=new Map();
+  IMAGES=[];WIDX=new Map();EMAP=new Map();BULK_LIBRARY_SELECTION.clear();QUALITY_META={};CATEGORY_BROWSE_KEY='';
   document.getElementById('fl').style.display='none';
   document.getElementById('libraryCategorySummary').style.display='none';
   document.getElementById('dz').style.display='block';
@@ -1439,7 +1544,7 @@ async function startSearch(){
     const fastIdx=EMAP.get(qNorm);
     const cands=getCandidates(qVars);
     if(fastIdx!==undefined)cands.add(fastIdx);
-    const scoreSet=(set)=>{const rows=[];for(const j of set){const img=IMAGES[j];const{score,how,method}=scoreQI(qVars,img);if(score>0)rows.push({idx:j,name:img.name,score,how,method})}rows.sort((a,b)=>b.score-a.score);return rows};
+    const scoreSet=(set)=>{const rows=[];for(const j of set){const img=IMAGES[j];const{score,how,method,confidence}=scoreQI(qVars,img,rawQ);if(score>0&&!isNegativeMatch(rawQ,j))rows.push({idx:j,name:img.name,score,how,method,confidence})}rows.sort((a,b)=>b.score-a.score);return rows};
     let scoped=scopedCandidates(rawQ,cands);
     let scores=scoreSet(scoped);
 
@@ -1453,6 +1558,7 @@ async function startSearch(){
     const alts=scores.filter(x=>x.idx!==best?.idx).slice(0,2);
     const tier=best?getTier(best.score):5;
     const conf=-1;
+    const confidence=best?(best.confidence||confidenceLabel(best.score,best.method)):'No reliable match';
 
     RESULTS.push({
       menuItem:rawQ,
@@ -1462,6 +1568,8 @@ async function startSearch(){
       score:best?best.score:0,
       how:best?best.how:'',
       method:best?best.method:'',
+      confidence,
+      attributes:attributeProfile(rawQ),
       alts,tier,
       confirmed:conf,
       useMenuName:conf>=0,
@@ -1533,12 +1641,13 @@ function renderResults(){
     }
     if(fs==='c')return r.confirmed>=0;
     if(fs==='r')return r.confirmed<0&&r.bestIdx>=0;
+    if(fs==='review')return r.confidence==='Needs review';
     if(fs==='n'&&r.bestIdx>=0)return false;
     if(!matchesManualCategory(r,fc))return false;
     return true;
   });
 
-  document.getElementById('rcnt').textContent='('+vis.length+'/'+RESULTS.length+')';
+  document.getElementById('rcnt').textContent='('+vis.length+'/'+RESULTS.length+')';const rs=document.getElementById('reviewSummary');if(rs){const review=RESULTS.filter(r=>r.confidence==='Needs review').length,none=RESULTS.filter(r=>r.confidence==='No reliable match').length;rs.textContent=review||none?' · '+review+' need review'+(none?' · '+none+' no reliable match':''):'';}
 
   if(!vis.length){
     grid.innerHTML='<div class="empty"><span class="eico">🔍</span><p>No results match this filter.</p></div>';
@@ -1635,8 +1744,8 @@ function renderResults(){
           <select class="item-cat-select" title="Manually assign the menu item category" onchange="saveItemCategory(${gi},this.value)">${categoryOptions(MANUAL_ITEM_CATS[norm(r.menuItem)]||'auto')}</select>
           ${r.bestIdx>=0?`<select class="item-cat-select image-cat-select" title="Manually assign the image category" onchange="saveImageCategory(${r.bestIdx},this.value)">${categoryOptions(imageManualCategory(IMAGES[r.bestIdx])||'auto')}</select><button class="btn bs bxs card-new-cat" title="Create a new category from this image card" onclick="createCategoryFromCard(${gi})">＋ New category</button>`:''}
           ${r.score>0?`<span class="badge ${tm.badge}">${pct}%</span>`:''}
-          ${mc}${stHtml}
-          ${r.bestIdx>=0?`<button class="btn bs bxs" onclick="openModal(${gi})">👁 Preview</button>`:''}
+          ${mc}<span class="review-chip ${r.confidence==='High confidence'?'high':r.confidence==='No reliable match'?'no':''}">${esc(r.confidence||'Needs review')}</span>${stHtml}
+          ${r.bestIdx>=0?`<button class="btn bs bxs" onclick="openModal(${gi})">👁 Preview</button><button class="btn bd- bxs" onclick="rejectBestMatch(${gi})">✕ Reject</button>`:''}
         </div>
         <div class="srow">
           <div class="sbg"><div class="sbf ${tm.bar}" style="width:${pct}%"></div></div>
@@ -1654,6 +1763,7 @@ function doFilter(){RENDER_LIMIT=240;renderResults()}
 /* ═══════════════════════════════════════
    ACTIONS
 ═══════════════════════════════════════ */
+function rejectBestMatch(i){const r=RESULTS[i];if(!r||r.bestIdx<0)return;rememberNegativeMatch(r.menuItem,r.bestIdx);const next=(r.alts||[]).find(a=>!isNegativeMatch(r.menuItem,a.idx));if(next){r.bestIdx=next.idx;r.bestName=next.name;r.score=next.score;r.method=next.method;r.confidence=confidenceLabel(r.score,r.method);r.tier=getTier(r.score);toast('Rejected the previous image. Review the next candidate.','i')}else{r.bestIdx=-1;r.bestName='No reliable match';r.score=0;r.confidence='No reliable match';r.tier=5;toast('Image rejected and marked for review.','i')}r.confirmed=-1;renderResults();updateStats()}
 function toggleSelected(i,checked){
   const r=RESULTS[i];if(!r||r.bestIdx<0)return;
   if(checked){EXCLUDED_RESULTS.delete(i);r.confirmed=r.bestIdx;r.useMenuName=true;r.exportName=san(r.menuItem);rememberMatch(r.menuItem,r.bestIdx)}
@@ -1839,7 +1949,10 @@ document.addEventListener('keydown',e=>{
 ═══════════════════════════════════════ */
 function updateStats(){
   const downloaded=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i)).length;
+  const categoryDownloaded=categoryDownloadCount();
   const ignored=Math.max(0,RESULTS.length-downloaded);
+  const categoryInfo=document.getElementById('categoryDownloadInfo');
+  if(categoryInfo)categoryInfo.textContent=categoryDownloaded?' · '+categoryDownloaded+' library image'+(categoryDownloaded!==1?'s':'')+' checked':'';
   const dlDownloaded=document.getElementById('dlDownloaded');
   const dlIgnored=document.getElementById('dlIgnored');
   if(dlDownloaded)dlDownloaded.textContent=downloaded;
@@ -1942,16 +2055,21 @@ async function doZip(){
   const dups=getDups();
   if(dups.size>0){toast('⚠️ Fix duplicate filenames first.','e',6000);return}
   const confirmed=RESULTS.filter((r,i)=>r.confirmed>=0&&!EXCLUDED_RESULTS.has(i));
-  if(!confirmed.length){toast('No confirmed images.','e');return}
+  const categoryConfirmed=IMAGES.filter(img=>{const x=CATEGORY_DOWNLOADS[browseImageKey(img)];return x&&x.checked}).map(img=>({img,x:CATEGORY_DOWNLOADS[browseImageKey(img)]}));
+  if(!confirmed.length&&!categoryConfirmed.length){toast('Check at least one image for ZIP download.','e');return}
   const zipBtn=document.getElementById('zipBtn');zipBtn.disabled=true;
   document.getElementById('dlLog').innerHTML='';showProg('zipProg',true);
-  logLine('Packing '+confirmed.length+' images…','li');
-  const entries=[];let ok=0,fail=0,total=confirmed.length;
+  const total=confirmed.length+categoryConfirmed.length;
+  logLine('Packing '+total+' image'+(total!==1?'s':'')+'…','li');
+  const entries=[];let ok=0,fail=0;
   for(let i=0;i<total;i++){
-    const r=confirmed[i],img=IMAGES[r.confirmed],fn=buildFn(r)||img.name;
+    const result=i<confirmed.length?confirmed[i]:null;
+    const img=result?IMAGES[result.confirmed]:categoryConfirmed[i-confirmed.length].img;
+    const fn=result?(buildFn(result)||img.name):buildCategoryFn(img,categoryConfirmed[i-confirmed.length].x);
+    const label=result?result.menuItem:img.name;
     setP('zFill','zPct','zLbl','zMsg',Math.round((i/total)*70),'Reading '+(i+1)+'/'+total,fn);
-    try{const output=await makeOutputImage(img.file);entries.push({name:'Menu Images/'+fn,file:output});logLine('✅ '+r.menuItem+' → '+fn+' (810×540 high-quality JPG)','lok');ok++}
-    catch(err){logLine('❌ '+r.menuItem+' — '+String(err.message),'ler');fail++}
+    try{const output=await makeOutputImage(img.file);entries.push({name:'Menu Images/'+fn,file:output});logLine('✅ '+label+' → '+fn+' (810×540 high-quality JPG)','lok');ok++}
+    catch(err){logLine('❌ '+label+' — '+String(err.message),'ler');fail++}
     if((i+1)%10===0)await sleep(0);
   }
   try{
@@ -1970,7 +2088,7 @@ function resetSession(){
   const hasWork=IMAGES.length||RESULTS.length||document.getElementById('menuTA')?.value.trim();
   RUNNING=false;
   IMAGES.forEach(img=>{try{URL.revokeObjectURL(img.objectUrl)}catch(e){}});
-  IMAGES=[];RESULTS=[];PREVIEWED.clear();EXCLUDED_RESULTS.clear();RENDER_LIMIT=240;WIDX=new Map();EMAP=new Map();MODAL_IDX=-1;MODAL_ALT=-1;
+  IMAGES=[];RESULTS=[];PREVIEWED.clear();EXCLUDED_RESULTS.clear();CATEGORY_DOWNLOADS={};BULK_LIBRARY_SELECTION.clear();QUALITY_META={};CATEGORY_BROWSE_KEY='';RENDER_LIMIT=240;WIDX=new Map();EMAP=new Map();MODAL_IDX=-1;MODAL_ALT=-1;
   document.getElementById('folderInput').value='';document.getElementById('menuFileInput').value='';document.getElementById('menuTA').value='';
   document.getElementById('fldCount').textContent='0 images';
   document.getElementById('dz').style.display='block';document.getElementById('fl').style.display='none';
@@ -2013,14 +2131,14 @@ function toast(msg,type,ms){
 }
 function countItems(){
   const ta=document.getElementById('menuTA');if(!ta)return;
-  const lines=ta.value.split('\n').filter(l=>l.trim());
+  const lines=ta.value.split('\n').map(l=>l.trim()).filter(Boolean);
   const n=lines.length;
   const d=n-new Set(lines.map(l=>l.trim().toLowerCase())).size;
-  const ic=document.getElementById('icount');if(ic)ic.textContent='📋 '+n.toLocaleString()+' menu item'+(n!==1?'s':'')+' total';
+  const ic=document.getElementById('icount');if(ic)ic.textContent='📋 '+n.toLocaleString()+' menu item'+(n!==1?'s':'');
   const dw=document.getElementById('dupWarn');
   if(dw)dw.textContent=d>0?d+' duplicate'+(d>1?'s':'')+' retained for matching':'';
 }
-document.addEventListener('DOMContentLoaded',()=>{countItems();renderCustomCategories();renderCategoryChoices()});
+document.addEventListener('DOMContentLoaded',()=>{countItems();renderCustomCategories();renderCategoryChoices();renderBulkCategoryChoices();renderProjectProfiles()});
 </script>
 <script>
 (function () {
