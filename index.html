@@ -4500,23 +4500,38 @@ const firebaseAdapter={
 
 const githubAdapter={
   kind:'poll',repo:'',path:'',token:'',branch:null,sha:null,etag:null,
+  apiBase(){return (testOpts().apiBase||'https://api.github.com').replace(/\/+$/,'')},
+  rawBase(){return (testOpts().rawBase||'https://raw.githubusercontent.com').replace(/\/+$/,'')},
   ghPath(){return (this.path||'').split('/').filter(Boolean).map(encodeURIComponent).join('/')},
   auth(){return this.token?{Authorization:'Bearer '+this.token}:{}},
   async init(){
     this.repo=(META.github.repo||'').trim();this.path=(META.github.path||'shared-settings.json').trim();this.token=(META.github.token||'').trim();
     if(!this.repo)throw new Error('no repository configured');
     try{
-      const res=await fetch(testOpts().apiBase+'/repos/'+this.repo,{headers:{...this.auth(),'Accept':'application/vnd.github+json'},cache:'no-store'});
+      const res=await fetch(this.apiBase()+'/repos/'+this.repo,{headers:{...this.auth(),'Accept':'application/vnd.github+json'},cache:'no-store'});
       if(res.status===404)throw new Error('repository not found: '+this.repo+(this.token?'':' — private repos need a token'));
-      if(res.status===401)throw new Error('GitHub rejected this token');
+      if(res.status===401)throw new Error('GitHub rejected this token — invalid or expired token');
+      if(res.status===403)throw new Error('GitHub 403 Forbidden — check token permissions (needs Contents: Read and write)');
       if(res.ok){const j=await res.json();this.branch=j.default_branch||'main'}
       else this.branch='main';
-    }catch(e){if(e&&e.message&&/repository not found|rejected this token/.test(e.message))throw e;this.branch='main'}
+    }catch(e){if(e&&e.message&&/repository not found|rejected this token|Forbidden/.test(e.message))throw e;this.branch='main'}
   },
   async getDoc(){
+    if(this.token){
+      try{
+        const api=this.apiBase()+'/repos/'+this.repo+'/contents/'+this.ghPath();
+        const res=await fetch(api,{headers:{...this.auth(),'Accept':'application/vnd.github+json'},cache:'no-store'});
+        if(res.ok){
+          const j=await res.json();
+          this.sha=j.sha||null;
+          return normalizeDoc(jparse(utf8b64d(j.content||''),null));
+        }
+        if(res.status===404)return null;
+      }catch(e){}
+    }
     const branches=this.branch?[this.branch]:['main','master'];
     for(const b of branches){
-      const url=testOpts().rawBase+'/'+this.repo+'/'+b+'/'+this.ghPath()+'?_t='+now();
+      const url=this.rawBase()+'/'+this.repo+'/'+b+'/'+this.ghPath()+'?_t='+now();
       let res;
       try{res=await fetch(url,{headers:{...this.auth(),'Accept':'application/vnd.raw'},cache:'no-store'})}
       catch(e){throw new Error('network error reading the repo file')}
@@ -4528,7 +4543,7 @@ const githubAdapter={
   },
   async pushSections(names){
     if(!this.token)throw new Error('this device has no GitHub token — it can read the shared settings but not publish. Paste a token to publish.');
-    const api=testOpts().apiBase+'/repos/'+this.repo+'/contents/'+this.ghPath();
+    const api=this.apiBase()+'/repos/'+this.repo+'/contents/'+this.ghPath();
     await rmmPush(names,async()=>{
       const res=await fetch(api,{headers:{...this.auth(),'Accept':'application/vnd.github+json'},cache:'no-store'});
       if(res.status===404){const e=new Error('not found');e.notFound=true;throw e}
@@ -4542,7 +4557,15 @@ const githubAdapter={
       if(this.branch)body.branch=this.branch;
       const res=await fetch(api,{method:'PUT',headers:{...this.auth(),'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
       if(res.status===409){const e=new Error('the file changed on GitHub while publishing');e.retry=true;throw e}
-      if(!res.ok){let m='GitHub HTTP '+res.status;try{const j=await res.json();if(j&&j.message)m+=' — '+j.message}catch(e){}throw new Error(m)}
+      if(!res.ok){
+        let m='GitHub HTTP '+res.status;
+        try{
+          const j=await res.json();
+          if(j&&j.message)m+=' — '+j.message;
+          if(res.status===403)m+=' (Token needs Contents: Read and write permissions)';
+        }catch(e){}
+        throw new Error(m);
+      }
       const j=await res.json().catch(()=>({}));
       this.sha=(j.content&&j.content.sha)||this.sha;
     });
@@ -4646,7 +4669,10 @@ async function connect(){
     connected=false;
     try{ADAPTER&&ADAPTER.stop&&ADAPTER.stop()}catch(_){}
     ADAPTER=null;stopPolling();
-    setStatus('error','Connect failed: '+((e&&e.message)||e));
+    const errMsg='Connect failed: '+((e&&e.message)||e);
+    setStatus('error',errMsg);
+    hint(errMsg);
+    toastCloud('⚠ '+errMsg,'e');
   }finally{connecting=false;renderPanel()}
 }
 function disconnect(userAction){
@@ -4962,5 +4988,5 @@ console.info('[cloud-sync] ready — open “Categories & Data → Cloud team sy
   }
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a461b1ac9de7edb2',t:'MTc5MTI1ODU0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
