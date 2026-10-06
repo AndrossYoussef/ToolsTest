@@ -72,6 +72,10 @@
 [data-theme="dark"] .scroll-tools{background:rgba(18,18,18,.95);border-color:#2B2B2B;box-shadow:0 10px 28px rgba(0,0,0,.6)}
 [data-theme="dark"] .dz{background:linear-gradient(145deg,#131313,#0E0E0E);border-color:#2D2D2D}
 [data-theme="dark"] .dz:hover,[data-theme="dark"] .dz.over{border-color:var(--or);background:linear-gradient(145deg,#1A1410,#14100C)}
+[data-theme="dark"] .rnav.on{background:rgba(255,98,0,.15);border-color:rgba(255,98,0,.3)}
+[data-theme="dark"] .scroll-tools{background:rgba(18,18,18,.95);border-color:#2B2B2B;box-shadow:0 10px 28px rgba(0,0,0,.6)}
+[data-theme="dark"] .dz{background:linear-gradient(145deg,#131313,#0E0E0E);border-color:#2D2D2D}
+[data-theme="dark"] .dz:hover,[data-theme="dark"] .dz.over{border-color:var(--or);background:linear-gradient(145deg,#1A1410,#14100C)}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s}
 /* Mixed Arabic/English readability */
 body{line-height:1.55;overflow-wrap:break-word;writing-mode:horizontal-tb}
@@ -685,12 +689,12 @@ textarea::placeholder{color:var(--mu)}
 .cloud-guide .cloud-guide-body{font-size:.67rem;color:var(--tx2);line-height:1.7;margin-top:6px;white-space:pre-line;overflow-wrap:anywhere}
 
 
-/* ── Covers Section (750x300 Covers) ── */
+/* ── Covers Section (750x300 Covers - Category First) ── */
 .covers-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:12px 0 10px 0;padding:10px 14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs)}
 .covers-summary{font-size:.78rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px}
 .covers-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.covers-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
-.covers-filter-pill{font-size:.7rem;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;user-select:none}
+.covers-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}
+.covers-filter-pill{font-size:.72rem;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;user-select:none}
 .covers-filter-pill:hover{border-color:var(--or);color:var(--tx);transform:translateY(-1px)}
 .covers-filter-pill.active{background:var(--orl);border-color:var(--or);color:var(--or);box-shadow:0 0 0 1.5px var(--or)}
 .cover-cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:14px 0}
@@ -713,7 +717,7 @@ textarea::placeholder{color:var(--mu)}
 .cover-thumb{width:100%;height:100%;object-fit:cover;display:block}
 .cover-badge{position:absolute;top:6px;left:6px;font-size:.62rem;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;backdrop-filter:blur(4px);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cover-check{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.94);border-radius:5px;padding:4px;display:flex;align-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-.cover-check input{cursor:pointer;width:15px;height:15px;accent-color:var(--or)}
+.cover-check input{cursor:pointer;width:16px;height:16px;accent-color:var(--or)}
 .cover-body{padding:10px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
 .cover-name-input{font:inherit;font-size:.76rem;font-weight:700;color:var(--tx);background:transparent;border:1px dashed transparent;border-radius:var(--rx);padding:3px 6px;width:100%;transition:border-color .15s,background .15s}
 .cover-name-input:hover,.cover-name-input:focus{border-color:var(--bd2);background:var(--sur2);outline:none}
@@ -984,10 +988,10 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
   </div>
 
-      <!-- ══════════ COVERS SECTION ══════════ -->
+        <!-- ══════════ COVERS SECTION ══════════ -->
   <div class="card" id="coversSection">
     <div class="ctitle"><div class="snum">🖼️</div>Cover Images (750 × 300)</div>
-    <div class="csub">Dedicated cover images section · Drop your covers folder here · Covers are automatically categorized · Click any category to view and download images.</div>
+    <div class="csub">Drop your covers folder here · Covers are automatically categorized by folder and name · Click any category to view, select, and download images.</div>
     
     <!-- DROPZONE (Folder Only) -->
     <div class="dz" id="coverDz" onclick="chooseCoverFolder(event)" ondragover="onCoverDragOver(event)" ondragleave="onCoverDragLeave()" ondrop="onCoverDrop(event)">
@@ -1005,6 +1009,8 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
       <div class="covers-summary" id="coverSummaryText">📁 0 cover images</div>
       <div class="covers-actions">
         <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:170px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers or categories…" oninput="setCoverSearch(this.value)"/>
+        <button class="btn bs bsm" onclick="selectAllCoversGlobal()">☑ Select all</button>
+        <button class="btn bs bsm" onclick="deselectAllCoversGlobal()">⬜ Deselect all</button>
         <button class="btn bs bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Change / Add folder</button>
         <button class="btn bd- bsm" onclick="clearAllCovers()">🗑️ Clear</button>
       </div>
@@ -1048,6 +1054,7 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
         <button class="btn bs bsm" onclick="closeCoverPreview()">Close preview (Esc)</button>
       </div>
     </div>
+  </div>
   </div>
   </div>
   </div>
@@ -4191,12 +4198,13 @@ document.addEventListener('DOMContentLoaded',()=>{countItems();loadDictionaryUI(
 
 
 
+
 /* ═══════════════════════════════════════════════════════════════════
    🖼️ COVERS SECTION ENGINE (750x300 & CATEGORY-FIRST BROWSER)
    ═══════════════════════════════════════════════════════════════════ */
 let COVERS = [];
 let COVERS_SELECTED = new Set();
-let COVERS_ACTIVE_CAT_INDEX = null; // null = category folders overview, number = open category
+let COVERS_ACTIVE_CAT_INDEX = null; // null = show Category Folders only, number = show that Category's images
 let COVERS_SEARCH = "";
 let COVERS_CATS_CACHE = []; // [{ name: "Burgers", items: [...] }, ...]
 
@@ -4221,7 +4229,6 @@ function parseCoverMetadata(file) {
   if (!cleaned) cleaned = rawName.replace(/[_-]+/g, " ").trim();
   
   // Category detection:
-  // 1. If in subfolder (e.g. Covers/Burgers/img.jpg), use folder name
   let cat = "";
   if (parts.length > 1) {
     const parent = parts[parts.length - 2];
@@ -4230,7 +4237,6 @@ function parseCoverMetadata(file) {
     }
   }
   
-  // 2. If flat filename, check if generic or meaningful
   if (!cat) {
     if (/^(img|dsc|photo|image|picture|pic|cover|file|scan)[\s_.-]*\d*$/i.test(cleaned) || !cleaned) {
       cat = "Uncategorized";
@@ -4328,7 +4334,7 @@ function addCoverFiles(newFiles) {
     COVERS.push(item);
     COVERS_SELECTED.add(COVERS.length - 1);
   });
-  COVERS_ACTIVE_CAT_INDEX = null; // Always open on Category Folders overview
+  COVERS_ACTIVE_CAT_INDEX = null; // Always show Category Folders first
   rebuildCoversCategoriesCache();
   renderCoversUI();
   toast(`Added ${newFiles.length} cover image${newFiles.length > 1 ? "s" : ""}`, "s");
@@ -4382,6 +4388,22 @@ function showCategoriesOverview() {
   renderCoversUI();
 }
 
+/* Global Select All & Deselect All */
+function selectAllCoversGlobal() {
+  COVERS.forEach((_, i) => COVERS_SELECTED.add(i));
+  renderCoversUI();
+  updateCoversStats();
+  toast(`Selected all ${COVERS.length} covers`, "s");
+}
+
+function deselectAllCoversGlobal() {
+  COVERS_SELECTED.clear();
+  renderCoversUI();
+  updateCoversStats();
+  toast("Deselected all covers (0 selected)", "i");
+}
+
+/* Category-level Select & Deselect */
 function toggleCategoryCoversByIndex(catIndex, select) {
   const catObj = COVERS_CATS_CACHE[catIndex];
   if (!catObj) return;
@@ -4391,6 +4413,17 @@ function toggleCategoryCoversByIndex(catIndex, select) {
   });
   renderCoversContent();
   updateCoversStats();
+  toast(select ? `Selected all in ${catObj.name}` : `Deselected ${catObj.name}`, "i");
+}
+
+/* Select ONLY this 1 specific cover */
+function selectOnlyCover(idx) {
+  COVERS_SELECTED.clear();
+  COVERS_SELECTED.add(idx);
+  renderCoversContent();
+  updateCoversStats();
+  const c = COVERS[idx];
+  toast(`Selected 1 cover only: "${c ? c.coverName : "Cover"}"`, "s");
 }
 
 function setCoverSearch(txt) {
@@ -4413,7 +4446,16 @@ function updateCoversStats() {
   if (dlIgn) dlIgn.textContent = ignCount;
   
   const zipBtn = document.getElementById("coverZipBtn");
-  if (zipBtn) zipBtn.disabled = selCount === 0;
+  if (zipBtn) {
+    zipBtn.disabled = selCount === 0;
+    if (selCount === 1) {
+      zipBtn.innerHTML = "📥 Download Cover Image (750×300 JPG)";
+    } else if (selCount > 1) {
+      zipBtn.innerHTML = `📦 Download Covers ZIP (${selCount} covers · 750×300)`;
+    } else {
+      zipBtn.innerHTML = "📦 Download Covers";
+    }
+  }
 }
 
 function renderCoversUI() {
@@ -4437,7 +4479,7 @@ function renderCoversUI() {
   if (toolbar) toolbar.style.display = "flex";
   if (dlCard) dlCard.style.display = "block";
   
-  // Render Categories Filter Pills
+  // Render Categories Filter Pills (Categories Only - Never "All Images")
   const catWrap = document.getElementById("coverCatPills");
   if (catWrap) {
     let html = `<button class="covers-filter-pill ${COVERS_ACTIVE_CAT_INDEX === null ? "active" : ""}" onclick="showCategoriesOverview()">📁 All Category Folders (${COVERS_CATS_CACHE.length})</button>`;
@@ -4462,7 +4504,7 @@ function renderCoversContent() {
   const container = document.getElementById("coversMainContent");
   if (!container) return;
   
-  // 1. CATEGORY FOLDERS OVERVIEW (Default - Clean, Compact, No image dump)
+  // 1. CATEGORY FOLDERS OVERVIEW (Default - Clean & Compact, never dumps all images)
   if (COVERS_ACTIVE_CAT_INDEX === null) {
     let html = `<div class="cover-cats-grid">`;
     let countShown = 0;
@@ -4487,13 +4529,13 @@ function renderCoversContent() {
           <div class="cover-cat-body">
             <div class="cover-cat-name">
               <span>📁 ${esc(catObj.name)}</span>
-              <span style="font-size:.68rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${catObj.items.length}</span>
+              <span style="font-size:.68rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${catObj.items.length} selected</span>
             </div>
             <div class="cover-cat-sub">
               <span>${catObj.items.length} image${catObj.items.length === 1 ? "" : "s"} · 750 × 300</span>
             </div>
             <div class="cover-cat-open-btn">
-              <span>Open Category →</span>
+              <span>Click to open category images →</span>
             </div>
           </div>
         </div>
@@ -4530,9 +4572,10 @@ function renderCoversContent() {
         <button class="btn bs bsm" onclick="showCategoriesOverview()">⬅ Back to all categories</button>
         <strong style="font-size:.88rem;color:var(--tx)">📁 Category: ${esc(catObj.name)} <span style="color:var(--mu);font-size:.74rem">(${catObj.items.length} cover${catObj.items.length === 1 ? "" : "s"} · 750×300)</span></strong>
       </div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, true)">☑ Select all (${catObj.items.length})</button>
-        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, false)">⬜ Deselect</button>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, true)">☑ Select all in ${esc(catObj.name)}</button>
+        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, false)">⬜ Deselect ${esc(catObj.name)}</button>
+        <button class="btn bs bsm" onclick="deselectAllCoversGlobal()" style="color:var(--re)">⬜ Deselect ALL covers</button>
       </div>
     </div>
   `;
@@ -4563,7 +4606,11 @@ function renderCoversContent() {
           <input class="cover-name-input" dir="auto" value="${esc(c.category)}" onchange="updateCoverCategory(${idx}, this.value)" placeholder="Category name…"/>
           <div class="cover-meta">
             <span>${sizeStr}</span>
-            <button class="btn bs bsm" style="padding:1px 6px;font-size:.62rem;color:var(--re)" onclick="removeCover(${idx})" title="Remove cover">🗑️</button>
+            <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+              <button class="btn bp bsm" style="padding:2px 8px;font-size:.64rem" onclick="downloadSingleCoverDirect(${idx})" title="Download this 1 cover directly as 750×300 JPG (no zip)">📥 Download JPG</button>
+              <button class="btn bs bsm" style="padding:2px 6px;font-size:.62rem;color:var(--or)" onclick="selectOnlyCover(${idx})" title="Select only this cover">⚡ Select only</button>
+              <button class="btn bs bsm" style="padding:2px 6px;font-size:.62rem;color:var(--re)" onclick="removeCover(${idx})" title="Remove cover">🗑️</button>
+            </div>
           </div>
         </div>
       </div>
@@ -4579,7 +4626,11 @@ function toggleCoverSelection(idx, checked) {
   else COVERS_SELECTED.delete(idx);
   
   const card = document.getElementById("cover_card_" + idx);
-  if (card) card.classList.toggle("excluded", !checked);
+  if (card) {
+    card.classList.toggle("excluded", !checked);
+    const chk = card.querySelector('input[type="checkbox"]');
+    if (chk) chk.checked = checked;
+  }
   updateCoversStats();
 }
 
@@ -4704,10 +4755,11 @@ async function makeCoverOutputImage(file) {
   }
 }
 
+/* Single Image Direct Download vs Multi-Image ZIP Download */
 async function doCoverZip() {
   const selected = COVERS.filter((c, i) => COVERS_SELECTED.has(i));
   if (!selected.length) {
-    toast("No cover images selected for the ZIP.", "e");
+    toast("No cover images selected for download.", "e");
     return;
   }
   const zipBtn = document.getElementById("coverZipBtn");
@@ -4727,7 +4779,29 @@ async function doCoverZip() {
     dlLog.scrollTop = dlLog.scrollHeight;
   }
   
-  logCoverLine("Packing " + selected.length + " cover image" + (selected.length !== 1 ? "s" : "") + " (750×300 format)…", "li");
+  // ── CASE 1: Exactly 1 cover selected -> Direct JPG download (No ZIP) ──
+  if (selected.length === 1) {
+    const item = selected[0];
+    const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
+    setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 40, "Processing 750×300 image…", fn);
+    try {
+      const outputBlob = await makeCoverOutputImage(item.file);
+      setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 100, "Ready!", "Downloaded " + fn);
+      saveOfflineBlob(outputBlob, fn);
+      logCoverLine("✅ " + item.coverName + " → Downloaded " + fn + " (750×300 high-quality JPG)", "lok");
+      toast("Cover image downloaded: " + fn + " (750×300 JPG)", "s");
+    } catch (err) {
+      setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 0, "Error", err.message);
+      logCoverLine("❌ Image download failed: " + err.message, "ler");
+      toast("Could not process cover: " + err.message, "e");
+    } finally {
+      if (zipBtn) zipBtn.disabled = false;
+    }
+    return;
+  }
+  
+  // ── CASE 2: More than 1 cover selected -> Pack into Cover-Images.zip ──
+  logCoverLine("Packing " + selected.length + " cover images into ZIP (750×300 format)…", "li");
   
   const entries = [];
   let ok = 0, fail = 0, total = selected.length;
@@ -4757,7 +4831,7 @@ async function doCoverZip() {
     });
     setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 100, "Ready!", usedCompression ? "Compressed offline" : "Offline ZIP ready");
     saveOfflineBlob(blob, "Cover-Images.zip");
-    logCoverLine("🎉 Finished: " + ok + " cover" + (ok !== 1 ? "s" : "") + " zipped into Cover-Images.zip (750×300)" + (fail ? " (" + fail + " failed)" : ""), ok ? "lok" : "ler");
+    logCoverLine("🎉 Finished: " + ok + " covers zipped into Cover-Images.zip (750×300)" + (fail ? " (" + fail + " failed)" : ""), ok ? "lok" : "ler");
     toast("Cover images ZIP downloaded (" + ok + " covers · 750×300)", "s");
   } catch (err) {
     setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 0, "Error", err.message);
@@ -4768,7 +4842,19 @@ async function doCoverZip() {
   }
 }
 
-
+/* Instant 1-click single cover downloader */
+async function downloadSingleCoverDirect(idx) {
+  const item = COVERS[idx];
+  if (!item) return;
+  const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
+  try {
+    const outputBlob = await makeCoverOutputImage(item.file);
+    saveOfflineBlob(outputBlob, fn);
+    toast("Downloaded " + fn + " (750×300 JPG)", "s");
+  } catch (err) {
+    toast("Download failed: " + err.message, "e");
+  }
+}
 
 </script>
 <script>
@@ -5688,5 +5774,5 @@ console.info('[cloud-sync] ready — open “Categories & Data → Cloud team sy
   }
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4620b3a1cf34c46',t:'MTc5MTI2MjIxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a46227866b71d7df',t:'MTc5MTI2MzM3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
