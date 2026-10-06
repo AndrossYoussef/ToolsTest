@@ -68,6 +68,10 @@
 [data-theme="dark"] .scroll-tools{background:rgba(18,18,18,.95);border-color:#2B2B2B;box-shadow:0 10px 28px rgba(0,0,0,.6)}
 [data-theme="dark"] .dz{background:linear-gradient(145deg,#131313,#0E0E0E);border-color:#2D2D2D}
 [data-theme="dark"] .dz:hover,[data-theme="dark"] .dz.over{border-color:var(--or);background:linear-gradient(145deg,#1A1410,#14100C)}
+[data-theme="dark"] .rnav.on{background:rgba(255,98,0,.15);border-color:rgba(255,98,0,.3)}
+[data-theme="dark"] .scroll-tools{background:rgba(18,18,18,.95);border-color:#2B2B2B;box-shadow:0 10px 28px rgba(0,0,0,.6)}
+[data-theme="dark"] .dz{background:linear-gradient(145deg,#131313,#0E0E0E);border-color:#2D2D2D}
+[data-theme="dark"] .dz:hover,[data-theme="dark"] .dz.over{border-color:var(--or);background:linear-gradient(145deg,#1A1410,#14100C)}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s}
 /* Mixed Arabic/English readability */
 body{line-height:1.55;overflow-wrap:break-word;writing-mode:horizontal-tb}
@@ -681,38 +685,40 @@ textarea::placeholder{color:var(--mu)}
 .cloud-guide .cloud-guide-body{font-size:.67rem;color:var(--tx2);line-height:1.7;margin-top:6px;white-space:pre-line;overflow-wrap:anywhere}
 
 
-/* ── Covers Section ── */
+/* ── Covers Section (750x300 Covers) ── */
 .covers-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:12px 0 10px 0;padding:10px 14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs)}
-.covers-summary{font-size:.78rem;font-weight:700;color:var(--tx)}
+.covers-summary{font-size:.78rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px}
 .covers-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.covers-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
-.covers-filter-pill{font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.covers-filter-pill:hover{border-color:var(--or);color:var(--tx)}
-.covers-filter-pill.active{background:var(--orl);border-color:var(--or);color:var(--or);box-shadow:0 0 0 1px var(--or)}
-.cover-cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:14px 0}
-.cover-cat-card{background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--rs);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;display:flex;flex-direction:column}
-.cover-cat-card:hover{transform:translateY(-3px);box-shadow:var(--shl);border-color:var(--or)}
-.cover-cat-thumb{position:relative;width:100%;aspect-ratio:810/540;background:var(--sur2);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.cover-cat-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.cover-cat-count-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:999px;backdrop-filter:blur(4px)}
-.cover-cat-body{padding:12px;display:flex;flex-direction:column;gap:4px}
-.cover-cat-name{font-size:.86rem;font-weight:800;color:var(--tx);display:flex;align-items:center;justify-content:space-between}
+.covers-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.covers-filter-pill{font-size:.7rem;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;user-select:none}
+.covers-filter-pill:hover{border-color:var(--or);color:var(--tx);transform:translateY(-1px)}
+.covers-filter-pill.active{background:var(--orl);border-color:var(--or);color:var(--or);box-shadow:0 0 0 1.5px var(--or)}
+.cover-cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:14px 0}
+.cover-cat-card{background:var(--sur);border:1.5px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;display:flex;flex-direction:column;position:relative}
+.cover-cat-card:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:var(--or)}
+.cover-cat-thumb{position:relative;width:100%;aspect-ratio:750/300;background:var(--sur2);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cover-cat-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+.cover-cat-card:hover .cover-cat-thumb img{transform:scale(1.04)}
+.cover-cat-count-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.78);color:#fff;font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:999px;backdrop-filter:blur(6px);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.cover-cat-body{padding:12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cover-cat-name{font-size:.9rem;font-weight:800;color:var(--tx);display:flex;align-items:center;justify-content:space-between}
 .cover-cat-sub{font-size:.68rem;color:var(--tx2);display:flex;align-items:center;gap:6px}
-.cover-cat-open-btn{margin-top:6px;font-size:.7rem;font-weight:700;color:var(--or);display:inline-flex;align-items:center;gap:4px}
-.cover-detail-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs);margin:10px 0}
-.covers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0}
-.cover-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
+.cover-cat-open-btn{margin-top:auto;padding-top:8px;font-size:.72rem;font-weight:800;color:var(--or);display:inline-flex;align-items:center;gap:4px}
+.cover-detail-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--sur2);border:1px solid var(--bd);border-radius:10px;margin:10px 0 14px 0}
+.covers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0}
+.cover-card{background:var(--sur);border:1px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
 .cover-card:hover{transform:translateY(-2px);box-shadow:var(--shl);border-color:var(--or2)}
-.cover-card.excluded{opacity:.55;filter:grayscale(.35)}
-.cover-thumb-wrap{position:relative;width:100%;aspect-ratio:810/540;background:var(--sur2);overflow:hidden;cursor:pointer}
+.cover-card.excluded{opacity:.52;filter:grayscale(.4)}
+.cover-thumb-wrap{position:relative;width:100%;aspect-ratio:750/300;background:var(--sur2);overflow:hidden;cursor:pointer}
 .cover-thumb{width:100%;height:100%;object-fit:cover;display:block}
-.cover-badge{position:absolute;top:6px;left:6px;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:999px;background:rgba(0,0,0,.68);color:#fff;backdrop-filter:blur(4px);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cover-check{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.92);border-radius:4px;padding:3px;display:flex;align-items:center;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.cover-body{padding:9px 10px;display:flex;flex-direction:column;gap:5px;flex:1}
-.cover-name-input{font:inherit;font-size:.74rem;font-weight:700;color:var(--tx);background:transparent;border:1px dashed transparent;border-radius:var(--rx);padding:3px 5px;width:100%;transition:border-color .15s,background .15s}
+.cover-badge{position:absolute;top:6px;left:6px;font-size:.62rem;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;backdrop-filter:blur(4px);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cover-check{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.94);border-radius:5px;padding:4px;display:flex;align-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.cover-check input{cursor:pointer;width:15px;height:15px;accent-color:var(--or)}
+.cover-body{padding:10px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cover-name-input{font:inherit;font-size:.76rem;font-weight:700;color:var(--tx);background:transparent;border:1px dashed transparent;border-radius:var(--rx);padding:3px 6px;width:100%;transition:border-color .15s,background .15s}
 .cover-name-input:hover,.cover-name-input:focus{border-color:var(--bd2);background:var(--sur2);outline:none}
-.cover-meta{display:flex;justify-content:space-between;align-items:center;font-size:.62rem;color:var(--mu);margin-top:auto;padding-top:4px}
-.cover-dl-box{margin-top:16px;padding:14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs)}
+.cover-meta{display:flex;justify-content:space-between;align-items:center;font-size:.64rem;color:var(--mu);margin-top:auto;padding-top:4px}
+.cover-dl-box{margin-top:16px;padding:16px;background:var(--sur2);border:1px solid var(--bd);border-radius:12px}
 
 </style>
 </head>
@@ -978,10 +984,10 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
   </div>
 
-    <!-- ══════════ COVERS SECTION ══════════ -->
+      <!-- ══════════ COVERS SECTION ══════════ -->
   <div class="card" id="coversSection">
-    <div class="ctitle"><div class="snum">🖼️</div>Cover Images</div>
-    <div class="csub">Dedicated cover images section · Drop your covers folder here · Covers are automatically categorized by name · Click any category to view and download images.</div>
+    <div class="ctitle"><div class="snum">🖼️</div>Cover Images (750 × 300)</div>
+    <div class="csub">Dedicated cover images section · Drop your covers folder here · Covers are automatically categorized · Click any category to view and download images.</div>
     
     <!-- DROPZONE (Folder Only) -->
     <div class="dz" id="coverDz" onclick="chooseCoverFolder(event)" ondragover="onCoverDragOver(event)" ondragleave="onCoverDragLeave()" ondrop="onCoverDrop(event)">
@@ -998,7 +1004,7 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="covers-toolbar" id="coverToolbar" style="display:none">
       <div class="covers-summary" id="coverSummaryText">📁 0 cover images</div>
       <div class="covers-actions">
-        <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:160px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers or categories…" oninput="setCoverSearch(this.value)"/>
+        <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:170px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers or categories…" oninput="setCoverSearch(this.value)"/>
         <button class="btn bs bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Change / Add folder</button>
         <button class="btn bd- bsm" onclick="clearAllCovers()">🗑️ Clear</button>
       </div>
@@ -1018,7 +1024,7 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
       </div>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <button class="btn bp" id="coverZipBtn" onclick="doCoverZip()" style="font-size:.85rem;padding:9px 18px">📦 Download Covers ZIP</button>
-        <span style="font-size:.7rem;color:var(--mu)">Resized to <strong>810 × 540</strong> high-quality JPGs · packed into <strong>Cover-Images.zip</strong></span>
+        <span style="font-size:.72rem;color:var(--mu)">Resized to <strong>750 × 300</strong> high-quality JPGs · packed into <strong>Cover-Images.zip</strong></span>
       </div>
       <div class="prog" id="coverZipProg">
         <div class="pt"><span id="coverZLbl">Packing…</span><span class="pp" id="coverZPct">0%</span></div>
@@ -1031,10 +1037,10 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
 
   <!-- COVER PREVIEW LIGHTBOX -->
   <div class="ov" id="coverPreviewModal" onclick="if(event.target===this)closeCoverPreview()">
-    <div class="modal" style="max-width:720px;text-align:center" role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal" style="max-width:820px;text-align:center" role="dialog" aria-modal="true" tabindex="-1">
       <button class="mcl" onclick="closeCoverPreview()" aria-label="Close preview (Esc)" title="Close (Esc)">✕</button>
       <div class="m-item-name" style="margin-bottom:4px"><span class="m-label">Cover:</span> <span id="coverPrevTitle">—</span></div>
-      <div class="m-img-name" style="margin-bottom:12px"><span class="m-label">File:</span> <span id="coverPrevFile">—</span></div>
+      <div class="m-img-name" style="margin-bottom:12px"><span class="m-label">File:</span> <span id="coverPrevFile">—</span> · <span style="color:var(--or)">750 × 300 Standard</span></div>
       <div style="background:var(--sur2);border-radius:var(--rs);overflow:hidden;border:1px solid var(--bd);max-height:65vh;display:flex;align-items:center;justify-content:center">
         <img id="coverPrevImg" src="" alt="Cover preview" style="max-width:100%;max-height:65vh;object-fit:contain"/>
       </div>
@@ -1042,6 +1048,7 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
         <button class="btn bs bsm" onclick="closeCoverPreview()">Close preview (Esc)</button>
       </div>
     </div>
+  </div>
   </div>
   </div>
 
@@ -4183,14 +4190,15 @@ document.addEventListener('DOMContentLoaded',()=>{countItems();loadDictionaryUI(
 
 
 
+
 /* ═══════════════════════════════════════════════════════════════════
-   🖼️ COVERS SECTION ENGINE (CATEGORY-BASED & COMPACT)
+   🖼️ COVERS SECTION ENGINE (750x300 & CATEGORY-FIRST BROWSER)
    ═══════════════════════════════════════════════════════════════════ */
 let COVERS = [];
 let COVERS_SELECTED = new Set();
-let COVERS_VIEW_MODE = "categories"; // "categories" | "single_category" | "all"
-let COVERS_ACTIVE_CAT = null;
+let COVERS_ACTIVE_CAT_INDEX = null; // null = category folders overview, number = open category
 let COVERS_SEARCH = "";
+let COVERS_CATS_CACHE = []; // [{ name: "Burgers", items: [...] }, ...]
 
 function isCoverImg(f) {
   return /\.(jpe?g|png|gif|webp|bmp|heic|heif|avif|tiff?)$/i.test(f.name) ||
@@ -4210,8 +4218,10 @@ function parseCoverMetadata(file) {
     .replace(/\s+/g, " ")
     .trim();
   
-  if (!cleaned) cleaned = rawName.replace(/[_-]+/g, " ").trim() || "Cover";
+  if (!cleaned) cleaned = rawName.replace(/[_-]+/g, " ").trim();
   
+  // Category detection:
+  // 1. If in subfolder (e.g. Covers/Burgers/img.jpg), use folder name
   let cat = "";
   if (parts.length > 1) {
     const parent = parts[parts.length - 2];
@@ -4219,7 +4229,17 @@ function parseCoverMetadata(file) {
       cat = parent.replace(/[_-]+/g, " ").trim();
     }
   }
-  if (!cat) cat = cleaned;
+  
+  // 2. If flat filename, check if generic or meaningful
+  if (!cat) {
+    if (/^(img|dsc|photo|image|picture|pic|cover|file|scan)[\s_.-]*\d*$/i.test(cleaned) || !cleaned) {
+      cat = "Uncategorized";
+    } else {
+      cat = cleaned;
+    }
+  }
+  
+  if (!cleaned) cleaned = "Cover";
   
   let url = "";
   try { url = URL.createObjectURL(file); } catch(e) {}
@@ -4308,8 +4328,8 @@ function addCoverFiles(newFiles) {
     COVERS.push(item);
     COVERS_SELECTED.add(COVERS.length - 1);
   });
-  COVERS_VIEW_MODE = "categories";
-  COVERS_ACTIVE_CAT = null;
+  COVERS_ACTIVE_CAT_INDEX = null; // Always open on Category Folders overview
+  rebuildCoversCategoriesCache();
   renderCoversUI();
   toast(`Added ${newFiles.length} cover image${newFiles.length > 1 ? "s" : ""}`, "s");
 }
@@ -4320,50 +4340,57 @@ function clearAllCovers() {
   COVERS.forEach(c => { try { URL.revokeObjectURL(c.url); } catch(e) {} });
   COVERS = [];
   COVERS_SELECTED.clear();
-  COVERS_VIEW_MODE = "categories";
-  COVERS_ACTIVE_CAT = null;
+  COVERS_ACTIVE_CAT_INDEX = null;
   COVERS_SEARCH = "";
+  rebuildCoversCategoriesCache();
   renderCoversUI();
   toast("All covers cleared.", "i");
 }
 
-function toggleAllCovers(select) {
-  if (select) {
-    COVERS.forEach((_, i) => COVERS_SELECTED.add(i));
-  } else {
-    COVERS_SELECTED.clear();
+function rebuildCoversCategoriesCache() {
+  const map = new Map();
+  COVERS.forEach((c, idx) => {
+    const cat = (c.category || "").trim() || "Uncategorized";
+    if (!map.has(cat)) map.set(cat, []);
+    map.get(cat).push({ cover: c, idx: idx });
+  });
+  
+  // Sort categories alphabetically with Uncategorized at the end
+  const list = [];
+  for (const [name, items] of map.entries()) {
+    list.push({ name, items });
   }
-  renderCoversContent();
-  updateCoversStats();
+  list.sort((a, b) => {
+    if (a.name === "Uncategorized") return 1;
+    if (b.name === "Uncategorized") return -1;
+    return a.name.localeCompare(b.name);
+  });
+  COVERS_CATS_CACHE = list;
 }
 
-function toggleCategoryCovers(catName, select) {
-  COVERS.forEach((c, idx) => {
-    if (c.category === catName) {
-      if (select) COVERS_SELECTED.add(idx);
-      else COVERS_SELECTED.delete(idx);
-    }
+function openCoverCategoryByIndex(catIndex) {
+  if (catIndex >= 0 && catIndex < COVERS_CATS_CACHE.length) {
+    COVERS_ACTIVE_CAT_INDEX = catIndex;
+  } else {
+    COVERS_ACTIVE_CAT_INDEX = null;
+  }
+  renderCoversUI();
+}
+
+function showCategoriesOverview() {
+  COVERS_ACTIVE_CAT_INDEX = null;
+  renderCoversUI();
+}
+
+function toggleCategoryCoversByIndex(catIndex, select) {
+  const catObj = COVERS_CATS_CACHE[catIndex];
+  if (!catObj) return;
+  catObj.items.forEach(it => {
+    if (select) COVERS_SELECTED.add(it.idx);
+    else COVERS_SELECTED.delete(it.idx);
   });
   renderCoversContent();
   updateCoversStats();
-}
-
-function openCoverCategory(catName) {
-  COVERS_ACTIVE_CAT = catName;
-  COVERS_VIEW_MODE = "single_category";
-  renderCoversUI();
-}
-
-function showAllCoversView() {
-  COVERS_VIEW_MODE = "all";
-  COVERS_ACTIVE_CAT = null;
-  renderCoversUI();
-}
-
-function showCategoriesView() {
-  COVERS_VIEW_MODE = "categories";
-  COVERS_ACTIVE_CAT = null;
-  renderCoversUI();
 }
 
 function setCoverSearch(txt) {
@@ -4387,16 +4414,6 @@ function updateCoversStats() {
   
   const zipBtn = document.getElementById("coverZipBtn");
   if (zipBtn) zipBtn.disabled = selCount === 0;
-}
-
-function getCoverCategoriesMap() {
-  const map = new Map();
-  COVERS.forEach((c, idx) => {
-    const cat = c.category || "Uncategorized";
-    if (!map.has(cat)) map.set(cat, []);
-    map.get(cat).push({ cover: c, idx: idx });
-  });
-  return map;
 }
 
 function renderCoversUI() {
@@ -4423,21 +4440,18 @@ function renderCoversUI() {
   // Render Categories Filter Pills
   const catWrap = document.getElementById("coverCatPills");
   if (catWrap) {
-    const catsMap = getCoverCategoriesMap();
-    let html = `<button class="covers-filter-pill ${COVERS_VIEW_MODE === "categories" ? "active" : ""}" onclick="showCategoriesView()">📁 Categories Overview (${catsMap.size})</button>`;
-    html += `<button class="covers-filter-pill ${COVERS_VIEW_MODE === "all" ? "active" : ""}" onclick="showAllCoversView()">🌐 All Covers (${COVERS.length})</button>`;
+    let html = `<button class="covers-filter-pill ${COVERS_ACTIVE_CAT_INDEX === null ? "active" : ""}" onclick="showCategoriesOverview()">📁 All Category Folders (${COVERS_CATS_CACHE.length})</button>`;
     
-    for (const [catName, items] of catsMap.entries()) {
-      const isAct = COVERS_VIEW_MODE === "single_category" && COVERS_ACTIVE_CAT === catName;
-      html += `<button class="covers-filter-pill ${isAct ? "active" : ""}" onclick="openCoverCategory(${JSON.stringify(catName)})">📁 ${esc(catName)} (${items.length})</button>`;
-    }
+    COVERS_CATS_CACHE.forEach((catObj, catIdx) => {
+      const isAct = COVERS_ACTIVE_CAT_INDEX === catIdx;
+      html += `<button class="covers-filter-pill ${isAct ? "active" : ""}" onclick="openCoverCategoryByIndex(${catIdx})">📁 ${esc(catObj.name)} (${catObj.items.length})</button>`;
+    });
     catWrap.innerHTML = html;
   }
   
   const summary = document.getElementById("coverSummaryText");
   if (summary) {
-    const catsMap = getCoverCategoriesMap();
-    summary.textContent = `📁 ${COVERS.length} cover images across ${catsMap.size} category folder${catsMap.size === 1 ? "" : "s"}`;
+    summary.textContent = `📁 ${COVERS.length} cover images in ${COVERS_CATS_CACHE.length} category folder${COVERS_CATS_CACHE.length === 1 ? "" : "s"}`;
   }
   
   renderCoversContent();
@@ -4448,99 +4462,83 @@ function renderCoversContent() {
   const container = document.getElementById("coversMainContent");
   if (!container) return;
   
-  const catsMap = getCoverCategoriesMap();
-  
-  // 1. Categories Grid View (Default - Clean & Compact)
-  if (COVERS_VIEW_MODE === "categories") {
+  // 1. CATEGORY FOLDERS OVERVIEW (Default - Clean, Compact, No image dump)
+  if (COVERS_ACTIVE_CAT_INDEX === null) {
     let html = `<div class="cover-cats-grid">`;
-    for (const [catName, items] of catsMap.entries()) {
+    let countShown = 0;
+    
+    COVERS_CATS_CACHE.forEach((catObj, catIdx) => {
       if (COVERS_SEARCH) {
-        const matchesCat = catName.toLowerCase().includes(COVERS_SEARCH);
-        const matchesSomeCover = items.some(it => (it.cover.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (it.cover.rawName || "").toLowerCase().includes(COVERS_SEARCH));
-        if (!matchesCat && !matchesSomeCover) continue;
+        const matchesCat = catObj.name.toLowerCase().includes(COVERS_SEARCH);
+        const matchesSome = catObj.items.some(it => (it.cover.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (it.cover.rawName || "").toLowerCase().includes(COVERS_SEARCH));
+        if (!matchesCat && !matchesSome) return;
       }
+      countShown++;
       
-      const firstImg = items[0]?.cover;
-      const selInCat = items.filter(it => COVERS_SELECTED.has(it.idx)).length;
+      const firstImg = catObj.items[0]?.cover;
+      const selInCat = catObj.items.filter(it => COVERS_SELECTED.has(it.idx)).length;
       
       html += `
-        <div class="cover-cat-card" onclick="openCoverCategory(${JSON.stringify(catName)})">
+        <div class="cover-cat-card" onclick="openCoverCategoryByIndex(${catIdx})">
           <div class="cover-cat-thumb">
-            ${firstImg ? `<img src="${firstImg.url}" alt="${esc(catName)}" loading="lazy"/>` : ""}
-            <span class="cover-cat-count-badge">${items.length} cover${items.length === 1 ? "" : "s"}</span>
+            ${firstImg ? `<img src="${firstImg.url}" alt="${esc(catObj.name)}" loading="lazy"/>` : ""}
+            <span class="cover-cat-count-badge">${catObj.items.length} cover${catObj.items.length === 1 ? "" : "s"}</span>
           </div>
           <div class="cover-cat-body">
             <div class="cover-cat-name">
-              <span>📁 ${esc(catName)}</span>
-              <span style="font-size:.65rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${items.length}</span>
+              <span>📁 ${esc(catObj.name)}</span>
+              <span style="font-size:.68rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${catObj.items.length}</span>
             </div>
             <div class="cover-cat-sub">
-              <span>${items.length} image${items.length === 1 ? "" : "s"} in this category</span>
+              <span>${catObj.items.length} image${catObj.items.length === 1 ? "" : "s"} · 750 × 300</span>
             </div>
             <div class="cover-cat-open-btn">
-              <span>Click to view images →</span>
+              <span>Open Category →</span>
             </div>
           </div>
         </div>
       `;
-    }
+    });
     html += `</div>`;
-    container.innerHTML = html;
+    
+    if (countShown === 0) {
+      container.innerHTML = `<div style="text-align:center;padding:36px;color:var(--mu);font-size:.85rem">No categories match "${esc(COVERS_SEARCH)}".</div>`;
+    } else {
+      container.innerHTML = html;
+    }
     return;
   }
   
-  // 2. Single Category View or All Covers View
-  let itemsToRender = [];
-  let headerHtml = "";
-  
-  if (COVERS_VIEW_MODE === "single_category" && COVERS_ACTIVE_CAT) {
-    const catItems = catsMap.get(COVERS_ACTIVE_CAT) || [];
-    itemsToRender = catItems.filter(it => {
-      if (!COVERS_SEARCH) return true;
-      const c = it.cover;
-      return (c.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
-    });
-    
-    headerHtml = `
-      <div class="cover-detail-header">
-        <div style="display:flex;align-items:center;gap:10px">
-          <button class="btn bs bsm" onclick="showCategoriesView()">⬅ Back to all categories</button>
-          <strong style="font-size:.86rem;color:var(--tx)">📁 Category: ${esc(COVERS_ACTIVE_CAT)} <span style="color:var(--mu);font-size:.74rem">(${catItems.length} cover${catItems.length === 1 ? "" : "s"})</span></strong>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px">
-          <button class="btn bs bsm" onclick="toggleCategoryCovers(${JSON.stringify(COVERS_ACTIVE_CAT)}, true)">☑ Select all in ${esc(COVERS_ACTIVE_CAT)}</button>
-          <button class="btn bs bsm" onclick="toggleCategoryCovers(${JSON.stringify(COVERS_ACTIVE_CAT)}, false)">⬜ Deselect</button>
-        </div>
-      </div>
-    `;
-  } else {
-    // All covers view
-    COVERS.forEach((c, idx) => {
-      if (COVERS_SEARCH) {
-        const matchName = (c.coverName || "").toLowerCase().includes(COVERS_SEARCH);
-        const matchCat = (c.category || "").toLowerCase().includes(COVERS_SEARCH);
-        const matchRaw = (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
-        if (!matchName && !matchCat && !matchRaw) return;
-      }
-      itemsToRender.push({ cover: c, idx: idx });
-    });
-    
-    headerHtml = `
-      <div class="cover-detail-header">
-        <div style="display:flex;align-items:center;gap:10px">
-          <button class="btn bs bsm" onclick="showCategoriesView()">📁 Switch to Category Folders</button>
-          <strong style="font-size:.86rem;color:var(--tx)">🌐 All Cover Images <span style="color:var(--mu);font-size:.74rem">(${itemsToRender.length})</span></strong>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px">
-          <button class="btn bs bsm" onclick="toggleAllCovers(true)">☑ Select all</button>
-          <button class="btn bs bsm" onclick="toggleAllCovers(false)">⬜ Deselect all</button>
-        </div>
-      </div>
-    `;
+  // 2. SINGLE CATEGORY VIEW (Only shows images of this specific category)
+  const catObj = COVERS_CATS_CACHE[COVERS_ACTIVE_CAT_INDEX];
+  if (!catObj) {
+    showCategoriesOverview();
+    return;
   }
   
+  const itemsToRender = catObj.items.filter(it => {
+    if (!COVERS_SEARCH) return true;
+    const c = it.cover;
+    return (c.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
+  });
+  
+  const selInCat = catObj.items.filter(it => COVERS_SELECTED.has(it.idx)).length;
+  
+  let headerHtml = `
+    <div class="cover-detail-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn bs bsm" onclick="showCategoriesOverview()">⬅ Back to all categories</button>
+        <strong style="font-size:.88rem;color:var(--tx)">📁 Category: ${esc(catObj.name)} <span style="color:var(--mu);font-size:.74rem">(${catObj.items.length} cover${catObj.items.length === 1 ? "" : "s"} · 750×300)</span></strong>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, true)">☑ Select all (${catObj.items.length})</button>
+        <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, false)">⬜ Deselect</button>
+      </div>
+    </div>
+  `;
+  
   if (!itemsToRender.length) {
-    container.innerHTML = headerHtml + `<div style="text-align:center;padding:32px;color:var(--mu);font-size:.85rem">No cover images match your search.</div>`;
+    container.innerHTML = headerHtml + `<div style="text-align:center;padding:32px;color:var(--mu);font-size:.85rem">No cover images match "${esc(COVERS_SEARCH)}".</div>`;
     return;
   }
   
@@ -4551,7 +4549,7 @@ function renderCoversContent() {
     
     gridHtml += `
       <div class="cover-card ${isSelected ? "" : "excluded"}" id="cover_card_${idx}">
-        <div class="cover-thumb-wrap" onclick="previewCover(${idx})" title="Click to view full preview">
+        <div class="cover-thumb-wrap" onclick="previewCover(${idx})" title="Click to view full 750×300 preview">
           <img class="cover-thumb" src="${c.url}" alt="${esc(c.coverName)}" loading="lazy"/>
           <span class="cover-badge">${esc(c.category)}</span>
           <label class="cover-check" onclick="event.stopPropagation()" title="Include in ZIP">
@@ -4595,6 +4593,7 @@ function updateCoverCategory(idx, val) {
   if (!COVERS[idx]) return;
   const clean = val.trim() || "Uncategorized";
   COVERS[idx].category = clean;
+  rebuildCoversCategoriesCache();
   renderCoversUI();
 }
 
@@ -4608,6 +4607,7 @@ function removeCover(idx) {
     else if (i > idx) newSet.add(i - 1);
   });
   COVERS_SELECTED = newSet;
+  rebuildCoversCategoriesCache();
   renderCoversUI();
 }
 
@@ -4659,6 +4659,51 @@ window.addEventListener("keydown", function(e) {
   }
 }, true);
 
+/* 750 × 300 Cover Image Generator */
+async function makeCoverOutputImage(file) {
+  const W = 750, H = 300;
+  let source = null, url = "";
+  try {
+    if (typeof createImageBitmap === "function") {
+      source = await createImageBitmap(file);
+    } else {
+      url = URL.createObjectURL(file);
+      source = await new Promise((res, rej) => {
+        const image = new Image();
+        image.onload = () => res(image);
+        image.onerror = () => rej(new Error("Cover image could not be decoded"));
+        image.src = url;
+      });
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas is unavailable");
+    
+    // Scale & center on 750x300 canvas
+    const scale = Math.min(W / source.width, H / source.height);
+    const dw = source.width * scale, dh = source.height * scale;
+    const dx = (W - dw) / 2, dy = (H - dh) / 2;
+    
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(source, dx, dy, dw, dh);
+    
+    return await new Promise((res, rej) => {
+      canvas.toBlob(blob => {
+        if (!blob) rej(new Error("Canvas conversion to JPEG failed"));
+        else res(blob);
+      }, "image/jpeg", 0.94);
+    });
+  } finally {
+    if (source && typeof source.close === "function") source.close();
+    if (url) URL.revokeObjectURL(url);
+  }
+}
+
 async function doCoverZip() {
   const selected = COVERS.filter((c, i) => COVERS_SELECTED.has(i));
   if (!selected.length) {
@@ -4682,7 +4727,7 @@ async function doCoverZip() {
     dlLog.scrollTop = dlLog.scrollHeight;
   }
   
-  logCoverLine("Packing " + selected.length + " cover image" + (selected.length !== 1 ? "s" : "") + "…", "li");
+  logCoverLine("Packing " + selected.length + " cover image" + (selected.length !== 1 ? "s" : "") + " (750×300 format)…", "li");
   
   const entries = [];
   let ok = 0, fail = 0, total = selected.length;
@@ -4692,9 +4737,9 @@ async function doCoverZip() {
     const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
     setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", Math.round((i / total) * 70), "Reading " + (i + 1) + "/" + total, fn);
     try {
-      const output = await makeOutputImage(item.file);
+      const output = await makeCoverOutputImage(item.file);
       entries.push({ name: "Cover Images/" + fn, file: output });
-      logCoverLine("✅ " + item.coverName + " → " + fn + " (810×540 high-quality JPG)", "lok");
+      logCoverLine("✅ " + item.coverName + " → " + fn + " (750×300 high-quality JPG)", "lok");
       ok++;
     } catch (err) {
       logCoverLine("❌ " + item.coverName + " — " + String(err.message), "ler");
@@ -4712,8 +4757,8 @@ async function doCoverZip() {
     });
     setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 100, "Ready!", usedCompression ? "Compressed offline" : "Offline ZIP ready");
     saveOfflineBlob(blob, "Cover-Images.zip");
-    logCoverLine("🎉 Finished: " + ok + " cover" + (ok !== 1 ? "s" : "") + " zipped into Cover-Images.zip" + (fail ? " (" + fail + " failed)" : ""), ok ? "lok" : "ler");
-    toast("Cover images ZIP downloaded (" + ok + " covers)", "s");
+    logCoverLine("🎉 Finished: " + ok + " cover" + (ok !== 1 ? "s" : "") + " zipped into Cover-Images.zip (750×300)" + (fail ? " (" + fail + " failed)" : ""), ok ? "lok" : "ler");
+    toast("Cover images ZIP downloaded (" + ok + " covers · 750×300)", "s");
   } catch (err) {
     setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 0, "Error", err.message);
     logCoverLine("❌ ZIP creation failed: " + err.message, "ler");
@@ -4722,6 +4767,7 @@ async function doCoverZip() {
     if (zipBtn) zipBtn.disabled = false;
   }
 }
+
 
 
 </script>
@@ -5642,5 +5688,5 @@ console.info('[cloud-sync] ready — open “Categories & Data → Cloud team sy
   }
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a461fc069944a685',t:'MTc5MTI2MTU4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4620b3a1cf34c46',t:'MTc5MTI2MjIxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
