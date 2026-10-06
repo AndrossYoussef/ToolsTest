@@ -1,0 +1,30 @@
+{
+  "name": "Talabat Images Finder",
+  "short_name": "Images Finder",
+  "description": "Match menu items to images, categorize, and export ZIPs — offline-capable, now with cloud team sync.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF8F2",
+  "theme_color": "#ff5a00",
+  "icons": [
+    {
+      "src": "./icons/talabat-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/talabat-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/talabat-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

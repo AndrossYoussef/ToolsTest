@@ -12,7 +12,7 @@
    what pushes the update to users.
    ============================================================ */
 
-const VERSION = 'finder-v2';
+const VERSION = 'finder-v3';
 
 const APP_SHELL_CACHE = `app-shell-${VERSION}`;
 const RUNTIME_CACHE   = `runtime-${VERSION}`;
@@ -26,9 +26,9 @@ const REQUIRED_URLS = [
 /* Nice to have. A 404 here is logged and ignored — never fatal. */
 const OPTIONAL_URLS = [
   './manifest-finder.webmanifest',
-  './icons/finder-192.png',
-  './icons/finder-512.png',
-  './icons/finder-maskable-512.png',
+  './icons/talabat-192.png',
+  './icons/talabat-512.png',
+  './icons/talabat-maskable-512.png',
 ];
 
 /* Hosts that exist ONLY to reach the internet. Never cache,
