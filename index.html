@@ -689,7 +689,7 @@ textarea::placeholder{color:var(--mu)}
 .cloud-guide .cloud-guide-body{font-size:.67rem;color:var(--tx2);line-height:1.7;margin-top:6px;white-space:pre-line;overflow-wrap:anywhere}
 
 
-/* ── Covers Section (750x300 Covers - Category First) ── */
+/* ── Covers Section (750x300 Covers - Library Mode) ── */
 .covers-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:12px 0 10px 0;padding:10px 14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs)}
 .covers-summary{font-size:.78rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px}
 .covers-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -709,18 +709,20 @@ textarea::placeholder{color:var(--mu)}
 .cover-cat-sub{font-size:.68rem;color:var(--tx2);display:flex;align-items:center;gap:6px}
 .cover-cat-open-btn{margin-top:auto;padding-top:8px;font-size:.72rem;font-weight:800;color:var(--or);display:inline-flex;align-items:center;gap:4px}
 .cover-detail-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--sur2);border:1px solid var(--bd);border-radius:10px;margin:10px 0 14px 0}
-.covers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:14px 0}
-.cover-card{background:var(--sur);border:1px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
+.covers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:14px 0}
+.cover-card{background:var(--sur);border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
 .cover-card:hover{transform:translateY(-2px);box-shadow:var(--shl);border-color:var(--or2)}
-.cover-card.excluded{opacity:.52;filter:grayscale(.4)}
+.cover-card.selected-cover{border-color:var(--or);box-shadow:0 0 0 2px rgba(255,98,0,.25)}
 .cover-thumb-wrap{position:relative;width:100%;aspect-ratio:750/300;background:var(--sur2);overflow:hidden;cursor:pointer}
-.cover-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.cover-thumb{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s ease}
+.cover-thumb-wrap:hover .cover-thumb{transform:scale(1.03)}
 .cover-badge{position:absolute;top:6px;left:6px;font-size:.62rem;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;backdrop-filter:blur(4px);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cover-check{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.94);border-radius:5px;padding:4px;display:flex;align-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 .cover-check input{cursor:pointer;width:16px;height:16px;accent-color:var(--or)}
-.cover-body{padding:10px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cover-body{padding:10px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
 .cover-name-input{font:inherit;font-size:.76rem;font-weight:700;color:var(--tx);background:transparent;border:1px dashed transparent;border-radius:var(--rx);padding:3px 6px;width:100%;transition:border-color .15s,background .15s}
 .cover-name-input:hover,.cover-name-input:focus{border-color:var(--bd2);background:var(--sur2);outline:none}
+.cover-card-dl-btn{width:100%;justify-content:center;font-size:.74rem;font-weight:700;padding:6px 10px;border-radius:6px}
 .cover-meta{display:flex;justify-content:space-between;align-items:center;font-size:.64rem;color:var(--mu);margin-top:auto;padding-top:4px}
 .cover-dl-box{margin-top:16px;padding:16px;background:var(--sur2);border:1px solid var(--bd);border-radius:12px}
 
@@ -988,10 +990,10 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
   </div>
 
-        <!-- ══════════ COVERS SECTION ══════════ -->
+          <!-- ══════════ COVERS SECTION ══════════ -->
   <div class="card" id="coversSection">
-    <div class="ctitle"><div class="snum">🖼️</div>Cover Images (750 × 300)</div>
-    <div class="csub">Drop your covers folder here · Covers are automatically categorized by folder and name · Click any category to view, select, and download images.</div>
+    <div class="ctitle"><div class="snum">🖼️</div>Cover Images Library (750 × 300)</div>
+    <div class="csub">Drop your covers folder to browse by category · Click any category to view covers · Download any cover directly as a 750×300 JPG, or select multiple for a ZIP.</div>
     
     <!-- DROPZONE (Folder Only) -->
     <div class="dz" id="coverDz" onclick="chooseCoverFolder(event)" ondragover="onCoverDragOver(event)" ondragleave="onCoverDragLeave()" ondrop="onCoverDrop(event)">
@@ -1009,10 +1011,8 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
       <div class="covers-summary" id="coverSummaryText">📁 0 cover images</div>
       <div class="covers-actions">
         <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:170px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers or categories…" oninput="setCoverSearch(this.value)"/>
-        <button class="btn bs bsm" onclick="selectAllCoversGlobal()">☑ Select all</button>
-        <button class="btn bs bsm" onclick="deselectAllCoversGlobal()">⬜ Deselect all</button>
         <button class="btn bs bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Change / Add folder</button>
-        <button class="btn bd- bsm" onclick="clearAllCovers()">🗑️ Clear</button>
+        <button class="btn bd- bsm" onclick="clearAllCovers()">🗑️ Clear library</button>
       </div>
     </div>
 
@@ -1022,15 +1022,16 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <!-- MAIN COVERS CONTENT (Category Folders or Category Details) -->
     <div id="coversMainContent"></div>
 
-    <!-- COVERS DOWNLOAD CARD -->
+    <!-- COVERS DOWNLOAD BOX (For Batch ZIP & Multi-Select) -->
     <div class="cover-dl-box" id="coverDlCard" style="display:none">
       <div class="dlst" style="margin-bottom:12px">
         <div class="dls dg"><div class="dn" id="coverDlSelected">0</div><div class="dl">🟢 Selected Covers for ZIP</div></div>
-        <div class="dls dr"><div class="dn" id="coverDlIgnored">0</div><div class="dl">⬜ Excluded</div></div>
+        <div class="dls dr"><div class="dn" id="coverDlIgnored">0</div><div class="dl">⬜ Unselected</div></div>
       </div>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-        <button class="btn bp" id="coverZipBtn" onclick="doCoverZip()" style="font-size:.85rem;padding:9px 18px">📦 Download Covers ZIP</button>
-        <span style="font-size:.72rem;color:var(--mu)">Resized to <strong>750 × 300</strong> high-quality JPGs · packed into <strong>Cover-Images.zip</strong></span>
+        <button class="btn bp" id="coverZipBtn" onclick="doCoverZip()" style="font-size:.85rem;padding:9px 18px" disabled>📦 Download Selected Covers</button>
+        <button class="btn bs bsm" onclick="deselectAllCoversGlobal()" id="coverDeselectAllBtn" style="display:none">⬜ Deselect all</button>
+        <span style="font-size:.72rem;color:var(--mu)" id="coverDlHint">Tip: You can also click <strong>📥 Download</strong> directly on any cover card above without selecting.</span>
       </div>
       <div class="prog" id="coverZipProg">
         <div class="pt"><span id="coverZLbl">Packing…</span><span class="pp" id="coverZPct">0%</span></div>
@@ -1043,17 +1044,21 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
 
   <!-- COVER PREVIEW LIGHTBOX -->
   <div class="ov" id="coverPreviewModal" onclick="if(event.target===this)closeCoverPreview()">
-    <div class="modal" style="max-width:820px;text-align:center" role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal" style="max-width:840px;text-align:center" role="dialog" aria-modal="true" tabindex="-1">
       <button class="mcl" onclick="closeCoverPreview()" aria-label="Close preview (Esc)" title="Close (Esc)">✕</button>
       <div class="m-item-name" style="margin-bottom:4px"><span class="m-label">Cover:</span> <span id="coverPrevTitle">—</span></div>
-      <div class="m-img-name" style="margin-bottom:12px"><span class="m-label">File:</span> <span id="coverPrevFile">—</span> · <span style="color:var(--or)">750 × 300 Standard</span></div>
-      <div style="background:var(--sur2);border-radius:var(--rs);overflow:hidden;border:1px solid var(--bd);max-height:65vh;display:flex;align-items:center;justify-content:center">
+      <div class="m-img-name" style="margin-bottom:12px"><span class="m-label">File:</span> <span id="coverPrevFile">—</span> · <span style="color:var(--or);font-weight:700">750 × 300 JPG</span></div>
+      <div style="background:var(--sur2);border-radius:var(--rs);overflow:hidden;border:1.5px solid var(--bd);max-height:65vh;display:flex;align-items:center;justify-content:center">
         <img id="coverPrevImg" src="" alt="Cover preview" style="max-width:100%;max-height:65vh;object-fit:contain"/>
       </div>
-      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+      <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <button class="btn bp" id="coverModalDlBtn" onclick="downloadCurrentCoverFromModal()" style="padding:8px 20px;font-size:.84rem;font-weight:800">
+          📥 Download This Cover (750 × 300 JPG)
+        </button>
         <button class="btn bs bsm" onclick="closeCoverPreview()">Close preview (Esc)</button>
       </div>
     </div>
+  </div>
   </div>
   </div>
   </div>
@@ -4200,13 +4205,14 @@ document.addEventListener('DOMContentLoaded',()=>{countItems();loadDictionaryUI(
 
 
 /* ═══════════════════════════════════════════════════════════════════
-   🖼️ COVERS SECTION ENGINE (750x300 & CATEGORY-FIRST BROWSER)
+   🖼️ COVERS SECTION ENGINE (750x300 & CATEGORY LIBRARY MODE)
    ═══════════════════════════════════════════════════════════════════ */
 let COVERS = [];
-let COVERS_SELECTED = new Set();
-let COVERS_ACTIVE_CAT_INDEX = null; // null = show Category Folders only, number = show that Category's images
+let COVERS_SELECTED = new Set(); // Default: 0 selected (Library mode)
+let COVERS_ACTIVE_CAT_INDEX = null; // null = Category Folders overview, number = Open category
 let COVERS_SEARCH = "";
 let COVERS_CATS_CACHE = []; // [{ name: "Burgers", items: [...] }, ...]
+let CURRENT_PREVIEW_COVER_IDX = null;
 
 function isCoverImg(f) {
   return /\.(jpe?g|png|gif|webp|bmp|heic|heif|avif|tiff?)$/i.test(f.name) ||
@@ -4317,7 +4323,7 @@ async function readCoverEntries(entries) {
     }
   }
   for (const e of entries) await tr(e);
-  if (!files.length) { toast("No cover images found.", "e"); return; }
+  if (!files.length) { toast("No cover images found in folder.", "e"); return; }
   addCoverFiles(files);
 }
 
@@ -4332,12 +4338,12 @@ function addCoverFiles(newFiles) {
   newFiles.forEach(f => {
     const item = parseCoverMetadata(f);
     COVERS.push(item);
-    COVERS_SELECTED.add(COVERS.length - 1);
+    // Note: Do NOT auto-select all covers so user can browse and pick individually!
   });
-  COVERS_ACTIVE_CAT_INDEX = null; // Always show Category Folders first
+  COVERS_ACTIVE_CAT_INDEX = null; // Show Category Folders first
   rebuildCoversCategoriesCache();
   renderCoversUI();
-  toast(`Added ${newFiles.length} cover image${newFiles.length > 1 ? "s" : ""}`, "s");
+  toast(`Loaded ${newFiles.length} cover image${newFiles.length > 1 ? "s" : ""} in library`, "s");
 }
 
 function clearAllCovers() {
@@ -4348,6 +4354,7 @@ function clearAllCovers() {
   COVERS_SELECTED.clear();
   COVERS_ACTIVE_CAT_INDEX = null;
   COVERS_SEARCH = "";
+  CURRENT_PREVIEW_COVER_IDX = null;
   rebuildCoversCategoriesCache();
   renderCoversUI();
   toast("All covers cleared.", "i");
@@ -4361,7 +4368,6 @@ function rebuildCoversCategoriesCache() {
     map.get(cat).push({ cover: c, idx: idx });
   });
   
-  // Sort categories alphabetically with Uncategorized at the end
   const list = [];
   for (const [name, items] of map.entries()) {
     list.push({ name, items });
@@ -4393,14 +4399,14 @@ function selectAllCoversGlobal() {
   COVERS.forEach((_, i) => COVERS_SELECTED.add(i));
   renderCoversUI();
   updateCoversStats();
-  toast(`Selected all ${COVERS.length} covers`, "s");
+  toast(`Selected all ${COVERS.length} covers for ZIP`, "s");
 }
 
 function deselectAllCoversGlobal() {
   COVERS_SELECTED.clear();
   renderCoversUI();
   updateCoversStats();
-  toast("Deselected all covers (0 selected)", "i");
+  toast("Cleared selections (0 selected)", "i");
 }
 
 /* Category-level Select & Deselect */
@@ -4413,17 +4419,28 @@ function toggleCategoryCoversByIndex(catIndex, select) {
   });
   renderCoversContent();
   updateCoversStats();
-  toast(select ? `Selected all in ${catObj.name}` : `Deselected ${catObj.name}`, "i");
+  toast(select ? `Selected all ${catObj.items.length} in ${catObj.name}` : `Deselected ${catObj.name}`, "i");
 }
 
-/* Select ONLY this 1 specific cover */
-function selectOnlyCover(idx) {
-  COVERS_SELECTED.clear();
-  COVERS_SELECTED.add(idx);
-  renderCoversContent();
-  updateCoversStats();
-  const c = COVERS[idx];
-  toast(`Selected 1 cover only: "${c ? c.coverName : "Cover"}"`, "s");
+/* Direct 1-Click Single Cover Download (750×300 JPG - NO ZIP!) */
+async function downloadSingleCoverDirect(idx) {
+  const item = COVERS[idx];
+  if (!item) return;
+  const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
+  try {
+    toast("Processing " + fn + " (750×300)…", "i", 2000);
+    const outputBlob = await makeCoverOutputImage(item.file);
+    saveOfflineBlob(outputBlob, fn);
+    toast("Downloaded " + fn + " (750×300 JPG)", "s");
+  } catch (err) {
+    toast("Download failed: " + err.message, "e");
+  }
+}
+
+function downloadCurrentCoverFromModal() {
+  if (CURRENT_PREVIEW_COVER_IDX !== null) {
+    downloadSingleCoverDirect(CURRENT_PREVIEW_COVER_IDX);
+  }
 }
 
 function setCoverSearch(txt) {
@@ -4446,14 +4463,24 @@ function updateCoversStats() {
   if (dlIgn) dlIgn.textContent = ignCount;
   
   const zipBtn = document.getElementById("coverZipBtn");
+  const deselectBtn = document.getElementById("coverDeselectAllBtn");
+  const hintEl = document.getElementById("coverDlHint");
+  
+  if (deselectBtn) {
+    deselectBtn.style.display = selCount > 0 ? "inline-flex" : "none";
+  }
+  
   if (zipBtn) {
     zipBtn.disabled = selCount === 0;
     if (selCount === 1) {
-      zipBtn.innerHTML = "📥 Download Cover Image (750×300 JPG)";
+      zipBtn.innerHTML = "📥 Download Selected Cover (750×300 JPG)";
+      if (hintEl) hintEl.innerHTML = "1 cover selected · will download directly as a <strong>750×300 JPG</strong> (no ZIP).";
     } else if (selCount > 1) {
-      zipBtn.innerHTML = `📦 Download Covers ZIP (${selCount} covers · 750×300)`;
+      zipBtn.innerHTML = `📦 Download Selected Covers ZIP (${selCount} covers)`;
+      if (hintEl) hintEl.innerHTML = `${selCount} covers selected · will be packed into <strong>Cover-Images.zip</strong> (750×300 JPGs).`;
     } else {
-      zipBtn.innerHTML = "📦 Download Covers";
+      zipBtn.innerHTML = "📦 Download Selected Covers (0)";
+      if (hintEl) hintEl.innerHTML = `Click <strong>📥 Download (750×300)</strong> on any cover card to download directly, or check multiple to download as a ZIP.`;
     }
   }
 }
@@ -4479,7 +4506,7 @@ function renderCoversUI() {
   if (toolbar) toolbar.style.display = "flex";
   if (dlCard) dlCard.style.display = "block";
   
-  // Render Categories Filter Pills (Categories Only - Never "All Images")
+  // Render Categories Filter Pills
   const catWrap = document.getElementById("coverCatPills");
   if (catWrap) {
     let html = `<button class="covers-filter-pill ${COVERS_ACTIVE_CAT_INDEX === null ? "active" : ""}" onclick="showCategoriesOverview()">📁 All Category Folders (${COVERS_CATS_CACHE.length})</button>`;
@@ -4529,13 +4556,13 @@ function renderCoversContent() {
           <div class="cover-cat-body">
             <div class="cover-cat-name">
               <span>📁 ${esc(catObj.name)}</span>
-              <span style="font-size:.68rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${catObj.items.length} selected</span>
+              <span style="font-size:.68rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">${selInCat ? `🟢 ${selInCat} selected` : ""}</span>
             </div>
             <div class="cover-cat-sub">
               <span>${catObj.items.length} image${catObj.items.length === 1 ? "" : "s"} · 750 × 300</span>
             </div>
             <div class="cover-cat-open-btn">
-              <span>Click to open category images →</span>
+              <span>Click to view covers →</span>
             </div>
           </div>
         </div>
@@ -4551,7 +4578,7 @@ function renderCoversContent() {
     return;
   }
   
-  // 2. SINGLE CATEGORY VIEW (Only shows images of this specific category)
+  // 2. SINGLE CATEGORY VIEW (Shows only this specific category's images)
   const catObj = COVERS_CATS_CACHE[COVERS_ACTIVE_CAT_INDEX];
   if (!catObj) {
     showCategoriesOverview();
@@ -4575,7 +4602,6 @@ function renderCoversContent() {
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
         <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, true)">☑ Select all in ${esc(catObj.name)}</button>
         <button class="btn bs bsm" onclick="toggleCategoryCoversByIndex(${COVERS_ACTIVE_CAT_INDEX}, false)">⬜ Deselect ${esc(catObj.name)}</button>
-        <button class="btn bs bsm" onclick="deselectAllCoversGlobal()" style="color:var(--re)">⬜ Deselect ALL covers</button>
       </div>
     </div>
   `;
@@ -4591,26 +4617,30 @@ function renderCoversContent() {
     const sizeStr = c.size > 1048576 ? (c.size / 1048576).toFixed(1) + " MB" : (c.size / 1024).toFixed(0) + " KB";
     
     gridHtml += `
-      <div class="cover-card ${isSelected ? "" : "excluded"}" id="cover_card_${idx}">
-        <div class="cover-thumb-wrap" onclick="previewCover(${idx})" title="Click to view full 750×300 preview">
+      <div class="cover-card ${isSelected ? "selected-cover" : ""}" id="cover_card_${idx}">
+        <div class="cover-thumb-wrap" onclick="previewCover(${idx})" title="Click to preview full 750×300">
           <img class="cover-thumb" src="${c.url}" alt="${esc(c.coverName)}" loading="lazy"/>
           <span class="cover-badge">${esc(c.category)}</span>
-          <label class="cover-check" onclick="event.stopPropagation()" title="Include in ZIP">
+          <label class="cover-check" onclick="event.stopPropagation()" title="Select for Batch ZIP">
             <input type="checkbox" ${isSelected ? "checked" : ""} onchange="toggleCoverSelection(${idx}, this.checked)"/>
           </label>
         </div>
         <div class="cover-body">
           <div style="font-size:.65rem;color:var(--mu);font-weight:700">Cover Name (Export):</div>
           <input class="cover-name-input" dir="auto" value="${esc(c.exportName || c.coverName)}" onchange="updateCoverName(${idx}, this.value)" placeholder="Cover name…"/>
-          <div style="font-size:.65rem;color:var(--mu);font-weight:700;margin-top:2px">Category:</div>
-          <input class="cover-name-input" dir="auto" value="${esc(c.category)}" onchange="updateCoverCategory(${idx}, this.value)" placeholder="Category name…"/>
-          <div class="cover-meta">
+          
+          <div style="margin-top:6px;display:flex;gap:6px;align-items:center">
+            <button class="btn bp bsm cover-card-dl-btn" onclick="downloadSingleCoverDirect(${idx})" title="Download this 750×300 JPG directly">
+              📥 Download (750×300)
+            </button>
+            <button class="btn bd- bsm" style="padding:4px 8px;font-size:.68rem" onclick="removeCover(${idx})" title="Remove cover">
+              🗑️
+            </button>
+          </div>
+          
+          <div class="cover-meta" style="margin-top:4px">
             <span>${sizeStr}</span>
-            <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
-              <button class="btn bp bsm" style="padding:2px 8px;font-size:.64rem" onclick="downloadSingleCoverDirect(${idx})" title="Download this 1 cover directly as 750×300 JPG (no zip)">📥 Download JPG</button>
-              <button class="btn bs bsm" style="padding:2px 6px;font-size:.62rem;color:var(--or)" onclick="selectOnlyCover(${idx})" title="Select only this cover">⚡ Select only</button>
-              <button class="btn bs bsm" style="padding:2px 6px;font-size:.62rem;color:var(--re)" onclick="removeCover(${idx})" title="Remove cover">🗑️</button>
-            </div>
+            <span style="color:var(--mu)">750 × 300 JPG</span>
           </div>
         </div>
       </div>
@@ -4627,7 +4657,7 @@ function toggleCoverSelection(idx, checked) {
   
   const card = document.getElementById("cover_card_" + idx);
   if (card) {
-    card.classList.toggle("excluded", !checked);
+    card.classList.toggle("selected-cover", checked);
     const chk = card.querySelector('input[type="checkbox"]');
     if (chk) chk.checked = checked;
   }
@@ -4658,6 +4688,7 @@ function removeCover(idx) {
     else if (i > idx) newSet.add(i - 1);
   });
   COVERS_SELECTED = newSet;
+  if (CURRENT_PREVIEW_COVER_IDX === idx) CURRENT_PREVIEW_COVER_IDX = null;
   rebuildCoversCategoriesCache();
   renderCoversUI();
 }
@@ -4665,6 +4696,7 @@ function removeCover(idx) {
 function previewCover(idx) {
   const item = COVERS[idx];
   if (!item) return;
+  CURRENT_PREVIEW_COVER_IDX = idx;
   
   const modal = document.getElementById("coverPreviewModal");
   if (modal) {
@@ -4678,6 +4710,7 @@ function previewCover(idx) {
 function closeCoverPreview() {
   const modal = document.getElementById("coverPreviewModal");
   if (modal) modal.classList.remove("open");
+  CURRENT_PREVIEW_COVER_IDX = null;
 }
 
 /* Global Capture ESC key listener for all modals and lightboxes */
@@ -4755,7 +4788,7 @@ async function makeCoverOutputImage(file) {
   }
 }
 
-/* Single Image Direct Download vs Multi-Image ZIP Download */
+/* Batch Download for 1 or more selected covers */
 async function doCoverZip() {
   const selected = COVERS.filter((c, i) => COVERS_SELECTED.has(i));
   if (!selected.length) {
@@ -4779,16 +4812,16 @@ async function doCoverZip() {
     dlLog.scrollTop = dlLog.scrollHeight;
   }
   
-  // ── CASE 1: Exactly 1 cover selected -> Direct JPG download (No ZIP) ──
+  // ── 1 COVER SELECTED: Direct JPG Download (NO ZIP) ──
   if (selected.length === 1) {
     const item = selected[0];
     const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
-    setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 40, "Processing 750×300 image…", fn);
+    setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 40, "Processing 750×300 JPG…", fn);
     try {
       const outputBlob = await makeCoverOutputImage(item.file);
       setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 100, "Ready!", "Downloaded " + fn);
       saveOfflineBlob(outputBlob, fn);
-      logCoverLine("✅ " + item.coverName + " → Downloaded " + fn + " (750×300 high-quality JPG)", "lok");
+      logCoverLine("✅ " + item.coverName + " → Downloaded " + fn + " (750×300 JPG)", "lok");
       toast("Cover image downloaded: " + fn + " (750×300 JPG)", "s");
     } catch (err) {
       setP("coverZFill", "coverZPct", "coverZLbl", "coverZMsg", 0, "Error", err.message);
@@ -4800,7 +4833,7 @@ async function doCoverZip() {
     return;
   }
   
-  // ── CASE 2: More than 1 cover selected -> Pack into Cover-Images.zip ──
+  // ── 2+ COVERS SELECTED: Pack into Cover-Images.zip ──
   logCoverLine("Packing " + selected.length + " cover images into ZIP (750×300 format)…", "li");
   
   const entries = [];
@@ -4839,20 +4872,6 @@ async function doCoverZip() {
     toast("Could not build Covers ZIP: " + err.message, "e");
   } finally {
     if (zipBtn) zipBtn.disabled = false;
-  }
-}
-
-/* Instant 1-click single cover downloader */
-async function downloadSingleCoverDirect(idx) {
-  const item = COVERS[idx];
-  if (!item) return;
-  const fn = san(item.exportName || item.coverName || "Cover") + ".jpg";
-  try {
-    const outputBlob = await makeCoverOutputImage(item.file);
-    saveOfflineBlob(outputBlob, fn);
-    toast("Downloaded " + fn + " (750×300 JPG)", "s");
-  } catch (err) {
-    toast("Download failed: " + err.message, "e");
   }
 }
 
@@ -5774,5 +5793,5 @@ console.info('[cloud-sync] ready — open “Categories & Data → Cloud team sy
   }
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a46227866b71d7df',t:'MTc5MTI2MzM3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a462358c89040d5d',t:'MTc5MTI2Mzk0NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
