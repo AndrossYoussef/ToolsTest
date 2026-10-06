@@ -46,24 +46,28 @@
 [data-theme="light"] .creator-card{background:transparent;border-color:transparent;box-shadow:none}
 [data-theme="light"] .scroll-tools{background:rgba(255,250,246,.94);border-color:#EAD1BE;box-shadow:0 10px 28px rgba(99,52,21,.13)}
 [data-theme="dark"]{
-  --bg:#050A12;--sur:#141A21;--sur2:#1C242D;
-  --bd:#2A343F;--bd2:#3B4754;
-  --tx:#F5F7FA;--tx2:#C2C9D1;--mu:#818C98;
-  --sh:0 3px 16px rgba(0,0,0,.4);
-  --shl:0 12px 38px rgba(0,0,0,.54);
-  --sho:0 6px 24px rgba(255,98,0,.34);
-  --gn:#42D980;--gnb:rgba(66,217,128,.1);--gnbd:rgba(66,217,128,.25);
-  --ye:#FFB020;--yeb:rgba(255,176,32,.1);--yebd:rgba(255,176,32,.25);
-  --re:#FF6B78;--reb:rgba(255,107,120,.1);--rebd:rgba(255,107,120,.23);
-  --orl:rgba(255,98,0,.14);--mar:#FFB184;--mar2:#FFD2B7;
+  --bg:#0A0A0A;--sur:#141414;--sur2:#1C1C1C;
+  --bd:#262626;--bd2:#363636;
+  --tx:#F5F5F5;--tx2:#B8B8B8;--mu:#787878;
+  --sh:0 3px 16px rgba(0,0,0,.6);
+  --shl:0 12px 38px rgba(0,0,0,.8);
+  --sho:0 6px 24px rgba(255,98,0,.36);
+  --gn:#34D399;--gnb:rgba(52,211,153,.1);--gnbd:rgba(52,211,153,.25);
+  --ye:#FBBF24;--yeb:rgba(251,191,36,.1);--yebd:rgba(251,191,36,.25);
+  --re:#F87171;--reb:rgba(248,113,113,.1);--rebd:rgba(248,113,113,.23);
+  --orl:rgba(255,98,0,.15);--mar:#FFB184;--mar2:#FFD2B7;
   color-scheme:dark;
 }
-[data-theme="dark"] body{background:radial-gradient(circle at 92% 4%,rgba(255,98,0,.08),transparent 27%),radial-gradient(circle at 14% 86%,rgba(38,49,61,.34),transparent 32%),linear-gradient(145deg,#040912 0%,#09111B 48%,#111820 100%);background-attachment:fixed}
-[data-theme="dark"] .rail{background:linear-gradient(180deg,#07111D 0%,#111820 58%,#080E16 100%);border-right-color:#293541;box-shadow:12px 0 36px rgba(0,0,0,.28)}
-[data-theme="dark"] .footer{background:radial-gradient(circle at 50% -35%,rgba(255,98,0,.2),transparent 50%),linear-gradient(135deg,#151D26 0%,#0B131D 52%,#111820 100%);border-color:#2E3A46;box-shadow:0 -10px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.025)}
-[data-theme="dark"] .card,[data-theme="dark"] .dlcard,[data-theme="dark"] .smart-panel{background:linear-gradient(145deg,#151C24,#10161D);border-color:#2A343F;box-shadow:0 8px 28px rgba(0,0,0,.28)}
+[data-theme="dark"] body{background:radial-gradient(circle at 92% 4%,rgba(255,98,0,.12),transparent 28%),radial-gradient(circle at 14% 86%,rgba(28,28,28,.7),transparent 32%),linear-gradient(145deg,#060606 0%,#0D0D0D 48%,#141414 100%);background-attachment:fixed}
+[data-theme="dark"] .rail{background:linear-gradient(180deg,#0A0A0A 0%,#121212 58%,#080808 100%);border-right-color:#222222;box-shadow:12px 0 36px rgba(0,0,0,.6)}
+[data-theme="dark"] .footer{background:radial-gradient(circle at 50% -35%,rgba(255,98,0,.22),transparent 50%),linear-gradient(135deg,#141414 0%,#0A0A0A 52%,#121212 100%);border-color:#242424;box-shadow:0 -10px 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.03)}
+[data-theme="dark"] .card,[data-theme="dark"] .dlcard,[data-theme="dark"] .smart-panel,[data-theme="dark"] .modal{background:linear-gradient(145deg,#161616,#101010);border-color:#262626;box-shadow:0 8px 28px rgba(0,0,0,.45)}
 [data-theme="dark"] .creator-card{--sig-a:#FFE1CF;--sig-b:#FFA060;--sig-c:#FF6200;--sig-line:rgba(255,141,70,.9);--sig-glow:rgba(255,98,0,.28);--sig-stroke:#FF7B2D;background:transparent;border-color:transparent;box-shadow:none}
 [data-theme="dark"] .rail-brand-word{color:#FF8C42}
+[data-theme="dark"] .rnav.on{background:rgba(255,98,0,.15);border-color:rgba(255,98,0,.3)}
+[data-theme="dark"] .scroll-tools{background:rgba(18,18,18,.95);border-color:#2B2B2B;box-shadow:0 10px 28px rgba(0,0,0,.6)}
+[data-theme="dark"] .dz{background:linear-gradient(145deg,#131313,#0E0E0E);border-color:#2D2D2D}
+[data-theme="dark"] .dz:hover,[data-theme="dark"] .dz.over{border-color:var(--or);background:linear-gradient(145deg,#1A1410,#14100C)}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s}
 /* Mixed Arabic/English readability */
 body{line-height:1.55;overflow-wrap:break-word;writing-mode:horizontal-tb}
@@ -682,9 +686,20 @@ textarea::placeholder{color:var(--mu)}
 .covers-summary{font-size:.78rem;font-weight:700;color:var(--tx)}
 .covers-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .covers-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
-.covers-filter-pill{font-size:.7rem;font-weight:700;padding:4px 11px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s}
+.covers-filter-pill{font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
 .covers-filter-pill:hover{border-color:var(--or);color:var(--tx)}
 .covers-filter-pill.active{background:var(--orl);border-color:var(--or);color:var(--or);box-shadow:0 0 0 1px var(--or)}
+.cover-cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:14px 0}
+.cover-cat-card{background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--rs);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;display:flex;flex-direction:column}
+.cover-cat-card:hover{transform:translateY(-3px);box-shadow:var(--shl);border-color:var(--or)}
+.cover-cat-thumb{position:relative;width:100%;aspect-ratio:810/540;background:var(--sur2);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cover-cat-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-cat-count-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:999px;backdrop-filter:blur(4px)}
+.cover-cat-body{padding:12px;display:flex;flex-direction:column;gap:4px}
+.cover-cat-name{font-size:.86rem;font-weight:800;color:var(--tx);display:flex;align-items:center;justify-content:space-between}
+.cover-cat-sub{font-size:.68rem;color:var(--tx2);display:flex;align-items:center;gap:6px}
+.cover-cat-open-btn{margin-top:6px;font-size:.7rem;font-weight:700;color:var(--or);display:inline-flex;align-items:center;gap:4px}
+.cover-detail-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--sur2);border:1px solid var(--bd);border-radius:var(--rs);margin:10px 0}
 .covers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0}
 .cover-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s,border-color .15s}
 .cover-card:hover{transform:translateY(-2px);box-shadow:var(--shl);border-color:var(--or2)}
@@ -963,21 +978,19 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="smart-foot" id="smartStatus">🧠 Local matching ready · categories are manual only.</div>
   </div>
 
-  <!-- ══════════ COVERS SECTION ══════════ -->
+    <!-- ══════════ COVERS SECTION ══════════ -->
   <div class="card" id="coversSection">
     <div class="ctitle"><div class="snum">🖼️</div>Cover Images</div>
-    <div class="csub">Dedicated cover images section · Drag &amp; drop your covers folder or files · Automatically categorized by cover name · Download as a high-quality 810×540 ZIP.</div>
+    <div class="csub">Dedicated cover images section · Drop your covers folder here · Covers are automatically categorized by name · Click any category to view and download images.</div>
     
-    <!-- DROPZONE -->
+    <!-- DROPZONE (Folder Only) -->
     <div class="dz" id="coverDz" onclick="chooseCoverFolder(event)" ondragover="onCoverDragOver(event)" ondragleave="onCoverDragLeave()" ondrop="onCoverDrop(event)">
       <input type="file" id="coverFolderInput" webkitdirectory multiple accept="image/*" onchange="onCoverFolderPicked(event)" style="display:none"/>
-      <input type="file" id="coverFileInput" multiple accept="image/*" onchange="onCoverFilesPicked(event)" style="display:none"/>
       <span class="dz-icon">🖼️</span>
       <h3>Drop your cover images folder here</h3>
-      <p><span class="ob">Drag and drop covers folder or files here</span> · Sub-folders supported · JPG · PNG · WEBP · GIF · BMP · HEIC</p>
+      <p><span class="ob">Drag and drop your covers folder here</span> · Sub-folders supported · JPG · PNG · WEBP · GIF · BMP · HEIC</p>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap" onclick="event.stopPropagation()">
-        <button class="btn bp bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Select Covers Folder</button>
-        <button class="btn bs bsm" onclick="document.getElementById('coverFileInput').click()">🖼️ Select Individual Files</button>
+        <button class="btn bp bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Choose Covers Folder</button>
       </div>
     </div>
 
@@ -985,11 +998,8 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <div class="covers-toolbar" id="coverToolbar" style="display:none">
       <div class="covers-summary" id="coverSummaryText">📁 0 cover images</div>
       <div class="covers-actions">
-        <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:160px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers…" oninput="setCoverSearch(this.value)"/>
-        <button class="btn bs bsm" onclick="toggleAllCovers(true)">☑ Select all</button>
-        <button class="btn bs bsm" onclick="toggleAllCovers(false)">⬜ Deselect</button>
-        <button class="btn bs bsm" onclick="document.getElementById('coverFolderInput').click()">➕ Add folder</button>
-        <button class="btn bs bsm" onclick="document.getElementById('coverFileInput').click()">➕ Add files</button>
+        <input class="fi-" style="padding:4px 8px;font-size:.72rem;min-width:160px;margin:0" id="coverSearchInput" placeholder="🔍 Search covers or categories…" oninput="setCoverSearch(this.value)"/>
+        <button class="btn bs bsm" onclick="document.getElementById('coverFolderInput').click()">📁 Change / Add folder</button>
         <button class="btn bd- bsm" onclick="clearAllCovers()">🗑️ Clear</button>
       </div>
     </div>
@@ -997,8 +1007,8 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
     <!-- CATEGORY FILTER PILLS -->
     <div class="covers-filter-row" id="coverCatPills" style="margin-top:10px"></div>
 
-    <!-- COVERS GRID -->
-    <div class="covers-grid" id="coversGrid" style="display:none"></div>
+    <!-- MAIN COVERS CONTENT (Category Folders or Category Details) -->
+    <div id="coversMainContent"></div>
 
     <!-- COVERS DOWNLOAD CARD -->
     <div class="cover-dl-box" id="coverDlCard" style="display:none">
@@ -1029,9 +1039,10 @@ Create a bin on a JSON-storage service or point it at your own API / Cloudflare 
         <img id="coverPrevImg" src="" alt="Cover preview" style="max-width:100%;max-height:65vh;object-fit:contain"/>
       </div>
       <div style="margin-top:12px;display:flex;justify-content:flex-end">
-        <button class="btn bs bsm" onclick="closeCoverPreview()">Close preview</button>
+        <button class="btn bs bsm" onclick="closeCoverPreview()">Close preview (Esc)</button>
       </div>
     </div>
+  </div>
   </div>
 
 
@@ -4171,12 +4182,14 @@ window.addEventListener('scroll',queueScrollTools,{passive:true});window.addEven
 document.addEventListener('DOMContentLoaded',()=>{countItems();loadDictionaryUI();renderCustomCategories();renderCategoryChoices();ensureCategoryMemoryLoaded().then(()=>{renderCategoryChoices();if(IMAGES.length){for(const img of IMAGES)img.categories=imageCategoriesForFile(img.file);renderLibraryCategorySummary();renderResults()}});updateScrollTools();setTimeout(updateScrollTools,250);if('ResizeObserver' in window){SCROLL_OBSERVER=new ResizeObserver(queueScrollTools);SCROLL_OBSERVER.observe(document.body)}});
 
 
+
 /* ═══════════════════════════════════════════════════════════════════
-   🖼️ COVERS SECTION ENGINE (SEPARATE & MODULAR)
+   🖼️ COVERS SECTION ENGINE (CATEGORY-BASED & COMPACT)
    ═══════════════════════════════════════════════════════════════════ */
 let COVERS = [];
 let COVERS_SELECTED = new Set();
-let COVERS_FILTER_CAT = "all";
+let COVERS_VIEW_MODE = "categories"; // "categories" | "single_category" | "all"
+let COVERS_ACTIVE_CAT = null;
 let COVERS_SEARCH = "";
 
 function isCoverImg(f) {
@@ -4224,7 +4237,7 @@ function parseCoverMetadata(file) {
 }
 
 function chooseCoverFolder(e) {
-  if (e?.target?.id === "coverFolderInput" || e?.target?.id === "coverFileInput") return;
+  if (e?.target?.id === "coverFolderInput") return;
   const input = document.getElementById("coverFolderInput");
   if (input) input.click();
 }
@@ -4289,19 +4302,14 @@ function onCoverFolderPicked(e) {
   e.target.value = "";
 }
 
-function onCoverFilesPicked(e) {
-  const files = [...(e.target.files || [])].filter(isCoverImg);
-  if (!files.length) { toast("No cover images selected.", "e"); return; }
-  addCoverFiles(files);
-  e.target.value = "";
-}
-
 function addCoverFiles(newFiles) {
   newFiles.forEach(f => {
     const item = parseCoverMetadata(f);
     COVERS.push(item);
     COVERS_SELECTED.add(COVERS.length - 1);
   });
+  COVERS_VIEW_MODE = "categories";
+  COVERS_ACTIVE_CAT = null;
   renderCoversUI();
   toast(`Added ${newFiles.length} cover image${newFiles.length > 1 ? "s" : ""}`, "s");
 }
@@ -4312,7 +4320,8 @@ function clearAllCovers() {
   COVERS.forEach(c => { try { URL.revokeObjectURL(c.url); } catch(e) {} });
   COVERS = [];
   COVERS_SELECTED.clear();
-  COVERS_FILTER_CAT = "all";
+  COVERS_VIEW_MODE = "categories";
+  COVERS_ACTIVE_CAT = null;
   COVERS_SEARCH = "";
   renderCoversUI();
   toast("All covers cleared.", "i");
@@ -4324,18 +4333,42 @@ function toggleAllCovers(select) {
   } else {
     COVERS_SELECTED.clear();
   }
-  renderCoversGrid();
+  renderCoversContent();
   updateCoversStats();
 }
 
-function setCoverFilter(cat) {
-  COVERS_FILTER_CAT = cat;
+function toggleCategoryCovers(catName, select) {
+  COVERS.forEach((c, idx) => {
+    if (c.category === catName) {
+      if (select) COVERS_SELECTED.add(idx);
+      else COVERS_SELECTED.delete(idx);
+    }
+  });
+  renderCoversContent();
+  updateCoversStats();
+}
+
+function openCoverCategory(catName) {
+  COVERS_ACTIVE_CAT = catName;
+  COVERS_VIEW_MODE = "single_category";
+  renderCoversUI();
+}
+
+function showAllCoversView() {
+  COVERS_VIEW_MODE = "all";
+  COVERS_ACTIVE_CAT = null;
+  renderCoversUI();
+}
+
+function showCategoriesView() {
+  COVERS_VIEW_MODE = "categories";
+  COVERS_ACTIVE_CAT = null;
   renderCoversUI();
 }
 
 function setCoverSearch(txt) {
   COVERS_SEARCH = (txt || "").trim().toLowerCase();
-  renderCoversGrid();
+  renderCoversContent();
   updateCoversStats();
 }
 
@@ -4356,11 +4389,12 @@ function updateCoversStats() {
   if (zipBtn) zipBtn.disabled = selCount === 0;
 }
 
-function getCoverCategories() {
+function getCoverCategoriesMap() {
   const map = new Map();
-  COVERS.forEach(c => {
+  COVERS.forEach((c, idx) => {
     const cat = c.category || "Uncategorized";
-    map.set(cat, (map.get(cat) || 0) + 1);
+    if (!map.has(cat)) map.set(cat, []);
+    map.get(cat).push({ cover: c, idx: idx });
   });
   return map;
 }
@@ -4368,13 +4402,13 @@ function getCoverCategories() {
 function renderCoversUI() {
   const dz = document.getElementById("coverDz");
   const toolbar = document.getElementById("coverToolbar");
-  const grid = document.getElementById("coversGrid");
   const dlCard = document.getElementById("coverDlCard");
   
   if (!COVERS.length) {
     if (dz) dz.style.display = "";
     if (toolbar) toolbar.style.display = "none";
-    if (grid) grid.style.display = "none";
+    const content = document.getElementById("coversMainContent");
+    if (content) content.innerHTML = "";
     if (dlCard) dlCard.style.display = "none";
     const catWrap = document.getElementById("coverCatPills");
     if (catWrap) catWrap.innerHTML = "";
@@ -4384,56 +4418,138 @@ function renderCoversUI() {
   
   if (dz) dz.style.display = "none";
   if (toolbar) toolbar.style.display = "flex";
-  if (grid) grid.style.display = "grid";
   if (dlCard) dlCard.style.display = "block";
   
   // Render Categories Filter Pills
   const catWrap = document.getElementById("coverCatPills");
   if (catWrap) {
-    const cats = getCoverCategories();
-    let html = `<button class="covers-filter-pill ${COVERS_FILTER_CAT === "all" ? "active" : ""}" onclick="setCoverFilter('all')">🌐 All Covers (${COVERS.length})</button>`;
-    for (const [catName, count] of cats.entries()) {
-      html += `<button class="covers-filter-pill ${COVERS_FILTER_CAT === catName ? "active" : ""}" onclick="setCoverFilter(${JSON.stringify(catName)})">📁 ${esc(catName)} (${count})</button>`;
+    const catsMap = getCoverCategoriesMap();
+    let html = `<button class="covers-filter-pill ${COVERS_VIEW_MODE === "categories" ? "active" : ""}" onclick="showCategoriesView()">📁 Categories Overview (${catsMap.size})</button>`;
+    html += `<button class="covers-filter-pill ${COVERS_VIEW_MODE === "all" ? "active" : ""}" onclick="showAllCoversView()">🌐 All Covers (${COVERS.length})</button>`;
+    
+    for (const [catName, items] of catsMap.entries()) {
+      const isAct = COVERS_VIEW_MODE === "single_category" && COVERS_ACTIVE_CAT === catName;
+      html += `<button class="covers-filter-pill ${isAct ? "active" : ""}" onclick="openCoverCategory(${JSON.stringify(catName)})">📁 ${esc(catName)} (${items.length})</button>`;
     }
     catWrap.innerHTML = html;
   }
   
   const summary = document.getElementById("coverSummaryText");
   if (summary) {
-    const cats = getCoverCategories();
-    summary.textContent = `📁 ${COVERS.length} cover images across ${cats.size} categor${cats.size === 1 ? "y" : "ies"}`;
+    const catsMap = getCoverCategoriesMap();
+    summary.textContent = `📁 ${COVERS.length} cover images across ${catsMap.size} category folder${catsMap.size === 1 ? "" : "s"}`;
   }
   
-  renderCoversGrid();
+  renderCoversContent();
   updateCoversStats();
 }
 
-function renderCoversGrid() {
-  const grid = document.getElementById("coversGrid");
-  if (!grid) return;
+function renderCoversContent() {
+  const container = document.getElementById("coversMainContent");
+  if (!container) return;
   
-  const filtered = COVERS.map((c, idx) => ({ c, idx })).filter(({ c }) => {
-    if (COVERS_FILTER_CAT !== "all" && c.category !== COVERS_FILTER_CAT) return false;
-    if (COVERS_SEARCH) {
-      const matchName = (c.coverName || "").toLowerCase().includes(COVERS_SEARCH);
-      const matchCat = (c.category || "").toLowerCase().includes(COVERS_SEARCH);
-      const matchRaw = (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
-      if (!matchName && !matchCat && !matchRaw) return false;
+  const catsMap = getCoverCategoriesMap();
+  
+  // 1. Categories Grid View (Default - Clean & Compact)
+  if (COVERS_VIEW_MODE === "categories") {
+    let html = `<div class="cover-cats-grid">`;
+    for (const [catName, items] of catsMap.entries()) {
+      if (COVERS_SEARCH) {
+        const matchesCat = catName.toLowerCase().includes(COVERS_SEARCH);
+        const matchesSomeCover = items.some(it => (it.cover.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (it.cover.rawName || "").toLowerCase().includes(COVERS_SEARCH));
+        if (!matchesCat && !matchesSomeCover) continue;
+      }
+      
+      const firstImg = items[0]?.cover;
+      const selInCat = items.filter(it => COVERS_SELECTED.has(it.idx)).length;
+      
+      html += `
+        <div class="cover-cat-card" onclick="openCoverCategory(${JSON.stringify(catName)})">
+          <div class="cover-cat-thumb">
+            ${firstImg ? `<img src="${firstImg.url}" alt="${esc(catName)}" loading="lazy"/>` : ""}
+            <span class="cover-cat-count-badge">${items.length} cover${items.length === 1 ? "" : "s"}</span>
+          </div>
+          <div class="cover-cat-body">
+            <div class="cover-cat-name">
+              <span>📁 ${esc(catName)}</span>
+              <span style="font-size:.65rem;color:${selInCat ? "var(--gn)" : "var(--mu)"}">🟢 ${selInCat}/${items.length}</span>
+            </div>
+            <div class="cover-cat-sub">
+              <span>${items.length} image${items.length === 1 ? "" : "s"} in this category</span>
+            </div>
+            <div class="cover-cat-open-btn">
+              <span>Click to view images →</span>
+            </div>
+          </div>
+        </div>
+      `;
     }
-    return true;
-  });
-  
-  if (!filtered.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--mu);font-size:.85rem">No cover images match your filter or search.</div>`;
+    html += `</div>`;
+    container.innerHTML = html;
     return;
   }
   
-  let html = "";
-  filtered.forEach(({ c, idx }) => {
+  // 2. Single Category View or All Covers View
+  let itemsToRender = [];
+  let headerHtml = "";
+  
+  if (COVERS_VIEW_MODE === "single_category" && COVERS_ACTIVE_CAT) {
+    const catItems = catsMap.get(COVERS_ACTIVE_CAT) || [];
+    itemsToRender = catItems.filter(it => {
+      if (!COVERS_SEARCH) return true;
+      const c = it.cover;
+      return (c.coverName || "").toLowerCase().includes(COVERS_SEARCH) || (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
+    });
+    
+    headerHtml = `
+      <div class="cover-detail-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn bs bsm" onclick="showCategoriesView()">⬅ Back to all categories</button>
+          <strong style="font-size:.86rem;color:var(--tx)">📁 Category: ${esc(COVERS_ACTIVE_CAT)} <span style="color:var(--mu);font-size:.74rem">(${catItems.length} cover${catItems.length === 1 ? "" : "s"})</span></strong>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <button class="btn bs bsm" onclick="toggleCategoryCovers(${JSON.stringify(COVERS_ACTIVE_CAT)}, true)">☑ Select all in ${esc(COVERS_ACTIVE_CAT)}</button>
+          <button class="btn bs bsm" onclick="toggleCategoryCovers(${JSON.stringify(COVERS_ACTIVE_CAT)}, false)">⬜ Deselect</button>
+        </div>
+      </div>
+    `;
+  } else {
+    // All covers view
+    COVERS.forEach((c, idx) => {
+      if (COVERS_SEARCH) {
+        const matchName = (c.coverName || "").toLowerCase().includes(COVERS_SEARCH);
+        const matchCat = (c.category || "").toLowerCase().includes(COVERS_SEARCH);
+        const matchRaw = (c.rawName || "").toLowerCase().includes(COVERS_SEARCH);
+        if (!matchName && !matchCat && !matchRaw) return;
+      }
+      itemsToRender.push({ cover: c, idx: idx });
+    });
+    
+    headerHtml = `
+      <div class="cover-detail-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn bs bsm" onclick="showCategoriesView()">📁 Switch to Category Folders</button>
+          <strong style="font-size:.86rem;color:var(--tx)">🌐 All Cover Images <span style="color:var(--mu);font-size:.74rem">(${itemsToRender.length})</span></strong>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <button class="btn bs bsm" onclick="toggleAllCovers(true)">☑ Select all</button>
+          <button class="btn bs bsm" onclick="toggleAllCovers(false)">⬜ Deselect all</button>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (!itemsToRender.length) {
+    container.innerHTML = headerHtml + `<div style="text-align:center;padding:32px;color:var(--mu);font-size:.85rem">No cover images match your search.</div>`;
+    return;
+  }
+  
+  let gridHtml = `<div class="covers-grid">`;
+  itemsToRender.forEach(({ cover: c, idx }) => {
     const isSelected = COVERS_SELECTED.has(idx);
     const sizeStr = c.size > 1048576 ? (c.size / 1048576).toFixed(1) + " MB" : (c.size / 1024).toFixed(0) + " KB";
     
-    html += `
+    gridHtml += `
       <div class="cover-card ${isSelected ? "" : "excluded"}" id="cover_card_${idx}">
         <div class="cover-thumb-wrap" onclick="previewCover(${idx})" title="Click to view full preview">
           <img class="cover-thumb" src="${c.url}" alt="${esc(c.coverName)}" loading="lazy"/>
@@ -4455,7 +4571,9 @@ function renderCoversGrid() {
       </div>
     `;
   });
-  grid.innerHTML = html;
+  gridHtml += `</div>`;
+  
+  container.innerHTML = headerHtml + gridHtml;
 }
 
 function toggleCoverSelection(idx, checked) {
@@ -4510,6 +4628,36 @@ function closeCoverPreview() {
   const modal = document.getElementById("coverPreviewModal");
   if (modal) modal.classList.remove("open");
 }
+
+/* Global Capture ESC key listener for all modals and lightboxes */
+window.addEventListener("keydown", function(e) {
+  if (e.key === "Escape" || e.key === "Esc" || e.keyCode === 27) {
+    let closed = false;
+    const cmodal = document.getElementById("coverPreviewModal");
+    if (cmodal && cmodal.classList.contains("open")) {
+      closeCoverPreview();
+      closed = true;
+    }
+    const modal = document.getElementById("modal");
+    if (modal && modal.classList.contains("open")) {
+      closeModal();
+      closed = true;
+    }
+    const catLb = document.getElementById("catLb");
+    if (catLb) {
+      closeCatLightbox();
+      closed = true;
+    }
+    document.querySelectorAll(".ov.open").forEach(el => {
+      el.classList.remove("open");
+      closed = true;
+    });
+    if (closed) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+}, true);
 
 async function doCoverZip() {
   const selected = COVERS.filter((c, i) => COVERS_SELECTED.has(i));
@@ -4574,6 +4722,7 @@ async function doCoverZip() {
     if (zipBtn) zipBtn.disabled = false;
   }
 }
+
 
 </script>
 <script>
@@ -5493,5 +5642,5 @@ console.info('[cloud-sync] ready — open “Categories & Data → Cloud team sy
   }
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a461d4b02eb4e1e1',t:'MTc5MTI1OTk3OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a461fc069944a685',t:'MTc5MTI2MTU4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
