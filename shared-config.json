@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-06",
+  "description": "Published shared baseline for all Image Finder users. Edit this file in the repository to update the common configuration.",
+  "settings": {
+    "autoEnabled": true
+  },
+  "categories": {},
+  "folderCategories": {},
+  "autoConfirm": {},
+  "covers": {
+    "types": [
+      { "key": "burger", "label": "Burger Covers" },
+      { "key": "chicken", "label": "Chicken Covers" },
+      { "key": "beef", "label": "Beef Covers" },
+      { "key": "pizza", "label": "Pizza Covers" },
+      { "key": "pasta", "label": "Pasta Covers" },
+      { "key": "seafood", "label": "Seafood Covers" },
+      { "key": "shawarma", "label": "Shawarma Covers" },
+      { "key": "drink", "label": "Drinks Covers" },
+      { "key": "dessert", "label": "Dessert Covers" }
+    ]
+  }
+}

@@ -12,7 +12,7 @@
    what pushes the update to users.
    ============================================================ */
 
-const VERSION = 'finder-v3';
+const VERSION = 'finder-v41.3-parser-20261026';
 
 const APP_SHELL_CACHE = `app-shell-${VERSION}`;
 const RUNTIME_CACHE   = `runtime-${VERSION}`;
@@ -25,10 +25,12 @@ const REQUIRED_URLS = [
 
 /* Nice to have. A 404 here is logged and ignored — never fatal. */
 const OPTIONAL_URLS = [
+  './shared-config.json',
+  './drive-config.js',
   './manifest-finder.webmanifest',
-  './icons/talabat-192.png',
-  './icons/talabat-512.png',
-  './icons/talabat-maskable-512.png',
+  './icons/finder-192.png',
+  './icons/finder-512.png',
+  './icons/finder-maskable-512.png',
 ];
 
 /* Hosts that exist ONLY to reach the internet. Never cache,
@@ -125,6 +127,28 @@ self.addEventListener('fetch', (event) => {
   try { url = new URL(req.url); } catch { return; }
   if (!url.protocol.startsWith('http')) return;
   if (NEVER_CACHE_HOSTS.some((h) => url.hostname.endsWith(h))) return;
+
+  // Deployment-specific endpoint config must not stay cache-first. It can
+  // change independently of the app shell when an owner publishes a URL.
+  if (url.pathname.endsWith('/drive-config.js')) {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(req, { cache: 'no-store' });
+        if (fresh && fresh.ok) (await caches.open(RUNTIME_CACHE)).put(req, fresh.clone());
+        return fresh;
+      } catch {
+        return (await caches.match(req)) || Response.error();
+      }
+    })());
+    return;
+  }
+
+  // Shared configuration is the one same-origin file that should refresh
+  // from GitHub Pages for every online visit instead of staying cache-first.
+  if (url.pathname.endsWith('/shared-config.json')) {
+    event.respondWith(fetch(req, { cache: 'no-store' }).catch(() => caches.match(req)));
+    return;
+  }
 
   // ---- Page loads / reloads: network-first, cache fallback ----
   if (req.mode === 'navigate') {
